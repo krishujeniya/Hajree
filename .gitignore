@@ -16,8 +16,12 @@ env/
 .env.local
 .env.*.local
 
-# Database files
-assets/hajri.db
+# Frontend
+node_modules/
+frontend/node_modules/
+
+# Application runtime data
+data/
 assets/*.db
 *.db
 *.sqlite

@@ -1,20 +1,18 @@
 version: '3.8'
 
 services:
-  hajri-ai:
+  hajree:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: hajri-ai
+    container_name: hajree
     ports:
-      - "8501:8501"
+      - "8000:8000"
     volumes:
-      # Persist database and training images
+      - ./data:/app/data
       - ./assets:/app/assets
-      - ./src/models:/app/src/models
     environment:
-      # Load from .env file
-      - SECRET_KEY=${SECRET_KEY:-hajri_secret_key_123}
+      - SECRET_KEY=${SECRET_KEY:-hajree_secret_key_123}
       - ADMIN_USERNAME=${ADMIN_USERNAME:-admin}
       - ADMIN_PASSWORD=${ADMIN_PASSWORD:-changeme}
       - SENDER_EMAIL=${SENDER_EMAIL}
@@ -23,18 +21,14 @@ services:
       - .env
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8501/_stcore/health"]
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/health"]
       interval: 30s
       timeout: 10s
       retries: 3
-      start_period: 40s
+      start_period: 20s
     networks:
-      - hajri-network
+      - hajree-network
 
 networks:
-  hajri-network:
+  hajree-network:
     driver: bridge
-
-volumes:
-  assets-data:
-  models-data:

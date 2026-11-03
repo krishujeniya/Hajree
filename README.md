@@ -1,363 +1,142 @@
-# 🎓 Hajri.ai - AI-Powered Attendance System
+# 🎓 Hajree — Next-Generation AI Attendance Platform
 
 <div align="center">
 
-![GitHub repo size](https://img.shields.io/github/repo-size/krishujeniya/Hajri.ai)
-![GitHub contributors](https://img.shields.io/github/contributors/krishujeniya/Hajri.ai)
-![GitHub stars](https://img.shields.io/github/stars/krishujeniya/Hajri.ai?style=social)
-![GitHub forks](https://img.shields.io/github/forks/krishujeniya/Hajri.ai?style=social)
+[![GitHub repo](https://img.shields.io/badge/GitHub-krishujeniya%2FHajree-indigo.svg)](https://github.com/krishujeniya/Hajree)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.115+-009688.svg?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
+[![React](https://img.shields.io/badge/React-18.3+-61DAFB.svg?logo=react&logoColor=black)](https://react.dev)
+[![DeepFace](https://img.shields.io/badge/DeepFace-SFace-blueviolet.svg)](https://github.com/serengil/deepface)
+[![TailwindCSS](https://img.shields.io/badge/Tailwind-3.4+-38B2AC.svg?logo=tailwind-css&logoColor=white)](https://tailwindcss.com)
 
-**An intelligent, automated attendance management system using facial recognition and liveness detection.**
+**An enterprise-grade, automated attendance management platform powered by facial biometric recognition, liveness anti-spoofing, and interactive SaaS portals.**
 
-[Features](#-features) • [Quick Start](#-quick-start) • [Docker](#-docker-deployment) • [Documentation](#-documentation)
+[Features](#-features) • [Quick Start](#-quick-start) • [Architecture](#-architecture) • [API Guide](#-api-endpoints) • [Docker](#-docker-deployment)
 
 </div>
-
----
-
-## 🚀 Quick Start
-
-### **One-Command Setup** (Recommended)
-
-```bash
-# Using uv (fastest)
-uv run streamlit run src/app.py
-```
-
-That's it! The app will automatically:
-- ✅ Install all dependencies
-- ✅ Initialize the database
-- ✅ Start the application
-
-### **Traditional Setup**
-
-```bash
-# 1. Clone repository
-git clone https://github.com/YOUR_USERNAME/Hajri.ai.git
-cd Hajri.ai
-
-# 2. Setup environment
-cp .env.example .env
-# Edit .env with your credentials
-
-# 3. Install dependencies
-pip install -r requirements.txt
-
-# 4. Initialize database
-# 4. Initialize database
-# (Handled automatically on first run)
-
-# 5. Run application
-streamlit run src/app.py
-```
-
----
-
-## 🐳 Docker Deployment
-
-### **One-Command Docker Run**
-
-```bash
-docker-compose up
-```
-
-The application will be available at `http://localhost:8501`
-
-### **Manual Docker Build**
-
-```bash
-# Build image
-docker build -t hajri-ai .
-
-# Run container
-docker run -p 8501:8501 hajri-ai
-```
 
 ---
 
 ## ✨ Features
 
-### **🔐 Role-Based Access Control**
-- **Admin Portal**: Full system management
-- **Teacher Portal**: Attendance tracking and reporting
-- **Student Portal**: View personal attendance records
+### 🔐 Three Role-Based SaaS Portals
+- **Admin Portal**: User account lifecycle management, course & subject allocation, student roster enrollment, and AI engine health diagnostics.
+- **Faculty Portal**: Real-time classroom attendance tracking via live webcam or group photo, interactive match verification chips, manual attendance sheet matrix, low-attendance defaulter (<75%) identification, and automated email alerts.
+- **Student Portal**: Real-time personal attendance percentage with radial visual gauge, examination eligibility badge, course-wise breakdowns, chronological lecture logs, and self-service biometric face profile training.
 
-### **🤖 AI-Powered Recognition**
-- ⚡ Fast facial recognition using DeepFace
-- 🔒 Anti-spoofing with liveness detection
-- 📸 Mark entire class from single photo
-- 🎯 High accuracy with SFace model
+### 🤖 Biometric AI Face Recognition
+- **DeepFace SFace CNN**: High-accuracy, fast cosine distance matching against enrolled face vector embeddings.
+- **Group Capture**: Take attendance for an entire classroom from a single wide-angle photo or live webcam snapshot.
+- **Anti-Spoofing & Liveness**: Resistant to photo and digital screen presentation attacks.
+- **Vector Indexing**: Embedded vectors stored and loaded into memory for sub-second recognition.
 
-### **📊 Comprehensive Analytics**
-- Real-time attendance dashboards
-- Lecture-wise trends and statistics
-- Automatic defaulter identification
-- Export reports (CSV & PDF)
-
-### **📧 Smart Notifications**
-- Automated email alerts for low attendance
-- Bulk notification system
-- Customizable thresholds
-
-### **🎨 Modern UI**
-- Glassmorphism dark theme
-- Responsive design
-- Intuitive user experience
+### 📊 Reports & Automated Notifications
+- **One-Click Export**: Download official attendance records in print-ready PDF format or tabular CSV spreadsheets.
+- **Automated Defaulter Alerts**: Background task email dispatcher alerting students who drop below the required 75% attendance threshold.
 
 ---
 
-## 📁 Project Structure
+## 🚀 Quick Start
 
-```
-hajri.ai/
-├── assets/              # Project assets (logo, database, training images)
-├── src/                 # Source code
-│   ├── app.py          # Main application entry point
-│   ├── config/         # Configuration management
-│   ├── database/       # Database operations (DBManager)
-│   ├── services/       # Business logic (Attendance, Image, Email, Report)
-│   ├── ui/             # UI components & views
-│   │   ├── views/      # Admin, Teacher, Student views
-│   │   └── styles.py   # CSS styles
-│   └── utils/          # Helper functions
-├── docs/               # Documentation
-├── scripts/            # Utility scripts
-├── tests/              # Test files
-├── Dockerfile          # Docker configuration
-├── docker-compose.yml  # Docker Compose configuration
-└── Makefile            # Build automation
-```
-
----
-
-## 🛠️ Technology Stack
-
-- **Framework**: Streamlit
-- **AI/ML**: DeepFace, OpenCV
-- **Database**: SQLite
-- **Authentication**: Streamlit-Authenticator
-- **Image Processing**: Albumentations, Pillow
-- **Reports**: FPDF2, Pandas
-
----
-
-## 📖 Documentation
-
-- **[Quick Start Guide](docs/QUICK_START.md)** - Get started in 5 minutes
-- **[Contributing Guide](docs/CONTRIBUTING.md)** - How to contribute
-- **[Architecture](docs/FINAL_STRUCTURE.md)** - Project structure details
-
----
-
-## ⚙️ Configuration
-
-### **Environment Variables**
-
-Create a `.env` file in the root directory:
-
-```env
-# Application
-SECRET_KEY=your_random_secret_key_here
-
-# Admin Credentials
-ADMIN_USERNAME=admin
-ADMIN_PASSWORD=your_secure_password
-
-# Email Configuration (for notifications)
-SENDER_EMAIL=your-email@gmail.com
-SENDER_PASSWORD=your-16-digit-app-password
-```
-
-### **Gmail App Password Setup**
-
-For email notifications, use a Gmail App Password:
-1. Go to [Google Account Security](https://myaccount.google.com/security)
-2. Enable 2-Step Verification
-3. Generate App Password for "Mail"
-4. Use the 16-digit password in `.env`
-
----
-
-## 🎯 Usage
-
-### **First-Time Setup**
-
-1. **Login as Admin**
-   - Username: `admin` (or from `.env`)
-   - Password: From `.env` file
-
-2. **Register Students**
-   - Navigate to "Register User" tab
-   - Select "student" role
-   - Capture 10 photos for training
-   - AI model trains automatically
-
-3. **Create Subjects**
-   - Go to "Manage" tab
-   - Create subjects
-   - Assign teachers
-   - Enroll students
-
-4. **Take Attendance**
-   - Select subject
-   - Create/select lecture
-   - Upload class photo or use camera
-   - Review and save attendance
-
-### **For Teachers**
-
-- Mark attendance via photo upload or live camera
-- View attendance dashboards and trends
-- Download reports (CSV/PDF)
-- Send email notifications to defaulters
-
-### **For Students**
-
-- View attendance percentage for all subjects
-- Check detailed lecture-wise attendance
-- Track attendance trends
-
----
-
-## 🔧 Utility Scripts
+### 1. One-Command Setup (Recommended)
 
 ```bash
-# Initialize database
+# Clone the repository
+git clone https://github.com/krishujeniya/Hajree.git
+cd Hajree
 
+# Install dependencies and start Hajree (FastAPI + React SaaS SPA)
+python run.py
+```
 
-# Create backup
-python3 scripts/backup_data.py
+The unified application will automatically:
+1. Initialize the SQLite database with rich demo data
+2. Warm up the SFace facial recognition model
+3. Serve both the **SaaS Web UI** at `http://localhost:8000` and **Interactive OpenAPI Docs** at `http://localhost:8000/docs`
 
-# Clean up old files
-python3 scripts/cleanup_old_files.py
+### 2. Built-in Demo Credentials
+
+For instant evaluation, one-click demo login buttons are available directly on the login screen:
+- **Admin**: `admin` / `changeme`
+- **Faculty**: `teacher` / `changeme`
+- **Student**: `student` / `changeme`
+
+---
+
+## 🛠️ Architecture
+
+```
+Hajree/
+├── backend/                  # FastAPI Application
+│   ├── app/
+│   │   ├── api/              # REST Endpoints (auth, users, subjects, lectures, attendance, recognition, meta)
+│   │   ├── core/             # Configuration, security, rate limiting, logging
+│   │   ├── db/               # SQLAlchemy models & database initialization
+│   │   ├── ml/               # DeepFace SFace feature extractor & vector search
+│   │   ├── schemas/          # Pydantic v2 validation contracts
+│   │   └── services/         # Business logic (attendance, report, email, face service)
+│   └── tests/                # Automated pytest unit test suite
+├── frontend/                 # Modern React SaaS UI
+│   ├── src/
+│   │   ├── api/              # Typed client with JWT token management & auto-refresh
+│   │   ├── components/       # Emil Kowalski design engineering components (concentric radii, tactile buttons)
+│   │   ├── context/          # Auth and Toast notification providers
+│   │   └── views/            # Dedicated Admin, Faculty, and Student portals
+│   ├── dist/                 # Production compiled SPA served directly by FastAPI
+│   └── package.json
+├── data/                     # Persistent database & face image storage
+├── Dockerfile                # Multi-stage production container build
+├── docker-compose.yml        # Production container orchestration
+└── run.py                    # Unified application launcher
 ```
 
 ---
 
-## 🐳 Docker Commands
+## 🌐 API Endpoints
+
+| Method | Endpoint | Description |
+|---|---|---|
+| `POST` | `/api/auth/login` | Authenticate user & issue JWT tokens |
+| `POST` | `/api/auth/register` | Student self-registration |
+| `GET` | `/api/auth/me` | Fetch active authenticated profile |
+| `GET` | `/api/users` | List users with role & search filters (Admin) |
+| `POST` | `/api/users/{id}/face` | Upload facial training photo |
+| `GET` | `/api/subjects` | List academic subjects & rosters |
+| `POST` | `/api/recognition` | Class photo biometric recognition |
+| `GET` | `/api/attendance/dashboard` | Subject attendance stats & defaulters |
+| `GET` | `/api/attendance/me` | Student personal attendance report |
+| `GET` | `/api/lectures/{id}/attendance/export/pdf` | Export printable PDF register |
+| `GET` | `/api/lectures/{id}/attendance/export/csv` | Export CSV spreadsheet |
+| `GET` | `/api/health` | Service health status |
+
+---
+
+## 🐳 Docker Deployment
+
+Run the complete platform inside an isolated container:
 
 ```bash
-# Build and run
-docker-compose up --build
-
-# Run in background
 docker-compose up -d
-
-# Stop containers
-docker-compose down
-
-# View logs
-docker-compose logs -f
-
-# Rebuild
-docker-compose build --no-cache
 ```
+
+The application will be available at `http://localhost:8000`.
 
 ---
 
-## 📦 Using Makefile
+## 🧪 Testing & Verification
 
 ```bash
-# Install dependencies
-make install
+# Run backend pytest suite
+.venv/bin/python -m pytest
 
-# Run application
-make run
+# Run ruff linter
+.venv/bin/ruff check backend
 
-# Run with Docker
-make docker-run
-
-# Run tests
-make test
-
-# Clean build artifacts
-make clean
-
-# Format code
-make format
-
-# Show all commands
-make help
+# Build frontend production bundle
+cd frontend && bun run build
 ```
-
----
-
-## 🧪 Development
-
-### **Setup Development Environment**
-
-```bash
-# Install dev dependencies
-pip install -r requirements-dev.txt
-
-# Format code
-black .
-isort .
-
-# Run tests
-pytest
-
-# Type checking
-mypy src/
-```
-
-### **Project Guidelines**
-
-- Follow PEP 8 style guide
-- Add docstrings to all functions
-- Write tests for new features
-- Update documentation
-
----
-
-## 🤝 Contributing
-
-We welcome contributions! Please see our [Contributing Guide](docs/CONTRIBUTING.md) for details.
-
-### **Quick Contribution Steps**
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit changes (`git commit -m 'Add amazing feature'`)
-4. Push to branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
 
 ---
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
-
-## 🙏 Acknowledgments
-
-Built with these amazing open-source libraries:
-- [Streamlit](https://streamlit.io/)
-- [DeepFace](https://github.com/serengil/deepface)
-- [OpenCV](https://opencv.org/)
-- [Pandas](https://pandas.pydata.org/)
-
----
-
-## 📞 Support
-
-- 🐛 Issues: [GitHub Issues](https://github.com/YOUR_USERNAME/Hajri.ai/issues)
-- 💬 Discussions: [GitHub Discussions](https://github.com/YOUR_USERNAME/Hajri.ai/discussions)
-- 📖 Documentation: See `docs/` folder
-
----
-
-## 🌟 Star History
-
-If you find this project useful, please consider giving it a star! ⭐
-
----
-
-<div align="center">
-
-**Made with ❤️ by the Hajri.ai Team**
-
-[⬆ Back to Top](#-hajriai---ai-powered-attendance-system)
-
-</div>
+This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
