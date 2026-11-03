@@ -137,7 +137,7 @@ export const SystemHealth: React.FC = () => {
           </div>
           <div className="p-3.5 rounded-xl border border-border bg-muted/20">
             <p className="text-muted-foreground font-medium">Detector Engine</p>
-            <p className="text-foreground font-bold mt-1 text-sm">OpenCV Cascade / DNN</p>
+            <p className="text-foreground font-bold mt-1 text-sm">OpenCV YuNet (ONNX)</p>
           </div>
           <div className="p-3.5 rounded-xl border border-border bg-muted/20">
             <p className="text-muted-foreground font-medium">Distance Threshold</p>

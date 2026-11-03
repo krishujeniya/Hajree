@@ -62,9 +62,9 @@ class Settings(BaseSettings):
 
     # --- Face recognition ---
     face_model: str = "SFace"
-    face_detector: str = "opencv"
-    face_distance_threshold: float = 0.6
-    face_min_confidence: float = 0.5
+    face_detector: str = "yunet"
+    face_distance_threshold: float = 0.60
+    face_min_confidence: float = 0.65
     face_anti_spoofing: bool = False
     face_warmup: bool = True
     enrollment_target_images: int = 10

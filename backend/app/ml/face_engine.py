@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import contextlib
 import threading
 import time
 from collections.abc import Sequence
@@ -52,6 +53,13 @@ class FaceEngine:
 
             with self._lock:
                 DeepFace.build_model(settings.face_model)
+                dummy = np.zeros((160, 160, 3), dtype=np.uint8)
+                with contextlib.suppress(Exception):
+                    DeepFace.extract_faces(
+                        dummy,
+                        detector_backend=settings.face_detector,
+                        enforce_detection=False,
+                    )
             self._warmed = True
         except Exception:  # pragma: no cover - model download / env specific
             # Warm-up is an optimisation; inference will retry lazily.
