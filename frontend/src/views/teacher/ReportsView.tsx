@@ -109,7 +109,7 @@ export const ReportsView: React.FC = () => {
           description="Print-ready document with institutional header, student roll numbers, and attendance timestamps"
         >
           <div className="p-6 flex flex-col items-center justify-center text-center">
-            <div className="w-14 h-14 rounded-2xl bg-rose-500/10 text-rose-500 flex items-center justify-center mb-3">
+            <div className="w-14 h-14 rounded-2xl bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-foreground flex items-center justify-center mb-3">
               <FileText className="w-7 h-7" />
             </div>
             <p className="text-sm font-semibold text-foreground">
@@ -123,7 +123,7 @@ export const ReportsView: React.FC = () => {
                 href={api.exportPdfUrl(selectedLectureId)}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-semibold text-sm shadow-sm tactile-button"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-foreground hover:bg-foreground/90 text-background font-semibold text-sm shadow-sm tactile-button"
               >
                 <Download className="w-4 h-4" />
                 <span>Download PDF Report</span>
@@ -139,7 +139,7 @@ export const ReportsView: React.FC = () => {
           description="Raw comma-separated tabular data suitable for Excel, Google Sheets, or ERP integration"
         >
           <div className="p-6 flex flex-col items-center justify-center text-center">
-            <div className="w-14 h-14 rounded-2xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center mb-3">
+            <div className="w-14 h-14 rounded-2xl bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-foreground flex items-center justify-center mb-3">
               <FileSpreadsheet className="w-7 h-7" />
             </div>
             <p className="text-sm font-semibold text-foreground">
@@ -153,7 +153,7 @@ export const ReportsView: React.FC = () => {
                 href={api.exportCsvUrl(selectedLectureId)}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-sm shadow-sm tactile-button"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-foreground hover:bg-foreground/90 text-background font-semibold text-sm shadow-sm tactile-button"
               >
                 <Download className="w-4 h-4" />
                 <span>Export CSV Spreadsheet</span>

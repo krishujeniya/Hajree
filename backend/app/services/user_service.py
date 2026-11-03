@@ -22,7 +22,13 @@ def get_user(db: Session, user_id: int) -> User:
 
 
 def get_user_by_username(db: Session, username: str) -> Optional[User]:
-    return db.execute(select(User).where(User.username == username)).scalar_one_or_none()
+    cleaned = username.strip().lower()
+    return db.execute(
+        select(User).where(
+            (func.lower(User.username) == cleaned)
+            | (func.lower(User.email) == cleaned)
+        )
+    ).scalar_one_or_none()
 
 
 def face_counts(db: Session, user_ids: Optional[Sequence[int]] = None) -> Dict[int, int]:

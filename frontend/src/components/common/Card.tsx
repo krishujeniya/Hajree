@@ -21,14 +21,14 @@ export const Card: React.FC<CardProps> = ({
     <div
       className={twMerge(
         clsx(
-          "bg-card text-card-foreground rounded-2xl border border-border/70 p-6 shadow-sm transition-all duration-200 hover:border-border",
+          "apple-glass rounded-2xl p-6 transition-all duration-200",
           className
         )
       )}
       {...props}
     >
       {(title || description || headerAction) && (
-        <div className="flex items-center justify-between gap-4 mb-5 pb-3 border-b border-border/40">
+        <div className="flex items-center justify-between gap-4 mb-5 pb-3 border-b border-border/50">
           <div>
             {title && (
               <h3 className="text-base font-semibold text-foreground tracking-tight">

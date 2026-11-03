@@ -302,7 +302,7 @@ export const AIAttendanceView: React.FC = () => {
                   }}
                   className={`px-3 py-1 rounded-md font-semibold transition-all tactile-button ${
                     mode === "upload"
-                      ? "bg-primary-600 text-white shadow-sm"
+                      ? "bg-foreground text-background shadow-sm"
                       : "text-muted-foreground hover:text-foreground"
                   }`}
                 >
@@ -315,7 +315,7 @@ export const AIAttendanceView: React.FC = () => {
                   }}
                   className={`px-3 py-1 rounded-md font-semibold transition-all tactile-button ${
                     mode === "webcam"
-                      ? "bg-primary-600 text-white shadow-sm"
+                      ? "bg-foreground text-background shadow-sm"
                       : "text-muted-foreground hover:text-foreground"
                   }`}
                 >
@@ -338,7 +338,7 @@ export const AIAttendanceView: React.FC = () => {
 
                   {/* Overlays */}
                   <div className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md text-white text-xs flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-rose-500 animate-pulse" />
+                    <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
                     <span>Live 720p Stream</span>
                   </div>
                 </div>
@@ -374,7 +374,7 @@ export const AIAttendanceView: React.FC = () => {
                     </label>
                   </div>
                 ) : (
-                  <label className="flex flex-col items-center justify-center aspect-video rounded-2xl border-2 border-dashed border-border hover:border-primary/50 cursor-pointer p-6 text-center transition-colors bg-muted/10">
+                  <label className="flex flex-col items-center justify-center aspect-video rounded-2xl border-2 border-dashed border-border hover:border-foreground/40 cursor-pointer p-6 text-center transition-colors bg-muted/10">
                     <Upload className="w-10 h-10 text-muted-foreground mb-3" />
                     <p className="text-sm font-semibold text-foreground">
                       Upload Classroom Group Photo
@@ -382,7 +382,7 @@ export const AIAttendanceView: React.FC = () => {
                     <p className="text-xs text-muted-foreground mt-1 max-w-sm">
                       Supports wide-angle group shots, classroom photos, and student face clusters (JPEG, PNG, WebP)
                     </p>
-                    <span className="mt-4 px-4 py-2 rounded-xl bg-primary-600 text-white text-xs font-semibold hover:bg-primary-700 tactile-button shadow-sm">
+                    <span className="mt-4 px-4 py-2 rounded-xl bg-foreground text-background text-xs font-semibold hover:bg-foreground/90 tactile-button shadow-sm">
                       Select Photo
                     </span>
                     <input
@@ -405,7 +405,7 @@ export const AIAttendanceView: React.FC = () => {
                 <Button
                   onClick={handleRunRecognition}
                   loading={recognizing}
-                  icon={<Sparkles className="w-4 h-4 text-amber-300" />}
+                  icon={<Sparkles className="w-4 h-4" />}
                 >
                   Run AI Recognition
                 </Button>
@@ -421,18 +421,18 @@ export const AIAttendanceView: React.FC = () => {
             description="Toggle student chips or finalize batch attendance"
             headerAction={
               <div className="flex items-center gap-2">
-                <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-500">
+                <span className="text-xs font-bold px-2.5 py-0.5 rounded-full bg-foreground text-background">
                   {presentCount} Present
                 </span>
-                <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-rose-500/10 text-rose-500">
+                <span className="text-xs font-medium px-2.5 py-0.5 rounded-full bg-muted text-muted-foreground border border-border">
                   {absentCount} Absent
                 </span>
               </div>
             }
           >
             {recognitionResult && (
-              <div className="mb-4 p-3 rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-xs">
-                <div className="flex items-center justify-between font-semibold text-indigo-700 dark:text-indigo-300 mb-1">
+              <div className="mb-4 p-3 rounded-xl bg-muted/40 border border-border text-xs">
+                <div className="flex items-center justify-between font-semibold text-foreground mb-1">
                   <span>Recognition Summary</span>
                   <span>{recognitionResult.matches.length} Matched</span>
                 </div>
@@ -457,15 +457,15 @@ export const AIAttendanceView: React.FC = () => {
                       onClick={() => toggleStudent(student.id)}
                       className={`flex items-center justify-between p-3 cursor-pointer select-none transition-colors ${
                         isPresent
-                          ? "bg-emerald-500/10 hover:bg-emerald-500/15"
-                          : "hover:bg-muted/30"
+                          ? "bg-muted/40"
+                          : "hover:bg-muted/20"
                       }`}
                     >
                       <div className="flex items-center gap-3">
                         <div
                           className={`w-6 h-6 rounded-lg flex items-center justify-center font-bold text-xs transition-colors ${
                             isPresent
-                              ? "bg-emerald-500 text-white"
+                              ? "bg-foreground text-background shadow-sm"
                               : "border border-border text-muted-foreground"
                           }`}
                         >
@@ -484,8 +484,8 @@ export const AIAttendanceView: React.FC = () => {
                       <span
                         className={`text-[10px] font-bold px-2 py-0.5 rounded-full uppercase ${
                           isPresent
-                            ? "bg-emerald-500/20 text-emerald-600 dark:text-emerald-400"
-                            : "bg-muted text-muted-foreground"
+                            ? "bg-foreground text-background"
+                            : "bg-muted text-muted-foreground border border-border"
                         }`}
                       >
                         {isPresent ? "Present" : "Absent"}
@@ -516,7 +516,7 @@ export const AIAttendanceView: React.FC = () => {
                     rel="noreferrer"
                     className="flex-1 py-1.5 px-3 rounded-lg border border-border bg-muted/30 hover:bg-muted text-xs font-semibold text-foreground text-center flex items-center justify-center gap-1.5 tactile-button"
                   >
-                    <FileText className="w-3.5 h-3.5 text-rose-500" />
+                    <FileText className="w-3.5 h-3.5 text-foreground" />
                     <span>Download PDF</span>
                   </a>
                   <a
@@ -525,7 +525,7 @@ export const AIAttendanceView: React.FC = () => {
                     rel="noreferrer"
                     className="flex-1 py-1.5 px-3 rounded-lg border border-border bg-muted/30 hover:bg-muted text-xs font-semibold text-foreground text-center flex items-center justify-center gap-1.5 tactile-button"
                   >
-                    <FileSpreadsheet className="w-3.5 h-3.5 text-emerald-500" />
+                    <FileSpreadsheet className="w-3.5 h-3.5 text-foreground" />
                     <span>Export CSV</span>
                   </a>
                 </div>

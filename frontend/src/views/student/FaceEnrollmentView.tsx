@@ -141,8 +141,8 @@ export const FaceEnrollmentView: React.FC = () => {
             <div
               className={`w-14 h-14 rounded-2xl flex items-center justify-center shrink-0 ${
                 isComplete
-                  ? "bg-emerald-500/10 text-emerald-500"
-                  : "bg-indigo-500/10 text-indigo-500"
+                  ? "bg-foreground text-background border border-foreground/20 shadow-sm"
+                  : "bg-muted text-foreground border border-border"
               }`}
             >
               <Sparkles className="w-7 h-7" />
@@ -153,7 +153,7 @@ export const FaceEnrollmentView: React.FC = () => {
                   Enrollment Progress: {enrolledCount} of {target} Photos
                 </h3>
                 {isComplete && (
-                  <span className="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase bg-emerald-500/10 text-emerald-500 border border-emerald-500/20">
+                  <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase bg-foreground text-background shadow-xs">
                     Complete & Ready
                   </span>
                 )}
@@ -168,7 +168,7 @@ export const FaceEnrollmentView: React.FC = () => {
           <div className="w-full sm:w-48">
             <div className="w-full bg-muted rounded-full h-2.5 overflow-hidden mb-1.5">
               <div
-                className="bg-primary-600 h-full rounded-full transition-all duration-500"
+                className="bg-foreground h-full rounded-full transition-all duration-500"
                 style={{
                   width: `${Math.min((enrolledCount / target) * 100, 100)}%`,
                 }}
@@ -241,7 +241,7 @@ export const FaceEnrollmentView: React.FC = () => {
           description="Upload existing portrait images from your computer or phone"
         >
           <div className="space-y-4">
-            <label className="flex flex-col items-center justify-center aspect-square max-w-xs mx-auto rounded-2xl border-2 border-dashed border-border hover:border-primary/50 cursor-pointer p-6 text-center transition-colors bg-muted/10">
+            <label className="flex flex-col items-center justify-center aspect-square max-w-xs mx-auto rounded-2xl border-2 border-dashed border-border hover:border-foreground/40 cursor-pointer p-6 text-center transition-colors bg-muted/10">
               <Upload className="w-10 h-10 text-muted-foreground mb-3" />
               <p className="text-sm font-semibold text-foreground">
                 Select Photo File
@@ -249,7 +249,7 @@ export const FaceEnrollmentView: React.FC = () => {
               <p className="text-xs text-muted-foreground mt-1">
                 JPEG, PNG, WebP (Max 10MB)
               </p>
-              <span className="mt-4 px-4 py-2 rounded-xl bg-primary-600 text-white text-xs font-semibold hover:bg-primary-700 tactile-button shadow-sm">
+              <span className="mt-4 px-4 py-2 rounded-xl bg-foreground text-background text-xs font-semibold hover:bg-foreground/90 tactile-button shadow-sm">
                 Choose File
               </span>
               <input
@@ -264,7 +264,7 @@ export const FaceEnrollmentView: React.FC = () => {
             {/* Best Practice Tips */}
             <div className="p-3.5 rounded-xl bg-muted/40 border border-border text-xs text-muted-foreground space-y-1.5">
               <p className="font-semibold text-foreground flex items-center gap-1.5">
-                <Info className="w-3.5 h-3.5 text-indigo-500" />
+                <Info className="w-3.5 h-3.5 text-foreground" />
                 <span>Tips for 100% recognition accuracy:</span>
               </p>
               <ul className="list-disc pl-4 space-y-1 text-[11px]">

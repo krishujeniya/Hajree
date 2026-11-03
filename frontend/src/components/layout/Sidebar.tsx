@@ -31,25 +31,25 @@ export const navItems: NavItem[] = [
   // Admin Tabs
   {
     id: "admin-overview",
-    label: "System Overview",
+    label: "Overview",
     icon: <LayoutDashboard className="w-4 h-4" />,
     roles: ["admin"],
   },
   {
     id: "admin-users",
-    label: "User Management",
+    label: "Accounts",
     icon: <Users className="w-4 h-4" />,
     roles: ["admin"],
   },
   {
     id: "admin-subjects",
-    label: "Subject Management",
+    label: "Courses",
     icon: <BookOpen className="w-4 h-4" />,
     roles: ["admin"],
   },
   {
     id: "admin-health",
-    label: "AI Engine Health",
+    label: "Diagnostics",
     icon: <Activity className="w-4 h-4" />,
     roles: ["admin"],
   },
@@ -57,25 +57,25 @@ export const navItems: NavItem[] = [
   // Teacher Tabs
   {
     id: "teacher-dashboard",
-    label: "Attendance Analytics",
+    label: "Analytics",
     icon: <LayoutDashboard className="w-4 h-4" />,
     roles: ["teacher"],
   },
   {
     id: "teacher-ai-attendance",
-    label: "AI Face Recognition",
+    label: "AI Camera",
     icon: <Camera className="w-4 h-4" />,
     roles: ["teacher"],
   },
   {
     id: "teacher-manual",
-    label: "Manual Attendance",
+    label: "Roll Call",
     icon: <CalendarCheck className="w-4 h-4" />,
     roles: ["teacher"],
   },
   {
     id: "teacher-reports",
-    label: "Reports & Exports",
+    label: "Registers & Export",
     icon: <FileSpreadsheet className="w-4 h-4" />,
     roles: ["teacher"],
   },
@@ -83,19 +83,19 @@ export const navItems: NavItem[] = [
   // Student Tabs
   {
     id: "student-dashboard",
-    label: "My Attendance",
+    label: "My Standing",
     icon: <UserCheck className="w-4 h-4" />,
     roles: ["student"],
   },
   {
     id: "student-history",
-    label: "Lecture History",
+    label: "Session Log",
     icon: <History className="w-4 h-4" />,
     roles: ["student"],
   },
   {
     id: "student-face",
-    label: "Face Enrollment",
+    label: "Face Profile",
     icon: <Sparkles className="w-4 h-4" />,
     roles: ["student"],
   },
@@ -119,34 +119,34 @@ export const Sidebar: React.FC<SidebarProps> = ({
   };
 
   return (
-    <aside className="w-64 border-r border-border/60 bg-card/60 backdrop-blur-xl flex flex-col h-full select-none">
+    <aside className="w-64 border-r border-border/70 bg-card/40 backdrop-blur-2xl flex flex-col h-full select-none">
       {/* Brand Header */}
       <div className="h-16 flex items-center gap-3 px-6 border-b border-border/60">
-        <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-600 to-indigo-400 flex items-center justify-center text-white shadow-md shadow-indigo-500/25">
-          <Camera className="w-5 h-5" />
+        <div className="w-8 h-8 rounded-xl bg-gradient-to-b from-white to-zinc-400 dark:from-white dark:to-zinc-500 flex items-center justify-center text-black shadow-md">
+          <Camera className="w-4 h-4" />
         </div>
         <div>
           <div className="flex items-center gap-1.5">
-            <span className="font-extrabold text-lg text-foreground tracking-tight">
+            <span className="font-extrabold text-base text-foreground tracking-tight">
               Hajree
             </span>
-            <span className="text-[10px] uppercase font-bold px-1.5 py-0.5 rounded-full bg-primary-500/10 text-primary-600 dark:text-primary-400 border border-primary-500/20">
+            <span className="text-[9px] uppercase font-bold px-1.5 py-0.5 rounded-full border border-border bg-muted/60 text-muted-foreground">
               v2.0
             </span>
           </div>
           <p className="text-[10px] text-muted-foreground font-medium">
-            AI Attendance Platform
+            Biometric Attendance
           </p>
         </div>
       </div>
 
       {/* Nav List */}
-      <nav className="flex-1 px-4 py-5 space-y-1.5 overflow-y-auto">
-        <div className="px-2 pb-2 text-[10px] font-bold text-muted-foreground uppercase tracking-wider">
+      <nav className="flex-1 px-3 py-5 space-y-1 overflow-y-auto">
+        <div className="px-3 pb-2 text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
           {user.role === "admin"
-            ? "Admin Portal"
+            ? "Administration"
             : user.role === "teacher"
-            ? "Faculty Portal"
+            ? "Faculty Control"
             : "Student Portal"}
         </div>
         {allowedItems.map((item) => {
@@ -155,15 +155,13 @@ export const Sidebar: React.FC<SidebarProps> = ({
             <button
               key={item.id}
               onClick={() => handleSelect(item.id)}
-              className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all duration-150 tactile-button ${
+              className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all duration-150 apple-button ${
                 isActive
-                  ? "bg-primary-600 text-white shadow-md shadow-primary-500/20 font-semibold"
-                  : "text-muted-foreground hover:text-foreground hover:bg-muted/70"
+                  ? "bg-black text-white dark:bg-white dark:text-black shadow-sm"
+                  : "text-muted-foreground hover:text-foreground hover:bg-muted/60"
               }`}
             >
-              <span className={`shrink-0 ${isActive ? "text-white" : ""}`}>
-                {item.icon}
-              </span>
+              <span className="shrink-0">{item.icon}</span>
               <span>{item.label}</span>
             </button>
           );
@@ -172,17 +170,17 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
       {/* Status Footer */}
       <div className="p-4 border-t border-border/60">
-        <div className="p-3 rounded-xl bg-muted/40 border border-border/50 text-xs">
+        <div className="p-3 rounded-xl border border-border/80 bg-muted/30 text-xs">
           <div className="flex items-center justify-between mb-1">
             <span className="text-[11px] font-semibold text-foreground">
-              Face Recognition
+              DeepFace Engine
             </span>
-            <span className="text-[10px] text-emerald-500 font-bold uppercase">
-              SFace-CNN
+            <span className="text-[10px] text-zinc-400 font-mono uppercase font-bold">
+              SFace
             </span>
           </div>
           <p className="text-[10px] text-muted-foreground leading-normal">
-            Liveness & anti-spoofing enabled for fast multi-face capture.
+            Precision cosine vector similarity with liveness anti-spoofing.
           </p>
         </div>
       </div>

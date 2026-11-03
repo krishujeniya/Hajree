@@ -65,14 +65,14 @@ export const SystemHealth: React.FC = () => {
           <div
             className={`w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 ${
               readiness?.status === "ok"
-                ? "bg-emerald-500/10 text-emerald-500"
-                : "bg-amber-500/10 text-amber-500"
+                ? "bg-foreground text-background border border-foreground/20 shadow-sm"
+                : "bg-muted text-foreground border border-border"
             }`}
           >
             {readiness?.status === "ok" ? (
-              <CheckCircle2 className="w-7 h-7" />
+              <CheckCircle2 className="w-6 h-6" />
             ) : (
-              <AlertTriangle className="w-7 h-7" />
+              <AlertTriangle className="w-6 h-6" />
             )}
           </div>
           <div>
@@ -81,7 +81,7 @@ export const SystemHealth: React.FC = () => {
                 AI Pipeline Status:{" "}
                 <span className="capitalize">{readiness?.status || "Unknown"}</span>
               </h3>
-              <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+              <span className="w-2 h-2 rounded-full bg-foreground animate-pulse" />
             </div>
             <p className="text-xs text-muted-foreground mt-0.5">
               DeepFace facial feature extractor and Euclidean distance matcher are initialized and ready for real-time inference.
@@ -97,7 +97,7 @@ export const SystemHealth: React.FC = () => {
             <span className="text-sm font-medium text-foreground">
               Connection
             </span>
-            <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-500">
+            <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-foreground">
               <CheckCircle2 className="w-4 h-4" />
               <span>Healthy</span>
             </span>
@@ -109,7 +109,7 @@ export const SystemHealth: React.FC = () => {
             <span className="text-sm font-medium text-foreground">
               Memory Cache
             </span>
-            <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-500">
+            <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-foreground">
               <CheckCircle2 className="w-4 h-4" />
               <span>Warm & Active</span>
             </span>

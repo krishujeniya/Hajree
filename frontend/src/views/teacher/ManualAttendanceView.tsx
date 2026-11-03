@@ -253,8 +253,8 @@ export const ManualAttendanceView: React.FC = () => {
                       <span
                         className={`text-[10px] font-bold px-2 py-0.5 rounded-full uppercase ${
                           s.status === "present"
-                            ? "bg-emerald-500/10 text-emerald-500"
-                            : "bg-rose-500/10 text-rose-500"
+                            ? "bg-foreground text-background"
+                            : "bg-muted text-muted-foreground border border-border"
                         }`}
                       >
                         {s.status}
@@ -266,7 +266,7 @@ export const ManualAttendanceView: React.FC = () => {
                           onClick={() => setStatus(s.user_id, "present")}
                           className={`px-2.5 py-1 text-xs font-semibold rounded-md tactile-button ${
                             s.status === "present"
-                              ? "bg-emerald-500 text-white"
+                              ? "bg-foreground text-background shadow-sm"
                               : "text-muted-foreground hover:text-foreground"
                           }`}
                         >
@@ -276,7 +276,7 @@ export const ManualAttendanceView: React.FC = () => {
                           onClick={() => setStatus(s.user_id, "absent")}
                           className={`px-2.5 py-1 text-xs font-semibold rounded-md tactile-button ${
                             s.status === "absent"
-                              ? "bg-rose-500 text-white"
+                              ? "bg-foreground text-background shadow-sm"
                               : "text-muted-foreground hover:text-foreground"
                           }`}
                         >

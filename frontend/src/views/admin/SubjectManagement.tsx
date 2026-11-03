@@ -4,10 +4,8 @@ import {
   Plus,
   Users,
   Trash2,
-  CalendarCheck,
   UserCheck,
   UserX,
-  Search,
 } from "lucide-react";
 import { Card } from "../../components/common/Card";
 import { Button } from "../../components/common/Button";
@@ -59,7 +57,7 @@ export const SubjectManagement: React.FC = () => {
     setCreateLoading(true);
     try {
       await api.createSubject(newSubjectName.trim());
-      toast.success("Subject created successfully!");
+      toast.success("Subject created.");
       setCreateModalOpen(false);
       setNewSubjectName("");
       fetchData();
@@ -71,12 +69,12 @@ export const SubjectManagement: React.FC = () => {
   };
 
   const handleDeleteSubject = async (id: number, name: string) => {
-    if (!window.confirm(`Delete course "${name}" and all associated lectures?`)) {
+    if (!window.confirm(`Delete course "${name}" and all records?`)) {
       return;
     }
     try {
       await api.deleteSubject(id);
-      toast.success("Subject removed");
+      toast.success("Subject deleted.");
       setSubjects((prev) => prev.filter((s) => s.id !== id));
     } catch (err: any) {
       toast.error(err.message || "Failed to delete subject");
@@ -90,7 +88,7 @@ export const SubjectManagement: React.FC = () => {
       const list = await api.listSubjectStudents(subject.id);
       setEnrolledStudents(list);
     } catch (err: any) {
-      toast.error("Failed to load students for this subject");
+      toast.error("Failed to load students");
     } finally {
       setStudentsLoading(false);
     }
@@ -131,58 +129,58 @@ export const SubjectManagement: React.FC = () => {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h2 className="text-xl font-bold tracking-tight text-foreground">
-            Academic Subjects & Courses
+            Academic Courses
           </h2>
           <p className="text-xs text-muted-foreground mt-0.5">
-            Configure lecture subjects, faculty instructors, and student rosters
+            Configure lecture subjects, assigned faculty, and enrolled student rosters
           </p>
         </div>
         <Button
           onClick={() => setCreateModalOpen(true)}
           icon={<Plus className="w-4 h-4" />}
         >
-          Create Subject
+          New Course
         </Button>
       </div>
 
       {/* Subjects Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {loading ? (
-          <p className="text-sm text-muted-foreground col-span-full text-center py-12">
-            Loading subjects...
+          <p className="text-xs text-muted-foreground col-span-full text-center py-12">
+            Loading courses...
           </p>
         ) : subjects.length === 0 ? (
-          <p className="text-sm text-muted-foreground col-span-full text-center py-12">
-            No subjects created yet. Click "Create Subject" to get started.
+          <p className="text-xs text-muted-foreground col-span-full text-center py-12">
+            No courses found.
           </p>
         ) : (
           subjects.map((sub) => (
             <Card key={sub.id} className="flex flex-col justify-between">
               <div>
                 <div className="flex items-center justify-between mb-3">
-                  <span className="text-xs font-mono font-bold text-primary-600 dark:text-primary-400 bg-primary-500/10 px-2 py-0.5 rounded-md">
+                  <span className="text-[10px] font-mono font-bold text-foreground border border-border px-2 py-0.5 rounded-md bg-muted/40">
                     COURSE #{sub.id}
                   </span>
                   <button
                     onClick={() => handleDeleteSubject(sub.id, sub.name)}
-                    className="p-1.5 rounded-lg text-muted-foreground hover:text-rose-500 hover:bg-rose-500/10 tactile-button transition-colors"
+                    className="p-1.5 rounded-lg text-muted-foreground hover:text-white hover:bg-zinc-800 apple-button transition-colors"
                     title="Delete Subject"
                   >
                     <Trash2 className="w-4 h-4" />
                   </button>
                 </div>
-                <h3 className="text-base font-bold text-foreground leading-snug">
+                <h3 className="text-base font-bold text-foreground tracking-tight leading-snug">
                   {sub.name}
                 </h3>
                 <p className="text-xs text-muted-foreground mt-1">
                   Enrolled Students:{" "}
-                  <span className="font-semibold text-foreground">
+                  <span className="font-semibold text-foreground font-mono">
                     {sub.student_count || 0}
                   </span>
                 </p>
               </div>
 
-              <div className="pt-5 mt-4 border-t border-border/50 flex items-center justify-between gap-2">
+              <div className="pt-5 mt-4 border-t border-border/50">
                 <Button
                   size="sm"
                   variant="outline"
@@ -202,20 +200,20 @@ export const SubjectManagement: React.FC = () => {
       <Modal
         isOpen={createModalOpen}
         onClose={() => setCreateModalOpen(false)}
-        title="Create New Subject"
-        description="Enter the course title or subject code (e.g. CS301 - Computer Vision)"
+        title="Create Course"
+        description="Enter course title (e.g. CS301 - Computer Vision & Deep Learning)"
       >
         <form onSubmit={handleCreateSubject} className="space-y-4 pt-2">
           <div>
             <label className="block text-xs font-semibold text-foreground mb-1">
-              Subject Name *
+              Course Name *
             </label>
             <input
               type="text"
               value={newSubjectName}
               onChange={(e) => setNewSubjectName(e.target.value)}
               placeholder="e.g. CS301 - Machine Learning Systems"
-              className="w-full px-3 py-2.5 rounded-xl border border-border bg-background text-sm text-foreground focus:ring-2 focus:ring-primary"
+              className="w-full px-3 py-2.5 rounded-xl border border-border bg-background text-sm text-foreground focus:ring-1 focus:ring-white/40"
               required
             />
           </div>
@@ -228,7 +226,7 @@ export const SubjectManagement: React.FC = () => {
               Cancel
             </Button>
             <Button type="submit" loading={createLoading}>
-              Save Subject
+              Save Course
             </Button>
           </div>
         </form>
@@ -248,7 +246,7 @@ export const SubjectManagement: React.FC = () => {
             <select
               value={selectedStudentToAdd}
               onChange={(e) => setSelectedStudentToAdd(e.target.value)}
-              className="flex-1 px-3 py-2 rounded-xl border border-border bg-background text-sm text-foreground focus:ring-2 focus:ring-primary"
+              className="flex-1 px-3 py-2 rounded-xl border border-border bg-background text-sm text-foreground focus:ring-1 focus:ring-white/40"
             >
               <option value="">Select student to enroll...</option>
               {availableStudents.map((s) => (
@@ -268,7 +266,7 @@ export const SubjectManagement: React.FC = () => {
           </div>
 
           {/* Enrolled Students Table */}
-          <div className="max-h-80 overflow-y-auto border border-border rounded-xl divide-y divide-border">
+          <div className="max-h-80 overflow-y-auto border border-border rounded-2xl divide-y divide-border">
             {studentsLoading ? (
               <p className="text-xs text-center py-8 text-muted-foreground">
                 Loading roster...
@@ -284,14 +282,14 @@ export const SubjectManagement: React.FC = () => {
                   className="flex items-center justify-between p-3 hover:bg-muted/30 transition-colors"
                 >
                   <div>
-                    <p className="text-sm font-semibold text-foreground">{s.name}</p>
+                    <p className="text-sm font-semibold text-foreground tracking-tight">{s.name}</p>
                     <p className="text-xs text-muted-foreground font-mono">
                       @{s.username} • {s.face_count}/10 Face Models
                     </p>
                   </div>
                   <button
                     onClick={() => handleRemoveStudent(s.id)}
-                    className="p-1.5 rounded-lg text-muted-foreground hover:text-rose-500 hover:bg-rose-500/10 tactile-button"
+                    className="p-1.5 rounded-lg text-muted-foreground hover:text-white hover:bg-zinc-800 apple-button"
                     title="Remove from course"
                   >
                     <UserX className="w-4 h-4" />

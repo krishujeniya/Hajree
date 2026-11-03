@@ -1,13 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
   <defs>
-    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#6366F1" />
-      <stop offset="100%" stop-color="#4F46E5" />
+    <linearGradient id="appleSilver" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="100%" stop-color="#8E8E93" />
     </linearGradient>
   </defs>
-  <rect width="100" height="100" rx="28" fill="url(#grad)" />
-  <circle cx="50" cy="40" r="16" stroke="white" stroke-width="6" stroke-linecap="round" fill="none" />
-  <path d="M26 78 C26 62, 36 56, 50 56 C64 56, 74 62, 74 78" stroke="white" stroke-width="6" stroke-linecap="round" fill="none" />
-  <circle cx="70" cy="30" r="6" fill="#10B981" />
-  <path d="M68 30 L69.5 31.5 L72.5 28.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+  <rect width="100" height="100" rx="26" fill="#09090B" stroke="#27272A" stroke-width="2" />
+  <circle cx="50" cy="40" r="16" stroke="url(#appleSilver)" stroke-width="5" stroke-linecap="round" fill="none" />
+  <path d="M26 78 C26 62, 36 56, 50 56 C64 56, 74 62, 74 78" stroke="url(#appleSilver)" stroke-width="5" stroke-linecap="round" fill="none" />
+  <circle cx="70" cy="30" r="5" fill="#FFFFFF" />
+  <path d="M68 30 L69.5 31.5 L72.5 28.5" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
 </svg>

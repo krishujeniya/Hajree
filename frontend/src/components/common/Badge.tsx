@@ -5,7 +5,7 @@ import { AttendanceStatus, Role } from "../../types";
 
 interface BadgeProps {
   children?: React.ReactNode;
-  variant?: "default" | "success" | "warning" | "danger" | "info";
+  variant?: "default" | "solid" | "outline" | "subtle";
   role?: Role;
   status?: AttendanceStatus;
   className?: string;
@@ -18,50 +18,43 @@ export const Badge: React.FC<BadgeProps> = ({
   status,
   className,
 }) => {
-  let computedVariant = variant;
   let label = children;
+  let customStyle = "border border-zinc-700 bg-zinc-900 text-zinc-200";
 
   if (role) {
     if (role === "admin") {
-      computedVariant = "danger";
+      customStyle = "bg-white text-black dark:bg-white dark:text-black border-transparent font-bold";
       label = label || "Admin";
     } else if (role === "teacher") {
-      computedVariant = "info";
+      customStyle = "border border-zinc-500 bg-zinc-900 text-zinc-100 font-semibold";
       label = label || "Faculty";
     } else {
-      computedVariant = "success";
+      customStyle = "border border-zinc-800 bg-zinc-950 text-zinc-400 font-medium";
       label = label || "Student";
     }
   } else if (status) {
     if (status === "present") {
-      computedVariant = "success";
+      customStyle = "bg-zinc-100 text-black dark:bg-white dark:text-black font-bold border-transparent";
       label = label || "Present";
     } else if (status === "absent") {
-      computedVariant = "danger";
+      customStyle = "border border-zinc-600 bg-transparent text-zinc-400 font-medium";
       label = label || "Absent";
     } else {
-      computedVariant = "warning";
+      customStyle = "border border-zinc-500 bg-zinc-900 text-zinc-300 font-medium";
       label = label || "Late";
     }
+  } else if (variant === "solid") {
+    customStyle = "bg-black text-white dark:bg-white dark:text-black font-bold";
+  } else if (variant === "outline") {
+    customStyle = "border border-zinc-700 bg-transparent text-foreground";
   }
-
-  const variantStyles = {
-    default: "bg-muted text-muted-foreground border-border/50",
-    success:
-      "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20",
-    warning:
-      "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20",
-    danger:
-      "bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/20",
-    info: "bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border-indigo-500/20",
-  };
 
   return (
     <span
       className={twMerge(
         clsx(
-          "inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold border tracking-wide uppercase",
-          variantStyles[computedVariant],
+          "inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] uppercase tracking-wider select-none",
+          customStyle,
           className
         )
       )}

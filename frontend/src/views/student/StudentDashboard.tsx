@@ -53,7 +53,7 @@ export const StudentDashboard: React.FC<StudentDashboardProps> = ({
       <Card className="p-8 overflow-hidden relative">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6 relative z-10">
           <div>
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold mb-3 bg-primary-500/10 text-primary-600 dark:text-primary-400 border border-primary-500/20">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold mb-3 bg-muted/60 text-foreground border border-border">
               <Sparkles className="w-3.5 h-3.5" />
               <span>Personal Attendance Summary</span>
             </div>
@@ -70,8 +70,8 @@ export const StudentDashboard: React.FC<StudentDashboardProps> = ({
               <span
                 className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase ${
                   isEligible
-                    ? "bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30"
-                    : "bg-rose-500/15 text-rose-600 dark:text-rose-400 border border-rose-500/30"
+                    ? "bg-foreground text-background shadow-sm"
+                    : "bg-muted text-muted-foreground border border-border"
                 }`}
               >
                 {isEligible ? (
@@ -96,7 +96,7 @@ export const StudentDashboard: React.FC<StudentDashboardProps> = ({
                 cx="50"
                 cy="50"
                 r="40"
-                className="stroke-muted"
+                className="stroke-muted/40"
                 strokeWidth="10"
                 fill="none"
               />
@@ -104,7 +104,7 @@ export const StudentDashboard: React.FC<StudentDashboardProps> = ({
                 cx="50"
                 cy="50"
                 r="40"
-                className={isEligible ? "stroke-emerald-500" : "stroke-rose-500"}
+                className="stroke-foreground transition-all"
                 strokeWidth="10"
                 strokeDasharray="251.2"
                 strokeDashoffset={251.2 - (251.2 * Math.min(overall, 100)) / 100}
@@ -165,8 +165,8 @@ export const StudentDashboard: React.FC<StudentDashboardProps> = ({
                       <span
                         className={`text-xs font-bold font-mono px-2 py-0.5 rounded-full ${
                           subEligible
-                            ? "bg-emerald-500/10 text-emerald-500"
-                            : "bg-rose-500/10 text-rose-500"
+                            ? "bg-foreground text-background shadow-xs"
+                            : "bg-muted text-muted-foreground border border-border"
                         }`}
                       >
                         {sub.percentage.toFixed(1)}%
@@ -186,7 +186,7 @@ export const StudentDashboard: React.FC<StudentDashboardProps> = ({
                     <div className="w-full bg-muted rounded-full h-2 overflow-hidden mb-2">
                       <div
                         className={`h-full rounded-full transition-all duration-500 ${
-                          subEligible ? "bg-emerald-500" : "bg-rose-500"
+                          subEligible ? "bg-foreground" : "bg-muted-foreground/60"
                         }`}
                         style={{ width: `${Math.min(sub.percentage, 100)}%` }}
                       />

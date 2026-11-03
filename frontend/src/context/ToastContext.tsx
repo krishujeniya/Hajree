@@ -43,29 +43,35 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
   return (
     <ToastContext.Provider value={{ toast }}>
       {children}
-      <div className="fixed bottom-5 right-5 z-50 flex flex-col gap-2 max-w-sm w-full pointer-events-none">
+      <div className="fixed bottom-5 right-5 z-50 flex flex-col gap-2.5 max-w-sm w-full pointer-events-none">
         {toasts.map((t) => (
           <div
             key={t.id}
-            className="pointer-events-auto flex items-center justify-between p-3.5 rounded-xl border shadow-lg backdrop-blur-md bg-card/95 text-card-foreground text-sm font-medium transition-all duration-200 transform translate-y-0 scale-100 animate-in fade-in slide-in-from-bottom-2"
+            className="pointer-events-auto flex items-center justify-between p-3.5 rounded-2xl border border-zinc-700/80 bg-zinc-950/90 text-white text-xs font-medium shadow-2xl backdrop-blur-2xl transition-all duration-200 transform translate-y-0 scale-100 animate-in fade-in slide-in-from-bottom-2"
           >
             <div className="flex items-center gap-2.5">
               {t.type === "success" && (
-                <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0" />
+                <div className="w-5 h-5 rounded-full bg-white text-black flex items-center justify-center shrink-0">
+                  <CheckCircle2 className="w-3.5 h-3.5" />
+                </div>
               )}
               {t.type === "error" && (
-                <AlertCircle className="w-5 h-5 text-rose-500 shrink-0" />
+                <div className="w-5 h-5 rounded-full bg-zinc-800 text-white border border-zinc-600 flex items-center justify-center shrink-0">
+                  <AlertCircle className="w-3.5 h-3.5" />
+                </div>
               )}
               {t.type === "info" && (
-                <Info className="w-5 h-5 text-indigo-500 shrink-0" />
+                <div className="w-5 h-5 rounded-full bg-zinc-800 text-zinc-300 flex items-center justify-center shrink-0">
+                  <Info className="w-3.5 h-3.5" />
+                </div>
               )}
-              <span>{t.message}</span>
+              <span className="leading-tight">{t.message}</span>
             </div>
             <button
               onClick={() => removeToast(t.id)}
-              className="p-1 hover:bg-muted rounded-md text-muted-foreground transition-colors"
+              className="p-1 hover:bg-zinc-800 rounded-lg text-zinc-400 hover:text-white transition-colors ml-2"
             >
-              <X className="w-4 h-4" />
+              <X className="w-3.5 h-3.5" />
             </button>
           </div>
         ))}

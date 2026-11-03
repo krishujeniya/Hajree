@@ -13,11 +13,6 @@ export default {
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
-          50: "#eef2ff",
-          100: "#e0e7ff",
-          500: "#6366f1",
-          600: "#4f46e5",
-          700: "#4338ca",
         },
         card: {
           DEFAULT: "hsl(var(--card))",
@@ -33,12 +28,15 @@ export default {
         },
       },
       borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
+        "3xl": "1.5rem",
+        "2xl": "1rem",
+        xl: "0.75rem",
+        lg: "0.5rem",
+        md: "0.375rem",
       },
       transitionTimingFunction: {
-        "out-custom": "cubic-bezier(0.23, 1, 0.32, 1)",
+        "apple-ease": "cubic-bezier(0.23, 1, 0.32, 1)",
+        "apple-spring": "cubic-bezier(0.32, 0.72, 0, 1)",
       },
     },
   },

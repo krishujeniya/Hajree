@@ -36,75 +36,75 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({
         password: password.trim(),
         role: "student",
       });
-      toast.success("Account created successfully! Welcome to Hajree.");
+      toast.success("Account created successfully.");
     } catch (err: any) {
-      toast.error(err.message || "Failed to register. Username might already exist.");
+      toast.error(err.message || "Failed to register.");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-background via-muted/30 to-background">
-      <div className="w-full max-w-md">
+    <div className="min-h-screen flex items-center justify-center p-4 bg-background">
+      <div className="w-full max-w-sm">
         <div className="text-center mb-6">
-          <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-gradient-to-tr from-indigo-600 to-indigo-400 text-white shadow-xl shadow-indigo-500/30 mb-3">
+          <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-gradient-to-b from-white to-zinc-400 text-black shadow-2xl mb-3 border border-white/20">
             <Camera className="w-6 h-6" />
           </div>
-          <h1 className="text-2xl font-extrabold tracking-tight text-foreground">
-            Student Registration
+          <h1 className="text-xl font-bold tracking-tight text-foreground">
+            Student Enrollment
           </h1>
           <p className="text-xs text-muted-foreground mt-1">
-            Create your account to start automated face-recognition attendance
+            Create account for neural biometric attendance
           </p>
         </div>
 
-        <div className="bg-card/90 backdrop-blur-xl border border-border/80 rounded-2xl p-7 shadow-xl shadow-black/5">
+        <div className="apple-glass rounded-3xl p-7 shadow-2xl">
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-xs font-semibold text-foreground mb-1.5">
+              <label className="block text-xs font-medium text-foreground mb-1.5">
                 Full Name *
               </label>
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-muted-foreground">
+                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-muted-foreground">
                   <User className="w-4 h-4" />
                 </div>
                 <input
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  placeholder="e.g. John Doe"
-                  className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-border bg-background text-sm text-foreground focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                  placeholder="John Doe"
+                  className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-border bg-background/50 text-sm text-foreground focus:ring-1 focus:ring-white/40 transition-all"
                   required
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-foreground mb-1.5">
-                Student Enrollment / Roll No *
+              <label className="block text-xs font-medium text-foreground mb-1.5">
+                Roll Number / ID *
               </label>
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-muted-foreground">
-                  <span className="text-xs font-bold font-mono">#</span>
+                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-muted-foreground">
+                  <span className="text-xs font-mono">#</span>
                 </div>
                 <input
                   type="text"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  placeholder="e.g. 240233111050"
-                  className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-border bg-background text-sm text-foreground focus:ring-2 focus:ring-primary focus:border-transparent transition-all font-mono"
+                  placeholder="240233111050"
+                  className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-border bg-background/50 text-sm text-foreground focus:ring-1 focus:ring-white/40 transition-all font-mono"
                   required
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-foreground mb-1.5">
-                Email Address (Optional)
+              <label className="block text-xs font-medium text-foreground mb-1.5">
+                Email Address
               </label>
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-muted-foreground">
+                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-muted-foreground">
                   <Mail className="w-4 h-4" />
                 </div>
                 <input
@@ -112,25 +112,25 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="john@example.com"
-                  className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-border bg-background text-sm text-foreground focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                  className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-border bg-background/50 text-sm text-foreground focus:ring-1 focus:ring-white/40 transition-all"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-foreground mb-1.5">
+              <label className="block text-xs font-medium text-foreground mb-1.5">
                 Password *
               </label>
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-muted-foreground">
+                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-muted-foreground">
                   <Lock className="w-4 h-4" />
                 </div>
                 <input
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Minimum 8 characters"
-                  className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-border bg-background text-sm text-foreground focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                  placeholder="••••••••"
+                  className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-border bg-background/50 text-sm text-foreground focus:ring-1 focus:ring-white/40 transition-all"
                   required
                 />
               </div>

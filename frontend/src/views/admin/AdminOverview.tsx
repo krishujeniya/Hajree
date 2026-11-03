@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Users, GraduationCap, Briefcase, BookOpen, Activity, ShieldCheck, Plus, ArrowRight } from "lucide-react";
+import { Users, GraduationCap, Briefcase, BookOpen, Activity, ShieldCheck, ArrowRight } from "lucide-react";
 import { Card } from "../../components/common/Card";
 import { Button } from "../../components/common/Button";
 import { api } from "../../api/client";
@@ -40,67 +40,62 @@ export const AdminOverview: React.FC<AdminOverviewProps> = ({ onNavigate }) => {
 
   const stats = [
     {
-      title: "Total Students",
+      title: "Students",
       value: studentsCount,
-      subtext: `${enrolledFacesCount} with trained face models`,
-      icon: <GraduationCap className="w-5 h-5 text-indigo-500" />,
-      bg: "bg-indigo-500/10",
+      subtext: `${enrolledFacesCount} face models registered`,
+      icon: <GraduationCap className="w-4 h-4 text-white" />,
     },
     {
-      title: "Faculty Members",
+      title: "Faculty",
       value: teachersCount,
       subtext: "Assigned course instructors",
-      icon: <Briefcase className="w-5 h-5 text-emerald-500" />,
-      bg: "bg-emerald-500/10",
+      icon: <Briefcase className="w-4 h-4 text-white" />,
     },
     {
-      title: "Active Courses",
+      title: "Courses",
       value: subjects.length,
       subtext: "Tracked academic subjects",
-      icon: <BookOpen className="w-5 h-5 text-amber-500" />,
-      bg: "bg-amber-500/10",
+      icon: <BookOpen className="w-4 h-4 text-white" />,
     },
     {
-      title: "System Status",
-      value: "Operational",
-      subtext: "DeepFace SFace model active",
-      icon: <ShieldCheck className="w-5 h-5 text-sky-500" />,
-      bg: "bg-sky-500/10",
+      title: "Engine Status",
+      value: "Online",
+      subtext: "DeepFace SFace Active",
+      icon: <ShieldCheck className="w-4 h-4 text-white" />,
     },
   ];
 
   return (
     <div className="space-y-6">
-      {/* Top Banner */}
-      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-indigo-900 via-indigo-800 to-slate-900 p-8 text-white shadow-xl shadow-indigo-950/20">
+      {/* Cupertino Titanium Header Card */}
+      <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-b from-zinc-900 to-black p-8 text-white shadow-2xl">
         <div className="relative z-10 max-w-2xl">
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-white/10 backdrop-blur-md border border-white/15 text-indigo-200 mb-3">
-            <Activity className="w-3.5 h-3.5 text-emerald-400" />
-            <span>Enterprise Attendance Engine</span>
-          </span>
-          <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
-            System Administration Center
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[10px] font-semibold bg-white/10 backdrop-blur-md border border-white/15 text-zinc-300 mb-3 uppercase tracking-wider">
+            <Activity className="w-3 h-3 text-white" />
+            <span>Institutional Command Center</span>
+          </div>
+          <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">
+            System Administration
           </h2>
-          <p className="text-sm text-indigo-100/80 mt-2 leading-relaxed">
-            Monitor institution-wide biometric face recognition, enroll new students, configure faculty assignments, and verify neural inference pipeline status.
+          <p className="text-xs sm:text-sm text-zinc-400 mt-2 leading-relaxed">
+            Manage facial embeddings, student course rosters, faculty permissions, and verify neural inference pipeline status.
           </p>
-          <div className="flex flex-wrap gap-3 mt-5">
+          <div className="flex flex-wrap gap-2.5 mt-5">
             <Button
-              variant="secondary"
+              variant="primary"
               size="sm"
               onClick={() => onNavigate("admin-users")}
-              icon={<Users className="w-4 h-4" />}
+              icon={<Users className="w-3.5 h-3.5" />}
             >
-              Manage Users
+              Manage Accounts
             </Button>
             <Button
               variant="outline"
               size="sm"
               onClick={() => onNavigate("admin-subjects")}
-              className="text-white border-white/20 hover:bg-white/10"
-              icon={<BookOpen className="w-4 h-4" />}
+              icon={<BookOpen className="w-3.5 h-3.5" />}
             >
-              Manage Courses
+              Academic Courses
             </Button>
           </div>
         </div>
@@ -111,23 +106,25 @@ export const AdminOverview: React.FC<AdminOverviewProps> = ({ onNavigate }) => {
         {stats.map((item, idx) => (
           <Card key={idx} className="p-5">
             <div className="flex items-center justify-between mb-3">
-              <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
+              <span className="text-[11px] font-semibold text-muted-foreground uppercase tracking-wider">
                 {item.title}
               </span>
-              <div className={`p-2 rounded-xl ${item.bg}`}>{item.icon}</div>
+              <div className="w-8 h-8 rounded-xl bg-zinc-900 border border-zinc-700/60 flex items-center justify-center">
+                {item.icon}
+              </div>
             </div>
-            <div className="text-2xl font-bold text-foreground">
+            <div className="text-2xl font-bold text-foreground font-mono">
               {loading ? "..." : item.value}
             </div>
-            <p className="text-xs text-muted-foreground mt-1">{item.subtext}</p>
+            <p className="text-[11px] text-muted-foreground mt-1">{item.subtext}</p>
           </Card>
         ))}
       </div>
 
-      {/* Quick Launch & Courses Section */}
+      {/* Courses & Accounts */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <Card
-          title="Active Academic Courses"
+          title="Active Courses"
           description="Courses currently registered with biometric tracking"
           headerAction={
             <Button
@@ -140,26 +137,26 @@ export const AdminOverview: React.FC<AdminOverviewProps> = ({ onNavigate }) => {
           }
         >
           {loading ? (
-            <p className="text-sm text-muted-foreground py-4 text-center">Loading subjects...</p>
+            <p className="text-xs text-muted-foreground py-4 text-center">Loading subjects...</p>
           ) : subjects.length === 0 ? (
-            <p className="text-sm text-muted-foreground py-4 text-center">No subjects created yet.</p>
+            <p className="text-xs text-muted-foreground py-4 text-center">No subjects created yet.</p>
           ) : (
-            <div className="space-y-2.5">
+            <div className="space-y-2">
               {subjects.slice(0, 4).map((sub) => (
                 <div
                   key={sub.id}
-                  className="flex items-center justify-between p-3 rounded-xl border border-border/50 bg-muted/20 hover:bg-muted/40 transition-colors"
+                  className="flex items-center justify-between p-3 rounded-xl border border-border/70 bg-card hover:bg-muted/40 transition-colors"
                 >
                   <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-lg bg-primary-500/10 text-primary-600 dark:text-primary-400 flex items-center justify-center font-bold text-xs">
+                    <div className="w-8 h-8 rounded-lg bg-zinc-900 border border-zinc-700/60 text-white flex items-center justify-center font-mono font-bold text-xs">
                       #{sub.id}
                     </div>
                     <div>
-                      <p className="text-sm font-semibold text-foreground">
+                      <p className="text-sm font-semibold text-foreground tracking-tight">
                         {sub.name}
                       </p>
                       <p className="text-[11px] text-muted-foreground">
-                        Biometric tracking enabled
+                        Biometric tracking active
                       </p>
                     </div>
                   </div>
@@ -179,7 +176,7 @@ export const AdminOverview: React.FC<AdminOverviewProps> = ({ onNavigate }) => {
 
         <Card
           title="Recent User Registrations"
-          description="Latest student & faculty accounts registered"
+          description="Latest accounts registered in the database"
           headerAction={
             <Button
               size="sm"
@@ -191,39 +188,31 @@ export const AdminOverview: React.FC<AdminOverviewProps> = ({ onNavigate }) => {
           }
         >
           {loading ? (
-            <p className="text-sm text-muted-foreground py-4 text-center">Loading users...</p>
+            <p className="text-xs text-muted-foreground py-4 text-center">Loading users...</p>
           ) : users.length === 0 ? (
-            <p className="text-sm text-muted-foreground py-4 text-center">No users found.</p>
+            <p className="text-xs text-muted-foreground py-4 text-center">No users found.</p>
           ) : (
-            <div className="space-y-2.5">
+            <div className="space-y-2">
               {users.slice(0, 4).map((u) => (
                 <div
                   key={u.id}
-                  className="flex items-center justify-between p-3 rounded-xl border border-border/50 bg-muted/20 hover:bg-muted/40 transition-colors"
+                  className="flex items-center justify-between p-3 rounded-xl border border-border/70 bg-card hover:bg-muted/40 transition-colors"
                 >
                   <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-full bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 font-bold text-xs flex items-center justify-center uppercase">
+                    <div className="w-8 h-8 rounded-full bg-zinc-900 border border-zinc-700/60 text-white font-bold text-xs flex items-center justify-center uppercase">
                       {u.name.substring(0, 2)}
                     </div>
                     <div>
-                      <p className="text-sm font-semibold text-foreground">
+                      <p className="text-sm font-semibold text-foreground tracking-tight">
                         {u.name}
                       </p>
-                      <p className="text-[11px] text-muted-foreground">
+                      <p className="text-[11px] text-muted-foreground font-mono">
                         @{u.username} • {u.role}
                       </p>
                     </div>
                   </div>
-                  <span
-                    className={`text-[10px] font-bold px-2 py-0.5 rounded-full uppercase ${
-                      u.face_count > 0
-                        ? "bg-emerald-500/10 text-emerald-500"
-                        : "bg-amber-500/10 text-amber-500"
-                    }`}
-                  >
-                    {u.role === "student"
-                      ? `${u.face_count}/10 Faces`
-                      : u.role}
+                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full border border-border bg-muted/40 text-foreground font-mono">
+                    {u.role === "student" ? `${u.face_count}/10 Faces` : u.role}
                   </span>
                 </div>
               ))}

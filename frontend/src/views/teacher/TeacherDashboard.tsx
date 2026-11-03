@@ -99,7 +99,7 @@ export const TeacherDashboard: React.FC = () => {
       <Card className="p-4">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-3 w-full sm:w-auto">
-            <BookOpen className="w-5 h-5 text-indigo-500 shrink-0" />
+            <BookOpen className="w-5 h-5 text-foreground shrink-0" />
             <div className="w-full sm:w-80">
               <label className="block text-[10px] font-bold text-muted-foreground uppercase tracking-wider mb-1">
                 Select Active Subject
@@ -146,7 +146,7 @@ export const TeacherDashboard: React.FC = () => {
             <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
               Enrolled Students
             </span>
-            <Users className="w-4 h-4 text-indigo-500" />
+            <Users className="w-4 h-4 text-foreground" />
           </div>
           <div className="text-2xl font-bold text-foreground">
             {loading ? "..." : metrics?.total_students || 0}
@@ -161,7 +161,7 @@ export const TeacherDashboard: React.FC = () => {
             <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
               Total Lectures
             </span>
-            <Calendar className="w-4 h-4 text-sky-500" />
+            <Calendar className="w-4 h-4 text-foreground" />
           </div>
           <div className="text-2xl font-bold text-foreground">
             {loading ? "..." : metrics?.total_lectures || 0}
@@ -176,7 +176,7 @@ export const TeacherDashboard: React.FC = () => {
             <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
               Avg. Attendance Rate
             </span>
-            <TrendingUp className="w-4 h-4 text-emerald-500" />
+            <TrendingUp className="w-4 h-4 text-foreground" />
           </div>
           <div className="text-2xl font-bold text-foreground">
             {loading ? "..." : `${metrics?.overall_attendance.toFixed(1) || 0}%`}
@@ -191,9 +191,9 @@ export const TeacherDashboard: React.FC = () => {
             <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
               Defaulters Alert
             </span>
-            <AlertTriangle className="w-4 h-4 text-rose-500" />
+            <AlertTriangle className="w-4 h-4 text-foreground" />
           </div>
-          <div className="text-2xl font-bold text-rose-600 dark:text-rose-400">
+          <div className="text-2xl font-bold text-foreground">
             {loading ? "..." : metrics?.defaulter_count || 0}
           </div>
           <p className="text-xs text-muted-foreground mt-1">
@@ -209,7 +209,7 @@ export const TeacherDashboard: React.FC = () => {
         headerAction={
           <Button
             size="sm"
-            variant="danger"
+            variant="outline"
             onClick={handleNotifyDefaulters}
             loading={notifying}
             disabled={!dashboard?.defaulters || dashboard.defaulters.length === 0}
@@ -224,7 +224,7 @@ export const TeacherDashboard: React.FC = () => {
             Checking attendance records...
           </p>
         ) : !dashboard?.defaulters || dashboard.defaulters.length === 0 ? (
-          <div className="flex items-center justify-center gap-2 py-8 text-emerald-600 dark:text-emerald-400">
+          <div className="flex items-center justify-center gap-2 py-8 text-foreground">
             <CheckCircle2 className="w-5 h-5" />
             <span className="text-sm font-medium">
               Excellent! No students fall below the {threshold}% attendance threshold.
@@ -254,11 +254,11 @@ export const TeacherDashboard: React.FC = () => {
                     <td className="px-4 py-3 text-xs">
                       {s.present} of {s.total} lectures
                     </td>
-                    <td className="px-4 py-3 font-bold text-rose-600 dark:text-rose-400">
+                    <td className="px-4 py-3 font-bold font-mono text-foreground">
                       {s.percentage.toFixed(1)}%
                     </td>
                     <td className="px-4 py-3">
-                      <span className="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20">
+                      <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 border border-zinc-300 dark:border-zinc-700 tracking-wider">
                         Critical Defaulter
                       </span>
                     </td>

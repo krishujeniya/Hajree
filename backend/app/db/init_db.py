@@ -139,6 +139,25 @@ def init_database() -> None:
         user_count = int(db.execute(select(func.count(User.id))).scalar_one())
         if user_count == 0:
             _seed_demo_data(db)
+        else:
+            # Ensure bootstrap admin exists and has valid credentials
+            admin = db.execute(select(User).where(User.role == Role.ADMIN)).scalars().first()
+            if admin:
+                admin.username = settings.admin_username
+                admin.password_hash = hash_password(settings.admin_password)
+                admin.is_active = True
+                db.commit()
+            else:
+                db.add(
+                    User(
+                        username=settings.admin_username,
+                        name=settings.admin_name,
+                        email=settings.admin_email,
+                        password_hash=hash_password(settings.admin_password),
+                        role=Role.ADMIN,
+                    )
+                )
+                db.commit()
 
         entries = face_service.load_index(db)
         logger.info("Loaded %s face embeddings into the recognition index", entries)

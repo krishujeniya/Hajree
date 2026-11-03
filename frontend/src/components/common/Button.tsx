@@ -21,7 +21,7 @@ export const Button: React.FC<ButtonProps> = ({
   ...props
 }) => {
   const baseStyles =
-    "inline-flex items-center justify-center font-medium rounded-lg tactile-button focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary disabled:opacity-50 disabled:pointer-events-none select-none";
+    "inline-flex items-center justify-center font-medium rounded-xl apple-button focus:outline-none focus:ring-1 focus:ring-white/40 disabled:opacity-40 disabled:pointer-events-none select-none tracking-tight";
 
   const sizeStyles = {
     sm: "px-3 py-1.5 text-xs gap-1.5",
@@ -31,15 +31,15 @@ export const Button: React.FC<ButtonProps> = ({
 
   const variantStyles = {
     primary:
-      "bg-primary-600 hover:bg-primary-700 text-white shadow-sm shadow-primary-500/20 active:bg-primary-800",
+      "bg-black text-white hover:bg-zinc-800 dark:bg-white dark:text-black dark:hover:bg-zinc-200 shadow-sm",
     secondary:
-      "bg-muted hover:bg-muted/80 text-foreground border border-border/50",
+      "bg-zinc-100 text-zinc-900 hover:bg-zinc-200 dark:bg-zinc-900 dark:text-zinc-100 dark:hover:bg-zinc-800 border border-border/70",
     outline:
-      "border border-border bg-transparent hover:bg-accent text-foreground",
+      "border border-border bg-transparent hover:bg-zinc-100 dark:hover:bg-zinc-900 text-foreground",
     danger:
-      "bg-rose-600 hover:bg-rose-700 text-white shadow-sm shadow-rose-500/20 active:bg-rose-800",
+      "bg-zinc-900 text-white border border-zinc-700 hover:bg-zinc-800 dark:bg-zinc-950 dark:border-zinc-700 dark:hover:bg-zinc-900 shadow-sm",
     ghost:
-      "bg-transparent hover:bg-accent text-foreground",
+      "bg-transparent hover:bg-zinc-100 dark:hover:bg-zinc-900 text-foreground",
   };
 
   return (
@@ -51,7 +51,7 @@ export const Button: React.FC<ButtonProps> = ({
       {...props}
     >
       {loading ? (
-        <Loader2 className="w-4 h-4 animate-spin text-current" />
+        <Loader2 className="w-3.5 h-3.5 animate-spin text-current" />
       ) : icon ? (
         <span className="shrink-0">{icon}</span>
       ) : null}
