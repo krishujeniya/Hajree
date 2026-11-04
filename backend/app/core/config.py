@@ -105,7 +105,10 @@ class Settings(BaseSettings):
     def resolved_database_url(self) -> str:
         if self.database_url:
             return self.database_url
-        return f"sqlite:///{(self.data_dir / 'hajri.db').as_posix()}"
+        legacy_db = self.data_dir / "hajri.db"
+        if legacy_db.exists() and not (self.data_dir / "hajree.db").exists():
+            return f"sqlite:///{legacy_db.as_posix()}"
+        return f"sqlite:///{(self.data_dir / 'hajree.db').as_posix()}"
 
     @property
     def face_images_dir(self) -> Path:

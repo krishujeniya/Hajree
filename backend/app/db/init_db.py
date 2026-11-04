@@ -140,14 +140,16 @@ def init_database() -> None:
         if user_count == 0:
             _seed_demo_data(db)
         else:
-            # Ensure bootstrap admin exists and has valid credentials
-            admin = db.execute(select(User).where(User.role == Role.ADMIN)).scalars().first()
-            if admin:
-                admin.username = settings.admin_username
-                admin.password_hash = hash_password(settings.admin_password)
-                admin.is_active = True
-                db.commit()
-            else:
+            # Ensure at least one active administrator exists without overwriting modified credentials
+            has_admin = (
+                db.execute(
+                    select(func.count(User.id)).where(
+                        User.role == Role.ADMIN, User.is_active.is_(True)
+                    )
+                ).scalar_one()
+                > 0
+            )
+            if not has_admin:
                 db.add(
                     User(
                         username=settings.admin_username,

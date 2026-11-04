@@ -19,7 +19,7 @@ import { Button } from "../../components/common/Button";
 import { Badge } from "../../components/common/Badge";
 import { api } from "../../api/client";
 import { useToast } from "../../context/ToastContext";
-import { Lecture, RecognitionOut, StudentInSubject, Subject } from "../../types";
+import { AttendanceStatus, Lecture, RecognitionOut, StudentInSubject, Subject } from "../../types";
 
 export const AIAttendanceView: React.FC = () => {
   const toast = useToast();
@@ -77,7 +77,7 @@ export const AIAttendanceView: React.FC = () => {
       // Initialize all to absent by default
       const initialMap: Record<number, boolean> = {};
       stus.forEach((s) => {
-        initialMap[s.id] = false;
+        initialMap[s.user_id] = false;
       });
       setAttendanceMap(initialMap);
     });
@@ -160,19 +160,23 @@ export const AIAttendanceView: React.FC = () => {
       setRecognitionResult(result);
 
       // Auto-mark matched students as Present
-      const matchedUserIds = new Set(result.matches.map((m) => m.user_id));
+      const matchedUserIds = new Set(
+        result.faces
+          .filter((f) => f.matched && f.user_id)
+          .map((f) => f.user_id as number)
+      );
       setAttendanceMap((prev) => {
         const next = { ...prev };
         students.forEach((s) => {
-          if (matchedUserIds.has(s.id)) {
-            next[s.id] = true;
+          if (matchedUserIds.has(s.user_id)) {
+            next[s.user_id] = true;
           }
         });
         return next;
       });
 
       toast.success(
-        `AI Analysis complete: Detected ${result.total_faces} faces, matched ${result.matches.length} students!`
+        `AI Analysis complete: Detected ${result.faces.length} faces, matched ${result.matched_count} students!`
       );
     } catch (err: any) {
       toast.error(err.message || "Face recognition failed. Please try again.");
@@ -210,8 +214,8 @@ export const AIAttendanceView: React.FC = () => {
     setSaving(true);
     try {
       const records = students.map((s) => ({
-        user_id: s.id,
-        status: attendanceMap[s.id] ? "present" : "absent",
+        user_id: s.user_id,
+        status: (attendanceMap[s.user_id] ? "P" : "A") as AttendanceStatus,
       }));
 
       await api.saveLectureAttendance(selectedLectureId, records);
@@ -434,10 +438,10 @@ export const AIAttendanceView: React.FC = () => {
               <div className="mb-4 p-3 rounded-xl bg-muted/40 border border-border text-xs">
                 <div className="flex items-center justify-between font-semibold text-foreground mb-1">
                   <span>Recognition Summary</span>
-                  <span>{recognitionResult.matches.length} Matched</span>
+                  <span>{recognitionResult.matched_count} Matched</span>
                 </div>
                 <p className="text-[11px] text-muted-foreground leading-normal">
-                  Found {recognitionResult.total_faces} faces in frame. Matched against enrolled student vector database.
+                  Found {recognitionResult.faces.length} faces in frame ({recognitionResult.unmatched_count} unmatched). Matched against enrolled student vector database.
                 </p>
               </div>
             )}
@@ -450,11 +454,11 @@ export const AIAttendanceView: React.FC = () => {
                 </p>
               ) : (
                 students.map((student) => {
-                  const isPresent = attendanceMap[student.id];
+                  const isPresent = attendanceMap[student.user_id];
                   return (
                     <div
-                      key={student.id}
-                      onClick={() => toggleStudent(student.id)}
+                      key={student.user_id}
+                      onClick={() => toggleStudent(student.user_id)}
                       className={`flex items-center justify-between p-3 cursor-pointer select-none transition-colors ${
                         isPresent
                           ? "bg-muted/40"
@@ -476,7 +480,7 @@ export const AIAttendanceView: React.FC = () => {
                             {student.name}
                           </p>
                           <p className="text-[11px] text-muted-foreground font-mono">
-                            @{student.username}
+                            @{student.enrollment}
                           </p>
                         </div>
                       </div>
@@ -508,10 +512,10 @@ export const AIAttendanceView: React.FC = () => {
                 Confirm & Save Attendance
               </Button>
 
-              {savedSuccess && selectedLectureId && (
+              {savedSuccess && selectedSubjectId && (
                 <div className="flex items-center gap-2 pt-2 animate-in fade-in duration-200">
                   <a
-                    href={api.exportPdfUrl(selectedLectureId)}
+                    href={api.exportPdfUrl(selectedSubjectId)}
                     target="_blank"
                     rel="noreferrer"
                     className="flex-1 py-1.5 px-3 rounded-lg border border-border bg-muted/30 hover:bg-muted text-xs font-semibold text-foreground text-center flex items-center justify-center gap-1.5 tactile-button"
@@ -520,7 +524,7 @@ export const AIAttendanceView: React.FC = () => {
                     <span>Download PDF</span>
                   </a>
                   <a
-                    href={api.exportCsvUrl(selectedLectureId)}
+                    href={api.exportCsvUrl(selectedSubjectId)}
                     target="_blank"
                     rel="noreferrer"
                     className="flex-1 py-1.5 px-3 rounded-lg border border-border bg-muted/30 hover:bg-muted text-xs font-semibold text-foreground text-center flex items-center justify-center gap-1.5 tactile-button"

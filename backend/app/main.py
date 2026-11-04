@@ -130,7 +130,7 @@ def create_app() -> FastAPI:
             if full_path == api_root or full_path.startswith(f"{api_root}/"):
                 raise HTTPException(status_code=404, detail="Not found")
             candidate = (dist / full_path).resolve()
-            if full_path and candidate.is_file() and str(candidate).startswith(str(dist.resolve())):
+            if full_path and candidate.is_file() and candidate.is_relative_to(dist.resolve()):
                 return FileResponse(candidate)
             return FileResponse(index_file)
     else:

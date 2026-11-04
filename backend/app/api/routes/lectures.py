@@ -3,7 +3,7 @@ from __future__ import annotations
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
-from app.api.deps import get_current_user, get_staff
+from app.api.deps import get_staff
 from app.db.base import get_db
 from app.db.models import User
 from app.schemas.attendance import (
@@ -26,7 +26,7 @@ def _require_lecture_access(db: Session, user: User, lecture_id: int):
 @router.get("/{lecture_id}/attendance", response_model=LectureAttendanceOut)
 def get_attendance(
     lecture_id: int,
-    user: User = Depends(get_current_user),
+    user: User = Depends(get_staff),
     db: Session = Depends(get_db),
 ) -> LectureAttendanceOut:
     _require_lecture_access(db, user, lecture_id)

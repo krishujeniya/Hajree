@@ -118,9 +118,9 @@ export const ReportsView: React.FC = () => {
             <p className="text-xs text-muted-foreground mt-1 max-w-xs mb-5">
               Includes summary statistics, verification signatures, and present/absent breakdown.
             </p>
-            {selectedLectureId ? (
+            {selectedSubjectId ? (
               <a
-                href={api.exportPdfUrl(selectedLectureId)}
+                href={api.exportPdfUrl(selectedSubjectId)}
                 target="_blank"
                 rel="noreferrer"
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-foreground hover:bg-foreground/90 text-background font-semibold text-sm shadow-sm tactile-button"
@@ -129,7 +129,7 @@ export const ReportsView: React.FC = () => {
                 <span>Download PDF Report</span>
               </a>
             ) : (
-              <Button disabled>No Lecture Selected</Button>
+              <Button disabled>No Course Selected</Button>
             )}
           </div>
         </Card>
@@ -146,11 +146,11 @@ export const ReportsView: React.FC = () => {
               Comma-Separated Values (CSV)
             </p>
             <p className="text-xs text-muted-foreground mt-1 max-w-xs mb-5">
-              Contains Student ID, Name, Status, Biometric Capture Source, and Lecture Timestamps.
+              Contains Student ID, Name, Roll Number, Total Lectures, Attended, and Attendance Percentage.
             </p>
-            {selectedLectureId ? (
+            {selectedSubjectId ? (
               <a
-                href={api.exportCsvUrl(selectedLectureId)}
+                href={api.exportCsvUrl(selectedSubjectId)}
                 target="_blank"
                 rel="noreferrer"
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-foreground hover:bg-foreground/90 text-background font-semibold text-sm shadow-sm tactile-button"
@@ -159,7 +159,7 @@ export const ReportsView: React.FC = () => {
                 <span>Export CSV Spreadsheet</span>
               </a>
             ) : (
-              <Button disabled>No Lecture Selected</Button>
+              <Button disabled>No Course Selected</Button>
             )}
           </div>
         </Card>

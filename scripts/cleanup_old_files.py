@@ -45,13 +45,13 @@ def main():
             removed_dirs.append(dir_name)
             print(f"✅ Removed directory: {dir_name}")
     
-    print(f"\n📊 Summary:")
+    print("\nSummary:")
     print(f"   Files removed: {len(removed_files)}")
     print(f"   Directories removed: {len(removed_dirs)}")
-    print(f"\n✨ Cleanup complete!")
+    print("\nCleanup complete!")
     
     # Show what still needs migration
-    print(f"\n📋 Files pending migration:")
+    print("\nFiles pending migration:")
     pending = [
         "hajri_utils.py → Split into multiple modules",
         "hajri_views.py → Split into view modules",

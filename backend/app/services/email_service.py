@@ -11,35 +11,49 @@ from typing import List, Tuple
 from app.core.config import get_settings
 from app.schemas.attendance import ReportStudent
 
-logger = logging.getLogger("hajri.email")
+logger = logging.getLogger("hajree.email")
 
 
-def _send(to_email: str, subject: str, html: str, text: str) -> None:
+def _connect_smtp():
     settings = get_settings()
     if not settings.smtp_configured:
         raise RuntimeError("SMTP credentials are not configured.")
+    if settings.smtp_port == 465:
+        server = smtplib.SMTP_SSL(settings.smtp_host, settings.smtp_port, timeout=20)
+    else:
+        server = smtplib.SMTP(settings.smtp_host, settings.smtp_port, timeout=20)
+    server.ehlo()
+    if settings.smtp_use_tls and settings.smtp_port != 465:
+        server.starttls()
+        server.ehlo()
+    server.login(settings.smtp_username or "", settings.smtp_password or "")
+    return server
 
+
+def _create_message(to_email: str, subject: str, html: str, text: str) -> MIMEMultipart:
+    settings = get_settings()
     message = MIMEMultipart("alternative")
     message["Subject"] = subject
     message["From"] = formataddr((settings.email_from_name, settings.sender_email or ""))
     message["To"] = to_email
     message.attach(MIMEText(text, "plain", "utf-8"))
     message.attach(MIMEText(html, "html", "utf-8"))
+    return message
 
-    with smtplib.SMTP(settings.smtp_host, settings.smtp_port, timeout=20) as server:
-        server.ehlo()
-        if settings.smtp_use_tls:
-            server.starttls()
-            server.ehlo()
-        server.login(settings.smtp_username or "", settings.smtp_password or "")
+
+def _send(to_email: str, subject: str, html: str, text: str) -> None:
+    settings = get_settings()
+    message = _create_message(to_email, subject, html, text)
+    with _connect_smtp() as server:
         server.sendmail(settings.sender_email or "", [to_email], message.as_string())
 
 
 def send_password_reset(to_email: str, name: str, reset_url: str) -> None:
-    subject = "Reset your Hajri.ai password"
+    settings = get_settings()
+    subject = f"Reset your {settings.app_name} password"
     text = (
         f"Hi {name},\n\n"
-        f"Use this link to reset your Hajri.ai password. It expires in 30 minutes.\n{reset_url}\n\n"
+        f"Use this link to reset your {settings.app_name} password. It expires in 30 minutes.\n{reset_url}\n\n"
         "If you did not request this, you can ignore this email."
     )
     html = f"""
@@ -58,12 +72,13 @@ def send_password_reset(to_email: str, name: str, reset_url: str) -> None:
 
 
 def _low_attendance_message(name: str, subject_name: str, percentage: float, threshold: int) -> Tuple[str, str, str]:
+    settings = get_settings()
     subject = f"Low attendance in {subject_name}"
     text = (
         f"Hi {name},\n\n"
         f"Your attendance in {subject_name} is {percentage:.1f}%, below the "
         f"{threshold}% requirement. Please meet your teacher to catch up.\n\n"
-        "— Hajri.ai"
+        f"— {settings.app_name}"
     )
     html = f"""
     <div style="font-family:Segoe UI,Arial,sans-serif;max-width:520px;margin:auto;padding:24px">
@@ -73,31 +88,38 @@ def _low_attendance_message(name: str, subject_name: str, percentage: float, thr
       <strong style="color:#b91c1c">{percentage:.1f}%</strong>, below the
       {threshold}% requirement.</p>
       <p>Please meet your teacher to plan how to catch up.</p>
-      <p style="color:#6b7280;font-size:13px">— Hajri.ai</p>
+      <p style="color:#6b7280;font-size:13px">— {settings.app_name}</p>
     </div>
     """
     return subject, html, text
 
 
 def send_defaulter_emails(students: Sequence[ReportStudent], subject_name: str, threshold: int) -> int:
-    """Send low-attendance emails. Returns the number sent successfully."""
+    """Send low-attendance emails over a shared SMTP session. Returns the number sent successfully."""
     settings = get_settings()
     if not settings.smtp_configured:
         logger.warning("Skipping defaulter emails: SMTP is not configured.")
         return 0
 
+    valid_students = [s for s in students if s.email and "@" in s.email]
+    if not valid_students:
+        return 0
+
     sent = 0
-    for student in students:
-        if not student.email or "@" not in student.email:
-            continue
-        subject, html, text = _low_attendance_message(
-            student.name, subject_name, student.percentage, threshold
-        )
-        try:
-            _send(student.email, subject, html, text)
-            sent += 1
-        except Exception as exc:  # pragma: no cover - network dependent
-            logger.error("Failed to email %s: %s", student.email, exc)
+    try:
+        with _connect_smtp() as server:
+            for student in valid_students:
+                subject, html, text = _low_attendance_message(
+                    student.name, subject_name, student.percentage, threshold
+                )
+                try:
+                    message = _create_message(student.email, subject, html, text)
+                    server.sendmail(settings.sender_email or "", [student.email], message.as_string())
+                    sent += 1
+                except Exception as exc:  # pragma: no cover - network dependent
+                    logger.error("Failed to email %s: %s", student.email, exc)
+    except Exception as exc:  # pragma: no cover - network dependent
+        logger.error("SMTP connection failed: %s", exc)
     return sent
 
 

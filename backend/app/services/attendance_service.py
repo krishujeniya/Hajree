@@ -63,7 +63,7 @@ def get_dashboard(db: Session, subject_id: int, threshold: int) -> DashboardOut:
             if student_marks.get(lecture.id) == AttendanceStatus.PRESENT
         )
         total_present += present
-        percentage = (present / total_lectures * 100) if total_lectures else 0.0
+        percentage = (present / total_lectures * 100) if total_lectures else 100.0
         report_students.append(
             ReportStudent(
                 user_id=student.user_id,
@@ -81,9 +81,13 @@ def get_dashboard(db: Session, subject_id: int, threshold: int) -> DashboardOut:
         )
 
     report_students.sort(key=lambda item: item.name.lower())
-    defaulters = sorted(
-        [student for student in report_students if student.percentage < threshold],
-        key=lambda item: (item.percentage, item.name.lower()),
+    defaulters = (
+        sorted(
+            [student for student in report_students if student.percentage < threshold],
+            key=lambda item: (item.percentage, item.name.lower()),
+        )
+        if total_lectures > 0
+        else []
     )
 
     trends: List[TrendPoint] = []
@@ -105,7 +109,7 @@ def get_dashboard(db: Session, subject_id: int, threshold: int) -> DashboardOut:
         )
 
     possible = len(students) * total_lectures
-    overall = (total_present / possible * 100) if possible else 0.0
+    overall = (total_present / possible * 100) if possible else 100.0
 
     return DashboardOut(
         subject=SubjectBrief(id=subject.id, name=subject.name),

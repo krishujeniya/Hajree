@@ -92,6 +92,39 @@ def test_register_duplicate_username_conflict(client):
     assert response.status_code == 409
 
 
+def test_register_disallows_teacher_role(client):
+    # Arrange
+    payload = {
+        "username": "fakefaculty",
+        "name": "Fake Faculty",
+        "email": "faculty@example.com",
+        "password": "Password123!",
+        "role": "teacher",
+    }
+
+    # Act
+    response = client.post("/api/auth/register", json=payload)
+
+    # Assert
+    assert response.status_code == 422
+
+
+def test_register_duplicate_email_conflict(client):
+    # Arrange (admin@example.com is seeded in db)
+    payload = {
+        "username": "imposteradmin",
+        "name": "Imposter",
+        "email": "ADMIN@example.com",
+        "password": "Password123!",
+    }
+
+    # Act
+    response = client.post("/api/auth/register", json=payload)
+
+    # Assert
+    assert response.status_code == 409
+
+
 def test_auth_me_authenticated(client, student_headers):
     # Act
     response = client.get("/api/auth/me", headers=student_headers)

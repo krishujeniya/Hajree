@@ -98,3 +98,43 @@ def test_manual_attendance_mark_by_enrollment(client, teacher_headers):
     student_record = next((s for s in data["students"] if s["enrollment"] == "240233111029"), None)
     assert student_record is not None
     assert student_record["status"] == "P"
+
+
+def test_get_lecture_attendance_forbidden_for_student(client, student_headers):
+    # Act
+    response = client.get("/api/lectures/1/attendance", headers=student_headers)
+
+    # Assert
+    assert response.status_code == 403
+
+
+def test_attendance_dashboard_zero_lectures(client, teacher_headers, admin_headers):
+    # Arrange: create course with no lectures
+    sub_res = client.post(
+        "/api/subjects",
+        json={"name": "Zero Lecture Course", "code": "ZLC101"},
+        headers=admin_headers,
+    )
+    assert sub_res.status_code == 201
+    subject_id = sub_res.json()["id"]
+
+    # Assign teacher to course
+    assign_res = client.post(
+        f"/api/subjects/{subject_id}/teachers",
+        json={"user_id": 2},
+        headers=admin_headers,
+    )
+    assert assign_res.status_code == 201
+
+    # Act
+    response = client.get(
+        f"/api/attendance/dashboard?subject_id={subject_id}&threshold=75",
+        headers=teacher_headers,
+    )
+
+    # Assert
+    assert response.status_code == 200
+    data = response.json()
+    assert data["metrics"]["total_lectures"] == 0
+    assert data["metrics"]["overall_attendance"] == 100.0
+    assert len(data["defaulters"]) == 0

@@ -1,7 +1,10 @@
 import {
   AppMeta,
+  AttendanceStatus,
   AuthSession,
   DashboardOut,
+  EnrollmentStatusOut,
+  EnrollmentUploadOut,
   Lecture,
   LectureAttendanceOut,
   ReadinessResponse,
@@ -45,6 +48,7 @@ async function request<T>(
 
   const response = await fetch(`${BASE_URL}${endpoint}`, {
     ...options,
+    credentials: options.credentials || "include",
     headers,
   });
 
@@ -53,6 +57,7 @@ async function request<T>(
     try {
       const refreshRes = await fetch(`${BASE_URL}/auth/refresh`, {
         method: "POST",
+        credentials: "include",
       });
       if (refreshRes.ok) {
         const data = (await refreshRes.json()) as AuthSession;
@@ -60,6 +65,7 @@ async function request<T>(
         headers.set("Authorization", `Bearer ${data.access_token}`);
         const retryRes = await fetch(`${BASE_URL}${endpoint}`, {
           ...options,
+          credentials: options.credentials || "include",
           headers,
         });
         if (!retryRes.ok) {
@@ -165,17 +171,23 @@ export const api = {
     return request<void>(`/users/${userId}`, { method: "DELETE" });
   },
 
-  async uploadUserFace(userId: number, file: File): Promise<{ message: string; enrolled_count: number }> {
+  async uploadUserFace(userId: number, file: File): Promise<EnrollmentUploadOut> {
     const formData = new FormData();
     formData.append("file", file);
-    return request<{ message: string; enrolled_count: number }>(`/users/${userId}/face`, {
+    return request<EnrollmentUploadOut>(`/users/${userId}/face-images`, {
       method: "POST",
       body: formData,
     });
   },
 
-  async getUserFaceStatus(userId: number): Promise<{ user_id: number; enrolled_count: number; is_enrolled: boolean; target_count: number; images: string[] }> {
-    return request(`/users/${userId}/face`);
+  async getUserFaceStatus(userId: number): Promise<EnrollmentStatusOut> {
+    return request<EnrollmentStatusOut>(`/users/${userId}/face`);
+  },
+
+  async resetUserFace(userId: number): Promise<{ message: string }> {
+    return request<{ message: string }>(`/users/${userId}/face`, {
+      method: "DELETE",
+    });
   },
 
   // Subjects
@@ -206,8 +218,9 @@ export const api = {
   },
 
   async removeStudentFromSubject(subjectId: number, userId: number): Promise<void> {
-    return request<void>(`/subjects/${subjectId}/students/${userId}`, {
+    return request<void>(`/subjects/${subjectId}/students`, {
       method: "DELETE",
+      body: JSON.stringify({ user_ids: [userId] }),
     });
   },
 
@@ -233,7 +246,7 @@ export const api = {
 
   async saveLectureAttendance(
     lectureId: number,
-    records: { user_id: number; status: string }[]
+    records: { user_id: number; status: AttendanceStatus }[]
   ): Promise<LectureAttendanceOut> {
     return request<LectureAttendanceOut>(`/lectures/${lectureId}/attendance`, {
       method: "PUT",
@@ -251,20 +264,20 @@ export const api = {
     });
   },
 
-  exportCsvUrl(lectureId: number): string {
-    return `${BASE_URL}/lectures/${lectureId}/attendance/export/csv`;
+  exportCsvUrl(subjectId: number, threshold: number = 75): string {
+    return `${BASE_URL}/attendance/subjects/${subjectId}/export.csv?threshold=${threshold}`;
   },
 
-  exportPdfUrl(lectureId: number): string {
-    return `${BASE_URL}/lectures/${lectureId}/attendance/export/pdf`;
+  exportPdfUrl(subjectId: number, threshold: number = 75): string {
+    return `${BASE_URL}/attendance/subjects/${subjectId}/export.pdf?threshold=${threshold}`;
   },
 
   async notifyLowAttendance(
-    lectureId: number,
+    subjectId: number,
     threshold: number = 75
-  ): Promise<{ queued: number }> {
-    return request<{ queued: number }>(
-      `/lectures/${lectureId}/attendance/notify?threshold=${threshold}`,
+  ): Promise<{ queued: number; skipped?: number }> {
+    return request<{ queued: number; skipped?: number }>(
+      `/attendance/subjects/${subjectId}/notify-defaulters?threshold=${threshold}`,
       { method: "POST" }
     );
   },

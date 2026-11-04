@@ -83,6 +83,13 @@ def create_user(db: Session, payload: UserCreate) -> User:
     _validate_password(payload.password)
     if get_user_by_username(db, payload.username):
         raise ConflictError(f"Username '{payload.username}' is already taken.")
+    if payload.email:
+        norm_email = str(payload.email).strip().lower()
+        existing_email = db.execute(
+            select(User).where(func.lower(User.email) == norm_email)
+        ).first()
+        if existing_email:
+            raise ConflictError(f"Email '{payload.email}' is already in use.")
     user = User(
         username=payload.username,
         name=payload.name,
@@ -100,6 +107,13 @@ def update_user(db: Session, user: User, payload: UserAdminUpdate) -> User:
     if payload.name is not None:
         user.name = payload.name.strip()
     if payload.email is not None:
+        new_email = str(payload.email).strip().lower() if payload.email else None
+        if new_email and new_email != (user.email.lower() if user.email else None):
+            existing_email = db.execute(
+                select(User).where(func.lower(User.email) == new_email, User.id != user.id)
+            ).first()
+            if existing_email:
+                raise ConflictError(f"Email '{payload.email}' is already in use.")
         user.email = str(payload.email) if payload.email else None
     if payload.is_active is not None:
         user.is_active = payload.is_active
@@ -130,8 +144,16 @@ def update_profile(db: Session, user: User, name: str, email: Optional[str]) -> 
     name = name.strip()
     if len(name) < 2:
         raise ValidationError("Name must be at least 2 characters long.")
+    if email:
+        norm_email = email.strip().lower()
+        if norm_email != (user.email.lower() if user.email else None):
+            existing = db.execute(
+                select(User).where(func.lower(User.email) == norm_email, User.id != user.id)
+            ).first()
+            if existing:
+                raise ConflictError(f"Email '{email}' is already in use.")
     user.name = name
-    user.email = email
+    user.email = email.strip() if email else None
     db.commit()
     db.refresh(user)
     return user

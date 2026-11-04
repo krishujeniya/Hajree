@@ -33,15 +33,12 @@ export const Badge: React.FC<BadgeProps> = ({
       label = label || "Student";
     }
   } else if (status) {
-    if (status === "present") {
+    if (status === "P") {
       customStyle = "bg-zinc-100 text-black dark:bg-white dark:text-black font-bold border-transparent";
       label = label || "Present";
-    } else if (status === "absent") {
+    } else {
       customStyle = "border border-zinc-600 bg-transparent text-zinc-400 font-medium";
       label = label || "Absent";
-    } else {
-      customStyle = "border border-zinc-500 bg-zinc-900 text-zinc-300 font-medium";
-      label = label || "Late";
     }
   } else if (variant === "solid") {
     customStyle = "bg-black text-white dark:bg-white dark:text-black font-bold";

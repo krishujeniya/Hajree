@@ -71,3 +71,10 @@ def test_student_attendance_me(client, student_headers):
     assert "overall_percentage" in data
     assert "subjects" in data
     assert len(data["subjects"]) >= 1
+
+
+def test_spa_static_path_traversal(client):
+    response = client.get("/../../../etc/passwd")
+    assert response.status_code in (404, 200)
+    # Ensure arbitrary system file is never returned
+    assert "root:x:" not in response.text

@@ -3,7 +3,7 @@ from __future__ import annotations
 from datetime import datetime, timedelta, timezone
 from typing import Optional, Tuple
 
-from sqlalchemy import select
+from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
 from app.core.errors import AuthenticationError, ValidationError
@@ -44,7 +44,14 @@ def change_password(db: Session, user: User, current_password: str, new_password
 
 def create_password_reset(db: Session, email: str) -> Optional[Tuple[User, str]]:
     """Create a single-use reset token. Returns None when the account is unknown."""
-    user = db.execute(select(User).where(User.email == email.strip())).scalar_one_or_none()
+    normalized_email = email.strip().lower()
+    user = (
+        db.execute(
+            select(User).where(func.lower(User.email) == normalized_email)
+        )
+        .scalars()
+        .first()
+    )
     if not user or not user.is_active:
         return None
 

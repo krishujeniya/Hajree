@@ -52,13 +52,23 @@ const AppContent: React.FC = () => {
     return <LoginPage onSwitchToRegister={() => setAuthView("register")} />;
   }
 
-  // Determine current active tab if not set
-  let currentTab = activeTab;
-  if (!currentTab) {
-    if (user.role === "admin") currentTab = "admin-overview";
-    else if (user.role === "teacher") currentTab = "teacher-dashboard";
-    else currentTab = "student-dashboard";
-  }
+  // Determine current active tab based on authorized role
+  const defaultTabForRole = (role: string) => {
+    if (role === "admin") return "admin-overview";
+    if (role === "teacher") return "teacher-dashboard";
+    return "student-dashboard";
+  };
+
+  const allowedTabsForRole = (role: string) => {
+    if (role === "admin") return ["admin-overview", "admin-users", "admin-subjects", "admin-health"];
+    if (role === "teacher") return ["teacher-dashboard", "teacher-ai-attendance", "teacher-manual", "teacher-reports"];
+    return ["student-dashboard", "student-history", "student-face"];
+  };
+
+  const currentTab =
+    activeTab && allowedTabsForRole(user.role).includes(activeTab)
+      ? activeTab
+      : defaultTabForRole(user.role);
 
   return (
     <DashboardLayout activeTab={currentTab} onSelectTab={setActiveTab}>

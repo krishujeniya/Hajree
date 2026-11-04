@@ -22,6 +22,7 @@ export const FaceEnrollmentView: React.FC = () => {
   const [faceStatus, setFaceStatus] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [uploading, setUploading] = useState(false);
+  const [resetting, setResetting] = useState(false);
 
   // Camera state
   const [cameraActive, setCameraActive] = useState(false);
@@ -89,7 +90,7 @@ export const FaceEnrollmentView: React.FC = () => {
           type: "image/jpeg",
         });
         const res = await api.uploadUserFace(user.id, file);
-        toast.success(res.message || "Face image added successfully!");
+        toast.success(`Face image enrolled (${res.count}/${res.target}).`);
         await fetchStatus();
         await refreshUser();
       } catch (err: any) {
@@ -107,7 +108,7 @@ export const FaceEnrollmentView: React.FC = () => {
     setUploading(true);
     try {
       const res = await api.uploadUserFace(user.id, file);
-      toast.success(res.message || "Face image enrolled!");
+      toast.success(`Face image enrolled (${res.count}/${res.target}).`);
       await fetchStatus();
       await refreshUser();
     } catch (err: any) {
@@ -117,9 +118,27 @@ export const FaceEnrollmentView: React.FC = () => {
     }
   };
 
-  const enrolledCount = faceStatus?.enrolled_count || 0;
-  const target = faceStatus?.target_count || 10;
-  const isComplete = enrolledCount >= target;
+  const handleResetFace = async () => {
+    if (!user) return;
+    if (!window.confirm("Are you sure you want to reset your face profile? All enrolled face photos will be deleted.")) {
+      return;
+    }
+    setResetting(true);
+    try {
+      const res = await api.resetUserFace(user.id);
+      toast.success(res.message || "Face profile reset successfully.");
+      await fetchStatus();
+      await refreshUser();
+    } catch (err: any) {
+      toast.error(err.message || "Failed to reset face profile.");
+    } finally {
+      setResetting(false);
+    }
+  };
+
+  const enrolledCount = faceStatus?.count ?? 0;
+  const target = faceStatus?.target ?? 10;
+  const isComplete = faceStatus?.ready ?? (enrolledCount >= target);
 
   return (
     <div className="space-y-6">
@@ -132,6 +151,17 @@ export const FaceEnrollmentView: React.FC = () => {
             Train the AI neural network with your photos to enable automated attendance recognition
           </p>
         </div>
+        {enrolledCount > 0 && (
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={handleResetFace}
+            loading={resetting}
+            icon={<RefreshCw className="w-3.5 h-3.5" />}
+          >
+            Reset Face Profile
+          </Button>
+        )}
       </div>
 
       {/* Progress Hero */}

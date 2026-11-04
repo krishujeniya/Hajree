@@ -1,6 +1,6 @@
 export type Role = "admin" | "teacher" | "student";
 
-export type AttendanceStatus = "present" | "absent" | "late";
+export type AttendanceStatus = "P" | "A";
 
 export interface User {
   id: number;
@@ -10,11 +10,13 @@ export interface User {
   role: Role;
   is_active: boolean;
   created_at: string;
-  face_count: number;
+  face_image_count: number;
+  face_count?: number;
 }
 
 export interface AuthSession {
   access_token: string;
+  token_type?: string;
   expires_in: number;
   user: User;
 }
@@ -29,11 +31,10 @@ export interface Subject {
 }
 
 export interface StudentInSubject {
-  id: number;
-  username: string;
+  user_id: number;
+  enrollment: string;
   name: string;
   email?: string | null;
-  face_count: number;
 }
 
 export interface Lecture {
@@ -120,23 +121,47 @@ export interface StudentReportOut {
   subjects: StudentSubjectReport[];
 }
 
-export interface RecognitionMatch {
-  user_id: number;
-  username: string;
-  name: string;
-  distance: number;
-  confidence: number;
+export interface FaceArea {
+  x: number;
+  y: number;
+  w: number;
+  h: number;
 }
 
-export interface RecognitionFace {
-  box: [number, number, number, number];
-  match?: RecognitionMatch | null;
+export interface RecognizedFace {
+  index: number;
+  matched: boolean;
+  user_id?: number | null;
+  enrollment?: string | null;
+  name?: string | null;
+  distance?: number | null;
+  confidence: number;
+  is_real: boolean;
+  area: FaceArea;
 }
 
 export interface RecognitionOut {
-  total_faces: number;
-  matches: RecognitionMatch[];
-  faces: RecognitionFace[];
+  width: number;
+  height: number;
+  faces: RecognizedFace[];
+  matched_count: number;
+  unmatched_count: number;
+  elapsed_ms: number;
+}
+
+export interface EnrollmentStatusOut {
+  user_id: number;
+  username: string;
+  count: number;
+  target: number;
+  ready: boolean;
+}
+
+export interface EnrollmentUploadOut {
+  count: number;
+  target: number;
+  ready: boolean;
+  face_confidence: number;
 }
 
 export interface AppMeta {

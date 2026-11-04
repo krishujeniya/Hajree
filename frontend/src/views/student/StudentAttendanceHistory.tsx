@@ -118,12 +118,12 @@ export const StudentAttendanceHistory: React.FC = () => {
                     <td className="px-6 py-4 text-right">
                       <span
                         className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold uppercase ${
-                          rec.status === "present"
+                          rec.status === "P"
                             ? "bg-foreground text-background shadow-xs"
                             : "bg-muted text-muted-foreground border border-border"
                         }`}
                       >
-                        {rec.status === "present" ? (
+                        {rec.status === "P" ? (
                           <>
                             <CheckCircle2 className="w-3.5 h-3.5" />
                             <span>Present</span>

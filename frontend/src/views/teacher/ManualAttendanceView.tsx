@@ -83,7 +83,7 @@ export const ManualAttendanceView: React.FC = () => {
 
   const markAll = (status: AttendanceStatus) => {
     setStudents((prev) => prev.map((s) => ({ ...s, status })));
-    toast.info(`Marked all students as ${status}`);
+    toast.info(`Marked all students as ${status === "P" ? "Present" : "Absent"}`);
   };
 
   const handleSave = async () => {
@@ -120,7 +120,7 @@ export const ManualAttendanceView: React.FC = () => {
     }
   };
 
-  const presentCount = students.filter((s) => s.status === "present").length;
+  const presentCount = students.filter((s) => s.status === "P").length;
   const absentCount = students.length - presentCount;
 
   return (
@@ -173,14 +173,14 @@ export const ManualAttendanceView: React.FC = () => {
             <Button
               size="sm"
               variant="outline"
-              onClick={() => markAll("present")}
+              onClick={() => markAll("P")}
             >
               Mark All Present
             </Button>
             <Button
               size="sm"
               variant="outline"
-              onClick={() => markAll("absent")}
+              onClick={() => markAll("A")}
             >
               Mark All Absent
             </Button>
@@ -252,20 +252,20 @@ export const ManualAttendanceView: React.FC = () => {
                     <td className="px-5 py-3">
                       <span
                         className={`text-[10px] font-bold px-2 py-0.5 rounded-full uppercase ${
-                          s.status === "present"
+                          s.status === "P"
                             ? "bg-foreground text-background"
                             : "bg-muted text-muted-foreground border border-border"
                         }`}
                       >
-                        {s.status}
+                        {s.status === "P" ? "Present" : "Absent"}
                       </span>
                     </td>
                     <td className="px-5 py-3 text-right">
                       <div className="inline-flex rounded-lg border border-border p-0.5 bg-background">
                         <button
-                          onClick={() => setStatus(s.user_id, "present")}
+                          onClick={() => setStatus(s.user_id, "P")}
                           className={`px-2.5 py-1 text-xs font-semibold rounded-md tactile-button ${
-                            s.status === "present"
+                            s.status === "P"
                               ? "bg-foreground text-background shadow-sm"
                               : "text-muted-foreground hover:text-foreground"
                           }`}
@@ -273,9 +273,9 @@ export const ManualAttendanceView: React.FC = () => {
                           Present
                         </button>
                         <button
-                          onClick={() => setStatus(s.user_id, "absent")}
+                          onClick={() => setStatus(s.user_id, "A")}
                           className={`px-2.5 py-1 text-xs font-semibold rounded-md tactile-button ${
-                            s.status === "absent"
+                            s.status === "A"
                               ? "bg-foreground text-background shadow-sm"
                               : "text-muted-foreground hover:text-foreground"
                           }`}

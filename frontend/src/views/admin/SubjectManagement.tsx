@@ -113,14 +113,14 @@ export const SubjectManagement: React.FC = () => {
     try {
       await api.removeStudentFromSubject(selectedSubject.id, userId);
       toast.success("Student unenrolled");
-      setEnrolledStudents((prev) => prev.filter((s) => s.id !== userId));
+      setEnrolledStudents((prev) => prev.filter((s) => s.user_id !== userId));
       fetchData();
     } catch (err: any) {
       toast.error(err.message || "Failed to remove student");
     }
   };
 
-  const enrolledIds = new Set(enrolledStudents.map((s) => s.id));
+  const enrolledIds = new Set(enrolledStudents.map((s) => s.user_id));
   const availableStudents = allUsers.filter((u) => !enrolledIds.has(u.id));
 
   return (
@@ -278,17 +278,17 @@ export const SubjectManagement: React.FC = () => {
             ) : (
               enrolledStudents.map((s) => (
                 <div
-                  key={s.id}
+                  key={s.user_id}
                   className="flex items-center justify-between p-3 hover:bg-muted/30 transition-colors"
                 >
                   <div>
                     <p className="text-sm font-semibold text-foreground tracking-tight">{s.name}</p>
                     <p className="text-xs text-muted-foreground font-mono">
-                      @{s.username} • {s.face_count}/10 Face Models
+                      @{s.enrollment} {s.email ? `• ${s.email}` : ""}
                     </p>
                   </div>
                   <button
-                    onClick={() => handleRemoveStudent(s.id)}
+                    onClick={() => handleRemoveStudent(s.user_id)}
                     className="p-1.5 rounded-lg text-muted-foreground hover:text-white hover:bg-zinc-800 apple-button"
                     title="Remove from course"
                   >

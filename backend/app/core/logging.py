@@ -56,7 +56,7 @@ class RequestContextMiddleware(BaseHTTPMiddleware):
 
     def __init__(self, app: ASGIApp) -> None:
         super().__init__(app)
-        self.logger = logging.getLogger("hajri.request")
+        self.logger = logging.getLogger("hajree.request")
 
     async def dispatch(self, request: Request, call_next):
         request_id = request.headers.get("x-request-id") or uuid.uuid4().hex

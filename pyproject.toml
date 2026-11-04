@@ -47,6 +47,7 @@ filterwarnings = [
 line-length = 100
 target-version = "py39"
 src = ["backend"]
+exclude = ["src", "assets", "frontend"]
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "B", "UP", "SIM"]

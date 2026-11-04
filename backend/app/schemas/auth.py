@@ -23,8 +23,8 @@ class RegisterRequest(BaseModel):
     @field_validator("role")
     @classmethod
     def restrict_roles(cls, value: Role) -> Role:
-        if value == Role.ADMIN:
-            raise ValueError("Admin accounts can only be created by an administrator")
+        if value != Role.STUDENT:
+            raise ValueError("Only student accounts can be created through self-registration")
         return value
 
     @field_validator("email", mode="before")

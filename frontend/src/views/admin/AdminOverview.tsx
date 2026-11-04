@@ -36,7 +36,7 @@ export const AdminOverview: React.FC<AdminOverviewProps> = ({ onNavigate }) => {
   const teachersCount = users.filter((u) => u.role === "teacher").length;
   const enrolledFacesCount = users
     .filter((u) => u.role === "student")
-    .reduce((acc, u) => acc + (u.face_count > 0 ? 1 : 0), 0);
+    .reduce((acc, u) => acc + ((u.face_image_count ?? 0) > 0 ? 1 : 0), 0);
 
   const stats = [
     {
@@ -212,7 +212,7 @@ export const AdminOverview: React.FC<AdminOverviewProps> = ({ onNavigate }) => {
                     </div>
                   </div>
                   <span className="text-[10px] font-bold px-2 py-0.5 rounded-full border border-border bg-muted/40 text-foreground font-mono">
-                    {u.role === "student" ? `${u.face_count}/10 Faces` : u.role}
+                    {u.role === "student" ? `${u.face_image_count ?? 0}/10 Faces` : u.role}
                   </span>
                 </div>
               ))}

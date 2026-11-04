@@ -122,12 +122,29 @@ export const UserManagement: React.FC = () => {
     setFaceLoading(true);
     try {
       const res = await api.uploadUserFace(faceModalUser.id, file);
-      toast.success(res.message || "Face image enrolled.");
+      toast.success(`Face image enrolled (${res.count}/${res.target}).`);
       const status = await api.getUserFaceStatus(faceModalUser.id);
       setFaceStatus(status);
       fetchUsers();
     } catch (err: any) {
       toast.error(err.message || "Face processing failed");
+    } finally {
+      setFaceLoading(false);
+    }
+  };
+
+  const handleResetFace = async () => {
+    if (!faceModalUser) return;
+    if (!window.confirm(`Reset face profile for ${faceModalUser.name}? All biometric images will be removed.`)) return;
+    setFaceLoading(true);
+    try {
+      await api.resetUserFace(faceModalUser.id);
+      toast.success("Biometric face profile reset successfully.");
+      const status = await api.getUserFaceStatus(faceModalUser.id);
+      setFaceStatus(status);
+      fetchUsers();
+    } catch (err: any) {
+      toast.error(err.message || "Failed to reset face profile");
     } finally {
       setFaceLoading(false);
     }
@@ -243,7 +260,7 @@ export const UserManagement: React.FC = () => {
                           className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg border border-border bg-background hover:bg-muted text-[11px] font-mono apple-button transition-colors"
                         >
                           <Camera className="w-3.5 h-3.5" />
-                          <span>{u.face_count} / 10 Faces</span>
+                          <span>{u.face_image_count ?? 0} / 10 Faces</span>
                         </button>
                       ) : (
                         <span className="text-muted-foreground">N/A</span>
@@ -390,7 +407,7 @@ export const UserManagement: React.FC = () => {
               </p>
             </div>
             <span className="text-sm font-bold font-mono text-foreground">
-              {faceStatus?.enrolled_count || 0} / 10 Enrolled
+              {faceStatus?.count ?? 0} / {faceStatus?.target ?? 10} Enrolled
             </span>
           </div>
 
@@ -417,7 +434,19 @@ export const UserManagement: React.FC = () => {
             </label>
           </div>
 
-          <div className="flex justify-end pt-3 border-t border-border">
+          <div className="flex justify-between items-center pt-3 border-t border-border">
+            {(faceStatus?.count ?? 0) > 0 ? (
+              <Button
+                variant="danger"
+                size="sm"
+                onClick={handleResetFace}
+                disabled={faceLoading}
+              >
+                Reset Enrollment
+              </Button>
+            ) : (
+              <div />
+            )}
             <Button
               variant="secondary"
               onClick={() => setFaceModalUser(null)}

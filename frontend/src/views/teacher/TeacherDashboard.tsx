@@ -73,14 +73,7 @@ export const TeacherDashboard: React.FC = () => {
 
     setNotifying(true);
     try {
-      // Find latest lecture
-      const lectures = await api.listSubjectLectures(selectedSubjectId);
-      if (lectures.length === 0) {
-        toast.error("Please create at least one lecture first.");
-        return;
-      }
-      const latest = lectures[0];
-      const res = await api.notifyLowAttendance(latest.id, threshold);
+      const res = await api.notifyLowAttendance(selectedSubjectId, threshold);
       toast.success(
         `Dispatched low attendance notification emails to ${res.queued} students!`
       );

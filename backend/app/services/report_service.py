@@ -19,7 +19,7 @@ class AttendancePDF(FPDF):
     def header(self) -> None:
         self.set_font("Helvetica", "B", 16)
         self.set_text_color(30, 27, 75)
-        self.cell(0, 10, "Hajri.ai - Attendance Report", new_x=XPos.LMARGIN, new_y=YPos.NEXT, align="C")
+        self.cell(0, 10, "Hajree - Attendance Report", new_x=XPos.LMARGIN, new_y=YPos.NEXT, align="C")
         self.set_draw_color(99, 102, 241)
         self.set_line_width(0.6)
         self.line(self.l_margin, 22, self.w - self.r_margin, 22)
@@ -135,6 +135,6 @@ def build_pdf(dashboard: DashboardOut) -> bytes:
         0,
         5,
         "Per-lecture breakdown is available in the CSV export. "
-        "Generated automatically by Hajri.ai.",
+        "Generated automatically by Hajree.",
     )
     return bytes(pdf.output())
