@@ -57,7 +57,7 @@ export const StudentDashboard: React.FC<StudentDashboardProps> = ({
               <Sparkles className="w-3.5 h-3.5" />
               <span>Personal Attendance Summary</span>
             </div>
-            <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-foreground">
+            <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight text-foreground">
               Overall Attendance: {overall.toFixed(1)}%
             </h2>
             <p className="text-sm text-muted-foreground mt-2 max-w-lg">
@@ -104,7 +104,7 @@ export const StudentDashboard: React.FC<StudentDashboardProps> = ({
                 cx="50"
                 cy="50"
                 r="40"
-                className="stroke-foreground transition-all"
+                className="stroke-foreground transition-colors"
                 strokeWidth="10"
                 strokeDasharray="251.2"
                 strokeDashoffset={251.2 - (251.2 * Math.min(overall, 100)) / 100}
@@ -116,7 +116,7 @@ export const StudentDashboard: React.FC<StudentDashboardProps> = ({
               />
             </svg>
             <div className="absolute flex flex-col items-center justify-center text-center">
-              <span className="text-2xl font-extrabold text-foreground font-mono">
+              <span className="text-2xl font-semibold text-foreground font-mono">
                 {overall.toFixed(0)}%
               </span>
               <span className="text-[10px] text-muted-foreground uppercase font-bold tracking-wider">
@@ -185,7 +185,7 @@ export const StudentDashboard: React.FC<StudentDashboardProps> = ({
                     {/* Progress Bar */}
                     <div className="w-full bg-muted rounded-full h-2 overflow-hidden mb-2">
                       <div
-                        className={`h-full rounded-full transition-all duration-500 ${
+                        className={`h-full rounded-full transition-colors duration-500 ${
                           subEligible ? "bg-foreground" : "bg-muted-foreground/60"
                         }`}
                         style={{ width: `${Math.min(sub.percentage, 100)}%` }}
