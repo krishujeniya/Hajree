@@ -198,7 +198,7 @@ export const FaceEnrollmentView: React.FC = () => {
           <div className="w-full sm:w-48">
             <div className="w-full bg-muted rounded-full h-2.5 overflow-hidden mb-1.5">
               <div
-                className="bg-foreground h-full rounded-full transition-all duration-500"
+                className="bg-foreground h-full rounded-full transition-colors duration-500"
                 style={{
                   width: `${Math.min((enrolledCount / target) * 100, 100)}%`,
                 }}
