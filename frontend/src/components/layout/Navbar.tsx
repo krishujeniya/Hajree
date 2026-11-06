@@ -32,7 +32,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   }, []);
 
   return (
-    <header className="sticky top-0 z-30 h-16 border-b border-border/60 bg-background/70 backdrop-blur-2xl px-4 sm:px-8 flex items-center justify-between">
+    <header className="sticky top-0 z-30 h-16 border-b border-border/60 bg-background/70  px-4 sm:px-8 flex items-center justify-between">
       <div className="flex items-center gap-3">
         {onToggleMobileMenu && (
           <button
@@ -50,7 +50,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
       <div className="flex items-center gap-3">
         {/* System Health Pulse - Apple style monochrome */}
-        <div className="hidden sm:flex items-center gap-2 px-3 py-1 rounded-full border border-border/80 bg-muted/40 text-[11px] font-medium text-foreground">
+        <div className="hidden sm:flex items-center gap-2 px-3 py-1 rounded-full border border-border/80 bg-muted/40 text-xs font-medium text-foreground">
           {isReady === true ? (
             <>
               <span className="w-2 h-2 rounded-full bg-white dark:bg-white animate-pulse" />
@@ -89,7 +89,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               <p className="text-xs font-semibold text-foreground leading-tight tracking-tight">
                 {user.name}
               </p>
-              <p className="text-[10px] text-muted-foreground leading-tight font-mono">
+              <p className="text-xs text-muted-foreground leading-tight font-mono">
                 @{user.username}
               </p>
             </div>
