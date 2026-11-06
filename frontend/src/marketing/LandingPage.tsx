@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   ArrowRight, ArrowUpRight, BookOpen, Camera, Check, CheckCircle2,
   ChevronLeft, ChevronRight, ClipboardCheck, Code2, Download,
@@ -80,121 +80,6 @@ const faqs = [
     a: "Clone the repository and run python run.py for local development, or build and deploy the included Docker configuration. Set strong production credentials and review privacy, consent, and security requirements before use with real biometric data.",
   },
 ] as const;
-
-type Dot = {
-  x: number; y: number; vx: number; vy: number; radius: number; phase: number; depth: number;
-};
-
-/** Decorative canvas. Never conveys recognition results or blocks interaction. */
-function ParticleField() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    const ctx = canvas?.getContext("2d");
-    if (!canvas || !ctx) return;
-
-    const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const saveData = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData;
-    let visible = true;
-    let raf = 0;
-    let width = 1;
-    let height = 1;
-    let last = 0;
-    let dots: Dot[] = [];
-    let pointer: { x: number; y: number } | null = null;
-
-    const resize = () => {
-      const bounds = canvas.getBoundingClientRect();
-      width = Math.max(1, bounds.width);
-      height = Math.max(1, bounds.height);
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      canvas.width = Math.round(width * dpr);
-      canvas.height = Math.round(height * dpr);
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      const count = width < 450 ? 32 : 72;
-      dots = Array.from({ length: count }, (_, i) => ({
-        x: (i * 117.37 % 101) / 101 * width,
-        y: (i * 63.59 % 103) / 103 * height,
-        vx: 0, vy: 0,
-        radius: 1.1 + (i % 5) * 0.45,
-        phase: i * 2.39,
-        depth: 0.4 + (i % 7) / 9,
-      }));
-      render(0, true);
-    };
-
-    const render = (time: number, still = false) => {
-      ctx.clearRect(0, 0, width, height);
-      const delta = last ? Math.min((time - last) / 16.67, 2) : 1;
-      last = time;
-      dots.forEach((dot, i) => {
-        if (!still) {
-          dot.vx += Math.sin(time / 2100 + dot.phase) * 0.007 * delta;
-          dot.vy += (Math.cos(time / 2600 + dot.phase) * 0.009 - 0.002) * delta;
-          if (pointer) {
-            const dx = dot.x - pointer.x;
-            const dy = dot.y - pointer.y;
-            const distance = Math.hypot(dx, dy) || 1;
-            if (distance < 116) {
-              const force = (1 - distance / 116) * 0.35 * delta;
-              dot.vx += dx / distance * force;
-              dot.vy += dy / distance * force;
-            }
-          }
-          dot.vx = Math.max(-0.8, Math.min(0.8, dot.vx * 0.96));
-          dot.vy = Math.max(-0.8, Math.min(0.8, dot.vy * 0.96));
-          dot.x = (dot.x + dot.vx * delta + width) % width;
-          dot.y = (dot.y + dot.vy * delta + height) % height;
-        }
-        ctx.fillStyle = i % 5 === 0 ? "rgba(91,82,214,.26)" : "rgba(68,72,83,.19)";
-        ctx.beginPath();
-        ctx.arc(dot.x, dot.y, dot.radius * dot.depth, 0, Math.PI * 2);
-        ctx.fill();
-      });
-    };
-
-    const shouldAnimate = () => !motion.matches && !saveData && visible && !document.hidden;
-    const frame = (time: number) => {
-      render(time);
-      if (shouldAnimate()) raf = window.requestAnimationFrame(frame);
-    };
-    const restart = () => {
-      window.cancelAnimationFrame(raf);
-      last = 0;
-      if (shouldAnimate()) raf = window.requestAnimationFrame(frame);
-      else render(0, true);
-    };
-    const move = (event: PointerEvent) => {
-      const rect = canvas.getBoundingClientRect();
-      pointer = { x: event.clientX - rect.left, y: event.clientY - rect.top };
-    };
-    const clearPointer = () => { pointer = null; };
-    const observer = typeof IntersectionObserver !== "undefined"
-      ? new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; restart(); }, { threshold: 0 })
-      : null;
-
-    resize();
-    observer?.observe(canvas);
-    window.addEventListener("resize", resize, { passive: true });
-    canvas.addEventListener("pointermove", move, { passive: true });
-    canvas.addEventListener("pointerleave", clearPointer);
-    document.addEventListener("visibilitychange", restart);
-    motion.addEventListener("change", restart);
-    restart();
-    return () => {
-      window.cancelAnimationFrame(raf);
-      observer?.disconnect();
-      window.removeEventListener("resize", resize);
-      canvas.removeEventListener("pointermove", move);
-      canvas.removeEventListener("pointerleave", clearPointer);
-      document.removeEventListener("visibilitychange", restart);
-      motion.removeEventListener("change", restart);
-    };
-  }, []);
-
-  return <canvas ref={canvasRef} className="hm-particles" aria-hidden="true" />;
-}
 
 function Brand({ light = false }: { light?: boolean }) {
   return (
@@ -289,9 +174,8 @@ export function LandingPage() {
       <main id="main">
         <section className="hm-hero hm-container" aria-labelledby="hm-title">
           <div className="hm-hero-copy" data-reveal>
-            <div className="hm-eyebrow"><span className="hm-eyebrow-symbol">✳</span> YOUR CLASSROOM, IN SYNC</div>
-            <h1 id="hm-title">Attendance, <span>without the</span> guesswork<span className="hm-display-dot">.</span></h1>
-            <p>From class capture to a verified register, Hajree brings faculty, students and administrators into one clear attendance workflow.</p>
+            <h1 id="hm-title">Attendance your faculty can verify.</h1>
+            <p>Capture classroom attendance, review recognition suggestions and confirm the register. Faculty stay in control of the final record.</p>
             <div className="hm-hero-actions">
               <a href="/login" className="hm-pill hm-pill--dark hm-pill--large">Open Hajree <ArrowUpRight size={17} /></a>
               <a href="#how-it-works" className="hm-pill hm-pill--outline hm-pill--large">See how it works <ArrowRight size={17} /></a>
@@ -301,33 +185,16 @@ export function LandingPage() {
               <span>Open source · Human-reviewed recognition · Self-hostable</span>
             </div>
           </div>
-          <div className="hm-hero-art" aria-label="Illustrative overview of a classroom attendance review">
-            <ParticleField />
-            <div className="hm-float-tag hm-float-tag--top"><span className="hm-status-dot" /> Classroom workflow</div>
-            <div className="hm-demo" data-reveal>
-              <div className="hm-demo-top">
-                <div className="hm-demo-logo"><img src="/logo.svg" width="24" height="24" alt="" /><strong>hajree</strong></div>
-                <span className="hm-demo-context">Faculty workspace</span>
-                <span className="hm-demo-dots" aria-hidden="true"><i/><i/><i/></span>
-              </div>
-              <div className="hm-demo-body">
-                <div className="hm-demo-title"><div><span className="hm-demo-kicker">CLASSROOM / TODAY</span><h2>Attendance review</h2></div><span className="hm-demo-pill">Illustrative</span></div>
-                <div className="hm-scan-board">
-                  <div className="hm-scan-orbit hm-scan-orbit--outer" aria-hidden="true"/>
-                  <div className="hm-scan-orbit hm-scan-orbit--inner" aria-hidden="true"/>
-                  <div className="hm-scan-center"><ScanFace size={33} strokeWidth={1.55}/><span>Review first.</span><small>Then confirm.</small></div>
-                  <span className="hm-scan-node hm-scan-node--one"><Check size={14}/></span>
-                  <span className="hm-scan-node hm-scan-node--two"><Check size={14}/></span>
-                  <span className="hm-scan-node hm-scan-node--three"><Check size={14}/></span>
-                </div>
-                <div className="hm-preview-bottom">
-                  <div><span className="hm-demo-kicker">HUMAN-IN-THE-LOOP</span><strong>Every suggestion gets a second look.</strong></div>
-                  <span className="hm-review-tag"><CheckCircle2 size={15}/> Faculty review</span>
-                </div>
-              </div>
+          <div className="hm-hero-art hm-hero-art--register" aria-label="Illustrative faculty attendance review">
+            <div className="hm-register-preview">
+              <div className="hm-register-head"><div><small>Faculty workspace · Example</small><h2>Review attendance</h2></div><span className="hm-register-state">Needs faculty confirmation</span></div>
+              <div className="hm-register-meta"><span>Course attendance</span><span>Illustrative records, not live data</span></div>
+              <div className="hm-register-row hm-register-row--head"><span>Student</span><span>Recognition suggestion</span><span>Faculty action</span></div>
+              <div className="hm-register-row"><span>Student A</span><span>Suggested present</span><strong>Review</strong></div>
+              <div className="hm-register-row"><span>Student B</span><span>Needs verification</span><strong>Review</strong></div>
+              <div className="hm-register-row"><span>Student C</span><span>Manual attendance</span><strong>Review</strong></div>
+              <div className="hm-register-foot"><ShieldCheck size={19} aria-hidden="true"/><span>Faculty review remains the final step before attendance is confirmed.</span></div>
             </div>
-            <div className="hm-float-tag hm-float-tag--bottom"><span className="hm-float-icon"><FileSpreadsheet size={15}/></span><span>Records ready to export</span></div>
-            <span className="hm-art-caption">CONCEPT PREVIEW · NOT LIVE BIOMETRIC DATA</span>
           </div>
         </section>
 
