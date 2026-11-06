@@ -94,7 +94,7 @@ export const TeacherDashboard: React.FC = () => {
           <div className="flex items-center gap-3 w-full sm:w-auto">
             <BookOpen className="w-5 h-5 text-foreground shrink-0" />
             <div className="w-full sm:w-80">
-              <label className="block text-[10px] font-bold text-muted-foreground uppercase tracking-wider mb-1">
+              <label className="block text-xs font-bold text-muted-foreground normal-case tracking-normal mb-1">
                 Select Active Subject
               </label>
               <select
@@ -113,7 +113,7 @@ export const TeacherDashboard: React.FC = () => {
 
           <div className="flex items-center gap-3 w-full sm:w-auto justify-end">
             <div>
-              <label className="block text-[10px] font-bold text-muted-foreground uppercase tracking-wider mb-1">
+              <label className="block text-xs font-bold text-muted-foreground normal-case tracking-normal mb-1">
                 Defaulter Threshold
               </label>
               <div className="flex items-center gap-2">
@@ -136,7 +136,7 @@ export const TeacherDashboard: React.FC = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <Card className="p-5">
           <div className="flex items-center justify-between mb-2">
-            <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+            <span className="text-xs font-semibold text-muted-foreground normal-case tracking-normal">
               Enrolled Students
             </span>
             <Users className="w-4 h-4 text-foreground" />
@@ -151,7 +151,7 @@ export const TeacherDashboard: React.FC = () => {
 
         <Card className="p-5">
           <div className="flex items-center justify-between mb-2">
-            <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+            <span className="text-xs font-semibold text-muted-foreground normal-case tracking-normal">
               Total Lectures
             </span>
             <Calendar className="w-4 h-4 text-foreground" />
@@ -166,7 +166,7 @@ export const TeacherDashboard: React.FC = () => {
 
         <Card className="p-5">
           <div className="flex items-center justify-between mb-2">
-            <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+            <span className="text-xs font-semibold text-muted-foreground normal-case tracking-normal">
               Avg. Attendance Rate
             </span>
             <TrendingUp className="w-4 h-4 text-foreground" />
@@ -181,7 +181,7 @@ export const TeacherDashboard: React.FC = () => {
 
         <Card className="p-5">
           <div className="flex items-center justify-between mb-2">
-            <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+            <span className="text-xs font-semibold text-muted-foreground normal-case tracking-normal">
               Defaulters Alert
             </span>
             <AlertTriangle className="w-4 h-4 text-foreground" />
@@ -251,7 +251,7 @@ export const TeacherDashboard: React.FC = () => {
                       {s.percentage.toFixed(1)}%
                     </td>
                     <td className="px-4 py-3">
-                      <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 border border-zinc-300 dark:border-zinc-700 tracking-wider">
+                      <span className="px-2.5 py-0.5 rounded-full text-xs font-bold uppercase bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 border border-zinc-300 dark:border-zinc-700 tracking-wider">
                         Critical Defaulter
                       </span>
                     </td>
