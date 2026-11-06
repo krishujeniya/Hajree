@@ -36,5 +36,7 @@ jobs:
           node-version: '22'
       - name: Install frontend dependencies
         run: npm install --no-audit --no-fund
+      - name: Audit every app view and shared UI
+        run: node ../scripts/audit-ui.mjs
       - name: Compile TypeScript and build Vite
         run: npm run build
