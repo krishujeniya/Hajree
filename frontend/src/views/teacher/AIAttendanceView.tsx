@@ -238,7 +238,7 @@ export const AIAttendanceView: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {/* Subject & Lecture */}
           <div>
-            <label className="block text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-1">
+            <label className="block text-xs font-semibold text-muted-foreground normal-case tracking-normal mb-1">
               1. Select Subject Course
             </label>
             <select
@@ -255,7 +255,7 @@ export const AIAttendanceView: React.FC = () => {
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-1">
+            <label className="block text-xs font-semibold text-muted-foreground normal-case tracking-normal mb-1">
               2. Target Lecture Session
             </label>
             <div className="flex gap-2">
@@ -304,7 +304,7 @@ export const AIAttendanceView: React.FC = () => {
                     setMode("upload");
                     stopWebcam();
                   }}
-                  className={`px-3 py-1 rounded-md font-semibold transition-all tactile-button ${
+                  className={`px-3 py-1 rounded-md font-semibold transition-colors tactile-button ${
                     mode === "upload"
                       ? "bg-foreground text-background shadow-sm"
                       : "text-muted-foreground hover:text-foreground"
@@ -317,7 +317,7 @@ export const AIAttendanceView: React.FC = () => {
                     setMode("webcam");
                     startWebcam();
                   }}
-                  className={`px-3 py-1 rounded-md font-semibold transition-all tactile-button ${
+                  className={`px-3 py-1 rounded-md font-semibold transition-colors tactile-button ${
                     mode === "webcam"
                       ? "bg-foreground text-background shadow-sm"
                       : "text-muted-foreground hover:text-foreground"
@@ -341,7 +341,7 @@ export const AIAttendanceView: React.FC = () => {
                   <canvas ref={canvasRef} className="hidden" />
 
                   {/* Overlays */}
-                  <div className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md text-white text-xs flex items-center gap-2">
+                  <div className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-black/60  text-white text-xs flex items-center gap-2">
                     <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
                     <span>Live 720p Stream</span>
                   </div>
@@ -366,7 +366,7 @@ export const AIAttendanceView: React.FC = () => {
                       className="w-full h-full object-cover"
                     />
                     <label className="absolute bottom-3 right-3 cursor-pointer">
-                      <span className="px-3 py-1.5 rounded-lg bg-black/70 backdrop-blur-md text-white text-xs font-medium hover:bg-black/90 tactile-button shadow-sm">
+                      <span className="px-3 py-1.5 rounded-lg bg-black/70  text-white text-xs font-medium hover:bg-black/90 tactile-button shadow-sm">
                         Change Photo
                       </span>
                       <input
@@ -440,7 +440,7 @@ export const AIAttendanceView: React.FC = () => {
                   <span>Recognition Summary</span>
                   <span>{recognitionResult.matched_count} Matched</span>
                 </div>
-                <p className="text-[11px] text-muted-foreground leading-normal">
+                <p className="text-xs text-muted-foreground leading-normal">
                   Found {recognitionResult.faces.length} faces in frame ({recognitionResult.unmatched_count} unmatched). Matched against enrolled student vector database.
                 </p>
               </div>
@@ -479,14 +479,14 @@ export const AIAttendanceView: React.FC = () => {
                           <p className="text-sm font-semibold text-foreground">
                             {student.name}
                           </p>
-                          <p className="text-[11px] text-muted-foreground font-mono">
+                          <p className="text-xs text-muted-foreground font-mono">
                             @{student.enrollment}
                           </p>
                         </div>
                       </div>
 
                       <span
-                        className={`text-[10px] font-bold px-2 py-0.5 rounded-full uppercase ${
+                        className={`text-xs font-bold px-2 py-0.5 rounded-full uppercase ${
                           isPresent
                             ? "bg-foreground text-background"
                             : "bg-muted text-muted-foreground border border-border"
