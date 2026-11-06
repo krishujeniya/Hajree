@@ -38,12 +38,12 @@ const AppContent: React.FC = () => {
   if (loading) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-background text-foreground">
-        <div className="w-14 h-14 rounded-2xl bg-gradient-to-b from-white to-zinc-300 dark:from-zinc-100 dark:to-zinc-400 flex items-center justify-center text-black shadow-xl shadow-black/20 border border-white/20 animate-pulse mb-4">
+        <div className="w-14 h-14 rounded-xl bg-card flex items-center justify-center text-foreground border border-border mb-4">
           <Camera className="w-7 h-7" />
         </div>
         <div className="flex items-center gap-2 text-sm font-semibold text-muted-foreground">
           <Loader2 className="w-4 h-4 animate-spin text-primary" />
-          <span>Starting Hajree...</span>
+          <span>Loading your workspace</span>
         </div>
       </div>
     );
