@@ -1,71 +1,52 @@
-# 🚀 Quick Start Guide
+# Hajree — Quick Start
 
-## ⚡ One Command (Fastest!)
+Hajree is a FastAPI + React/TypeScript attendance application. The modern UI is served from the FastAPI server. The older Streamlit sources under `src/` are legacy and are not the recommended app entry point.
 
-```bash
-uv run streamlit run src/app.py
-```
-
-**That's it!** Auto-installs everything and runs.
-
----
-
-## 🐳 Docker (One Command!)
+## Local setup
 
 ```bash
-docker-compose up
-```
-
-Access at: `http://localhost:8501`
-
----
-
-## 📦 Using Makefile
-
-```bash
-make run          # Run with uv
-make docker-run   # Run with Docker
-make help         # See all commands
-```
-
----
-
-## 🔧 Traditional Setup
-
-```bash
-# 1. Clone
-git clone https://github.com/YOUR_USERNAME/Hajri.ai.git
-cd Hajri.ai
-
-# 2. Environment
+git clone https://github.com/krishujeniya/Hajree.git
+cd Hajree
 cp .env.example .env
-# Edit .env with your credentials
-
-# 3. Install
-pip install -r requirements.txt
-
-# 4. Setup database
-python3 scripts/setup_db.py
-
-# 5. Run
-streamlit run src/app.py
+# Configure your .env for the deployment.
+python run.py
 ```
 
----
+Open http://localhost:8000 for the public product site. Use **Open Hajree** to sign in, or **Student registration** to create a student account when registration is enabled. The authenticated workspace is also available at http://localhost:8000/app. API documentation is at http://localhost:8000/docs in environments where FastAPI docs are enabled.
 
-## 🎯 First Login
+## Frontend development
 
-- **URL**: `http://localhost:8501`
-- **Username**: From `.env` (default: `admin`)
-- **Password**: From `.env` file
+```bash
+cd frontend
+npm install
+npm run dev
+```
 
----
+Vite listens on http://localhost:5173 and proxies `/api` to the FastAPI backend on port 8000. The repo includes a Bun lockfile if you prefer Bun.
 
-## 📚 Next Steps
+## Docker
 
-1. Register students (capture 10 photos)
-2. Create subjects
-3. Assign teachers
-4. Take attendance!
+```bash
+docker compose up --build
+```
 
-See [README.md](../README.md) for full documentation.
+Open http://localhost:8000.
+
+## Production security checklist
+
+- Replace all bootstrap credentials before deployment. Never use `changeme` in a real institution.
+- Set a strong `SECRET_KEY` and `ADMIN_PASSWORD` and use TLS/HTTPS.
+- Review trusted hosts, CORS, database backups and the retention/deletion policy for biometric data.
+- Get appropriate consent for face enrollment and retain a non-biometric attendance option.
+- Anti-spoofing is **disabled by default** in `backend/app/core/config.py`; do not assume presentation-attack protection is active.
+- Confirm faculty recognition results before finalizing attendance. Verify accuracy in your actual environment.
+
+## Quality checks
+
+```bash
+cd frontend && npm run build
+cd ..
+python -m pytest backend/tests
+```
+
+See [README.md](../README.md), [Product Inventory](PRODUCT_INVENTORY.md), [Design System](DESIGN_SYSTEM.md), and [QA Report](QA_REPORT.md).
