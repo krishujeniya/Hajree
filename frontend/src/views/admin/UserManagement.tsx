@@ -181,7 +181,7 @@ export const UserManagement: React.FC = () => {
               placeholder="Search by name or enrollment ID..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full pl-9 pr-3 py-2 rounded-xl border border-border bg-background/50 text-xs text-foreground focus:outline-none focus:ring-1 focus:ring-white/40 transition-all"
+              className="w-full pl-9 pr-3 py-2 rounded-xl border border-border bg-background/50 text-xs text-foreground focus:outline-none focus:ring-1 focus:ring-white/40 transition-colors"
             />
           </div>
 
@@ -191,7 +191,7 @@ export const UserManagement: React.FC = () => {
               <button
                 key={r}
                 onClick={() => setRoleFilter(r)}
-                className={`px-3 py-1.5 rounded-xl text-xs font-semibold capitalize transition-all apple-button ${
+                className={`px-3 py-1.5 rounded-xl text-xs font-semibold capitalize transition-colors apple-button ${
                   roleFilter === r
                     ? "bg-black text-white dark:bg-white dark:text-black shadow-sm"
                     : "bg-muted/40 text-muted-foreground hover:bg-muted hover:text-foreground"
@@ -208,7 +208,7 @@ export const UserManagement: React.FC = () => {
       <Card className="p-0 overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-muted/40 border-b border-border/80 text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">
+            <thead className="bg-muted/40 border-b border-border/80 text-[10px] font-semibold text-muted-foreground normal-case tracking-normal">
               <tr>
                 <th className="px-6 py-3.5">Account</th>
                 <th className="px-6 py-3.5">Identifier</th>
