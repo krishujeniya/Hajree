@@ -68,13 +68,13 @@ export const AdminOverview: React.FC<AdminOverviewProps> = ({ onNavigate }) => {
   return (
     <div className="space-y-6">
       {/* Cupertino Titanium Header Card */}
-      <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-b from-zinc-900 to-black p-8 text-white shadow-2xl">
+      <div className="relative overflow-hidden rounded-xl border border-white/10 bg-zinc-950 p-8 text-white shadow-sm">
         <div className="relative z-10 max-w-2xl">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[10px] font-semibold bg-white/10 backdrop-blur-md border border-white/15 text-zinc-300 mb-3 uppercase tracking-wider">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[10px] font-semibold bg-white/10  border border-white/15 text-zinc-300 mb-3 normal-case tracking-normal">
             <Activity className="w-3 h-3 text-white" />
             <span>Institutional Command Center</span>
           </div>
-          <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">
+          <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight text-white">
             System Administration
           </h2>
           <p className="text-xs sm:text-sm text-zinc-400 mt-2 leading-relaxed">
@@ -106,7 +106,7 @@ export const AdminOverview: React.FC<AdminOverviewProps> = ({ onNavigate }) => {
         {stats.map((item, idx) => (
           <Card key={idx} className="p-5">
             <div className="flex items-center justify-between mb-3">
-              <span className="text-[11px] font-semibold text-muted-foreground uppercase tracking-wider">
+              <span className="text-[11px] font-semibold text-muted-foreground normal-case tracking-normal">
                 {item.title}
               </span>
               <div className="w-8 h-8 rounded-xl bg-zinc-900 border border-zinc-700/60 flex items-center justify-center">
