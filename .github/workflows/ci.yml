@@ -6,15 +6,35 @@ on:
   pull_request:
     branches: [main]
 
+permissions:
+  contents: read
+
 jobs:
-  validate:
+  backend-syntax:
+    name: Python syntax
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.10'
-      - name: Validate Syntax & Modules
-        run: |
-          python -m compileall .
+          python-version: '3.11'
+      - name: Validate Python modules
+        run: python -m compileall -q backend scripts run.py
+
+  frontend-build:
+    name: React production build and typecheck
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install frontend dependencies
+        run: npm install --no-audit --no-fund
+      - name: Compile TypeScript and build Vite
+        run: npm run build

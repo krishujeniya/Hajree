@@ -8,9 +8,9 @@
 [![DeepFace](https://img.shields.io/badge/DeepFace-SFace-blueviolet.svg)](https://github.com/serengil/deepface)
 [![TailwindCSS](https://img.shields.io/badge/Tailwind-3.4+-38B2AC.svg?logo=tailwind-css&logoColor=white)](https://tailwindcss.com)
 
-**An enterprise-grade, automated attendance management platform powered by facial biometric recognition, liveness anti-spoofing, and interactive SaaS portals.**
+**An open-source attendance management platform with faculty-reviewed facial matching, manual roll call, reports, and role-based portals.**
 
-[Features](#-features) • [Quick Start](#-quick-start) • [Architecture](#-architecture) • [API Guide](#-api-endpoints) • [Docker](#-docker-deployment)
+[Features](#-features) • [Site & App](#-site--application) • [Quick Start](#-quick-start) • [Architecture](#-architecture) • [API Guide](#-api-endpoints) • [Docker](#-docker-deployment)
 
 </div>
 
@@ -23,15 +23,37 @@
 - **Faculty Portal**: Real-time classroom attendance tracking via live webcam or group photo, interactive match verification chips, manual attendance sheet matrix, low-attendance defaulter (<75%) identification, and automated email alerts.
 - **Student Portal**: Real-time personal attendance percentage with radial visual gauge, examination eligibility badge, course-wise breakdowns, chronological lecture logs, and self-service biometric face profile training.
 
-### 🤖 Biometric AI Face Recognition
+### 🤖 Assisted Biometric Face Recognition
 - **DeepFace SFace CNN**: High-accuracy, fast cosine distance matching against enrolled face vector embeddings.
 - **Group Capture**: Take attendance for an entire classroom from a single wide-angle photo or live webcam snapshot.
-- **Anti-Spoofing & Liveness**: Resistant to photo and digital screen presentation attacks.
+- **Anti-Spoofing Configuration**: Optional; **disabled by default** (`face_anti_spoofing=False`). Do not assume spoof resistance without explicitly enabling, validating, and testing the feature in your deployment.
 - **Vector Indexing**: Embedded vectors stored and loaded into memory for sub-second recognition.
 
 ### 📊 Reports & Automated Notifications
 - **One-Click Export**: Download official attendance records in print-ready PDF format or tabular CSV spreadsheets.
 - **Automated Defaulter Alerts**: Background task email dispatcher alerting students who drop below the required 75% attendance threshold.
+
+---
+
+## 🌐 Site & Application
+
+Hajree now includes a dedicated product-facing home page as the front door to the existing application. It uses original light-themed art direction, a decorative particle canvas, a three-step classroom journey, role selectors, a faculty-review concept preview, open-source setup instructions, and an accessible FAQ. The preview is illustrative, **not a real biometric result**.
+
+| Route | Purpose |
+| --- | --- |
+| `/` | Public project landing page |
+| `/login` | Existing sign-in flow |
+| `/register` | Student self-registration |
+| `/app` | Existing role-based Admin, Faculty, and Student workspace |
+| `/docs` | FastAPI OpenAPI documentation when enabled |
+
+The product site does not modify the existing API or recognition code. Its hero uses no live face images. Facial recognition requires faculty verification, appropriate consent, and a manual alternative for people who cannot or do not wish to enroll a face profile.
+
+Design and quality documents:
+- [Design system and effects coverage](docs/DESIGN_SYSTEM.md)
+- [Confirmed product inventory](docs/PRODUCT_INVENTORY.md)
+- [QA report and unrun checks](docs/QA_REPORT.md)
+- [Updated quick start](docs/QUICK_START.md)
 
 ---
 
@@ -48,14 +70,14 @@ cd Hajree
 python run.py
 ```
 
-The unified application will automatically:
+With compatible dependencies and configuration, the unified application will:
 1. Initialize the SQLite database with rich demo data
 2. Warm up the SFace facial recognition model
 3. Serve both the **SaaS Web UI** at `http://localhost:8000` and **Interactive OpenAPI Docs** at `http://localhost:8000/docs`
 
 ### 2. Built-in Demo Credentials
 
-For instant evaluation, one-click demo login buttons are available directly on the login screen:
+For local development, demo-login shortcuts are available in Vite development mode only. The production login form does not show shared demo credentials. Initial demo users (if seeded) include:
 - **Admin**: `admin` / `changeme`
 - **Faculty**: `teacher` / `changeme`
 - **Student**: `student` / `changeme`

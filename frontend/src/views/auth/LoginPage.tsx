@@ -12,8 +12,8 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onSwitchToRegister }) => {
   const { login } = useAuth();
   const toast = useToast();
 
-  const [username, setUsername] = useState("admin");
-  const [password, setPassword] = useState("changeme");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -49,6 +49,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onSwitchToRegister }) => {
           <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-b from-white to-zinc-400 text-black shadow-2xl mb-4 border border-white/20">
             <Camera className="w-7 h-7" />
           </div>
+          <a href="/" className="inline-flex items-center text-xs text-muted-foreground hover:text-foreground mb-6">← Back to Hajree home</a>
           <h1 className="text-2xl font-bold tracking-tight text-foreground">
             Hajree
           </h1>
@@ -59,8 +60,8 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onSwitchToRegister }) => {
 
         {/* Form Container */}
         <div className="apple-glass rounded-3xl p-7 shadow-2xl">
-          {/* Quick Demo Selector */}
-          <div className="mb-6 pb-5 border-b border-border/60">
+          {/* Local-only demo credentials. Never advertise shared demo passwords on a public deployment. */}
+          {import.meta.env.DEV && <div className="mb-6 pb-5 border-b border-border/60">
             <div className="flex items-center gap-1.5 text-[11px] font-semibold text-muted-foreground uppercase tracking-wider mb-2.5">
               <Sparkles className="w-3.5 h-3.5" />
               <span>One-Click Credentials:</span>
@@ -88,7 +89,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onSwitchToRegister }) => {
                 Student
               </button>
             </div>
-          </div>
+          </div>}
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
@@ -103,7 +104,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onSwitchToRegister }) => {
                   type="text"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  placeholder="admin"
+                  placeholder="Your username"
                   className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-border bg-background/50 text-sm text-foreground focus:outline-none focus:ring-1 focus:ring-white/40 transition-all"
                   autoComplete="username"
                   required
@@ -131,6 +132,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onSwitchToRegister }) => {
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
+                  aria-label={showPassword ? "Hide password" : "Show password"}
                   className="absolute inset-y-0 right-0 pr-3 flex items-center text-muted-foreground hover:text-foreground"
                 >
                   {showPassword ? (
