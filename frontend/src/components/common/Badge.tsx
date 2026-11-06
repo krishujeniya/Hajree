@@ -50,7 +50,7 @@ export const Badge: React.FC<BadgeProps> = ({
     <span
       className={twMerge(
         clsx(
-          "inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] uppercase tracking-wider select-none",
+          "inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs normal-case tracking-normal select-none",
           customStyle,
           className
         )
