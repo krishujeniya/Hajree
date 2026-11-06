@@ -21,7 +21,7 @@ export const Card: React.FC<CardProps> = ({
     <div
       className={twMerge(
         clsx(
-          "apple-glass rounded-2xl p-6 transition-all duration-200",
+          "rounded-xl border border-border bg-card p-5 sm:p-6 transition-colors duration-150",
           className
         )
       )}
