@@ -129,7 +129,7 @@ export const ManualAttendanceView: React.FC = () => {
       <Card className="p-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label className="block text-[10px] font-bold text-muted-foreground uppercase tracking-wider mb-1">
+            <label className="block text-xs font-bold text-muted-foreground normal-case tracking-normal mb-1">
               Select Subject
             </label>
             <select
@@ -146,7 +146,7 @@ export const ManualAttendanceView: React.FC = () => {
           </div>
 
           <div>
-            <label className="block text-[10px] font-bold text-muted-foreground uppercase tracking-wider mb-1">
+            <label className="block text-xs font-bold text-muted-foreground normal-case tracking-normal mb-1">
               Select Lecture
             </label>
             <select
@@ -251,7 +251,7 @@ export const ManualAttendanceView: React.FC = () => {
                     </td>
                     <td className="px-5 py-3">
                       <span
-                        className={`text-[10px] font-bold px-2 py-0.5 rounded-full uppercase ${
+                        className={`text-xs font-bold px-2 py-0.5 rounded-full uppercase ${
                           s.status === "P"
                             ? "bg-foreground text-background"
                             : "bg-muted text-muted-foreground border border-border"
