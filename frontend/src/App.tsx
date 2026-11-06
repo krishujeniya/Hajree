@@ -4,6 +4,7 @@ import { ToastProvider } from "./context/ToastContext";
 import { DashboardLayout } from "./components/layout/DashboardLayout";
 import { LoginPage } from "./views/auth/LoginPage";
 import { RegisterPage } from "./views/auth/RegisterPage";
+import { LandingPage } from "./marketing/LandingPage";
 
 // Admin Views
 import { AdminOverview } from "./views/admin/AdminOverview";
@@ -26,8 +27,12 @@ import { Camera, Loader2 } from "lucide-react";
 
 const AppContent: React.FC = () => {
   const { user, loading } = useAuth();
-  const [authView, setAuthView] = useState<"login" | "register">("login");
+  const [authView, setAuthView] = useState<"login" | "register">(() => window.location.pathname === "/register" ? "register" : "login");
   const [activeTab, setActiveTab] = useState<string>("");
+
+  // The public product story remains available regardless of authentication status.
+  // Keep existing authenticated workflows on /app, /login and /register.
+  if (window.location.pathname === "/") return <LandingPage />;
 
   // Loading Screen
   if (loading) {
