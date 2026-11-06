@@ -3,6 +3,8 @@
 import assert from "node:assert/strict";
 import { readFileSync, readdirSync, statSync } from "node:fs";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
+process.chdir(path.resolve(path.dirname(fileURLToPath(import.meta.url)), ".."));
 const read = f => readFileSync(f,"utf8");
 const app=read("frontend/src/App.tsx");
 const expected={
