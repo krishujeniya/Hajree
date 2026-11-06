@@ -67,7 +67,7 @@ export const ReportsView: React.FC = () => {
       <Card className="p-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label className="block text-[10px] font-bold text-muted-foreground uppercase tracking-wider mb-1">
+            <label className="block text-xs font-bold text-muted-foreground normal-case tracking-normal mb-1">
               Select Subject Course
             </label>
             <select
@@ -84,7 +84,7 @@ export const ReportsView: React.FC = () => {
           </div>
 
           <div>
-            <label className="block text-[10px] font-bold text-muted-foreground uppercase tracking-wider mb-1">
+            <label className="block text-xs font-bold text-muted-foreground normal-case tracking-normal mb-1">
               Select Lecture
             </label>
             <select
