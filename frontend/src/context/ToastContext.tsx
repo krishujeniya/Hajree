@@ -47,7 +47,7 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
         {toasts.map((t) => (
           <div
             key={t.id}
-            className="pointer-events-auto flex items-center justify-between p-3.5 rounded-2xl border border-zinc-700/80 bg-zinc-950/90 text-white text-xs font-medium shadow-2xl backdrop-blur-2xl transition-all duration-200 transform translate-y-0 scale-100 animate-in fade-in slide-in-from-bottom-2"
+            className="pointer-events-auto flex items-center justify-between p-3.5 rounded-2xl border border-zinc-700/80 bg-zinc-950/90 text-white text-xs font-medium shadow-sm  transition-colors duration-200 transform translate-y-0 scale-100 animate-in fade-in slide-in-from-bottom-2"
           >
             <div className="flex items-center gap-2.5">
               {t.type === "success" && (
