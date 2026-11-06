@@ -21,7 +21,7 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
   const activeTitle = currentItem ? currentItem.label : "Dashboard";
 
   return (
-    <div className="flex h-screen w-screen overflow-hidden bg-background text-foreground">
+    <div className="flex h-screen w-full overflow-hidden bg-background text-foreground">
       {/* Desktop Sidebar */}
       <div className="hidden md:flex shrink-0">
         <Sidebar activeTab={activeTab} onSelectTab={onSelectTab} />
