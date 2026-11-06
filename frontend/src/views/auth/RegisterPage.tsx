@@ -48,7 +48,7 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({
     <div className="min-h-screen flex items-center justify-center p-4 bg-background">
       <div className="w-full max-w-sm">
         <div className="text-center mb-6">
-          <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-gradient-to-b from-white to-zinc-400 text-black shadow-2xl mb-3 border border-white/20">
+          <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-zinc-100 dark:bg-zinc-700 text-black shadow-sm mb-3 border border-white/20">
             <Camera className="w-6 h-6" />
           </div>
           <h1 className="text-xl font-bold tracking-tight text-foreground">
@@ -59,7 +59,7 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({
           </p>
         </div>
 
-        <div className="apple-glass rounded-3xl p-7 shadow-2xl">
+        <div className="apple-glass rounded-xl p-7 shadow-sm">
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label className="block text-xs font-medium text-foreground mb-1.5">
@@ -74,7 +74,7 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="John Doe"
-                  className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-border bg-background/50 text-sm text-foreground focus:ring-1 focus:ring-white/40 transition-all"
+                  className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-border bg-background/50 text-sm text-foreground focus:ring-1 focus:ring-white/40 transition-colors"
                   required
                 />
               </div>
@@ -93,7 +93,7 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                   placeholder="240233111050"
-                  className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-border bg-background/50 text-sm text-foreground focus:ring-1 focus:ring-white/40 transition-all font-mono"
+                  className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-border bg-background/50 text-sm text-foreground focus:ring-1 focus:ring-white/40 transition-colors font-mono"
                   required
                 />
               </div>
@@ -112,7 +112,7 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="john@example.com"
-                  className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-border bg-background/50 text-sm text-foreground focus:ring-1 focus:ring-white/40 transition-all"
+                  className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-border bg-background/50 text-sm text-foreground focus:ring-1 focus:ring-white/40 transition-colors"
                 />
               </div>
             </div>
@@ -130,7 +130,7 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-border bg-background/50 text-sm text-foreground focus:ring-1 focus:ring-white/40 transition-all"
+                  className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-border bg-background/50 text-sm text-foreground focus:ring-1 focus:ring-white/40 transition-colors"
                   required
                 />
               </div>
