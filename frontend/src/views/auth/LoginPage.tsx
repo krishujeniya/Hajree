@@ -46,7 +46,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onSwitchToRegister }) => {
       <div className="w-full max-w-sm">
         {/* Apple Monochromatic Brand Header */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-b from-white to-zinc-400 text-black shadow-2xl mb-4 border border-white/20">
+          <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-zinc-100 dark:bg-zinc-700 text-black shadow-sm mb-4 border border-white/20">
             <Camera className="w-7 h-7" />
           </div>
           <a href="/" className="inline-flex items-center text-xs text-muted-foreground hover:text-foreground mb-6">← Back to Hajree home</a>
@@ -59,10 +59,10 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onSwitchToRegister }) => {
         </div>
 
         {/* Form Container */}
-        <div className="apple-glass rounded-3xl p-7 shadow-2xl">
+        <div className="apple-glass rounded-xl p-7 shadow-sm">
           {/* Local-only demo credentials. Never advertise shared demo passwords on a public deployment. */}
           {import.meta.env.DEV && <div className="mb-6 pb-5 border-b border-border/60">
-            <div className="flex items-center gap-1.5 text-[11px] font-semibold text-muted-foreground uppercase tracking-wider mb-2.5">
+            <div className="flex items-center gap-1.5 text-[11px] font-semibold text-muted-foreground normal-case tracking-normal mb-2.5">
               <Sparkles className="w-3.5 h-3.5" />
               <span>One-Click Credentials:</span>
             </div>
@@ -105,7 +105,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onSwitchToRegister }) => {
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                   placeholder="Your username"
-                  className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-border bg-background/50 text-sm text-foreground focus:outline-none focus:ring-1 focus:ring-white/40 transition-all"
+                  className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-border bg-background/50 text-sm text-foreground focus:outline-none focus:ring-1 focus:ring-white/40 transition-colors"
                   autoComplete="username"
                   required
                 />
@@ -125,7 +125,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onSwitchToRegister }) => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="w-full pl-9 pr-10 py-2.5 rounded-xl border border-border bg-background/50 text-sm text-foreground focus:outline-none focus:ring-1 focus:ring-white/40 transition-all"
+                  className="w-full pl-9 pr-10 py-2.5 rounded-xl border border-border bg-background/50 text-sm text-foreground focus:outline-none focus:ring-1 focus:ring-white/40 transition-colors"
                   autoComplete="current-password"
                   required
                 />
