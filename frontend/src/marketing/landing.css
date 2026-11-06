@@ -331,3 +331,30 @@
   .hm-section { padding: 25px 0; }
   .hm-page { color: #000; }
 }
+
+
+/* Hallmark v2: product-centered register, no orbital particle decoration. */
+.hm-page{--hm-hairline:#e1e5e9;--hm-focus:#554bb3;--hm-panel:#ffffff}
+.hm-page,.hm-page .hm-hero{overflow-x:clip}
+.hm-page .hm-hero{min-height:0;grid-template-columns:minmax(0,.96fr) minmax(0,1.04fr);gap:clamp(30px,5vw,78px);padding-top:clamp(55px,8vh,96px);padding-bottom:clamp(65px,9vh,108px)}
+.hm-page .hm-hero h1{font:650 clamp(3.1rem,5.5vw,6rem)/1.06 "Plus Jakarta Sans",Inter,system-ui,sans-serif;letter-spacing:-.07em;max-width:700px;overflow-wrap:break-word;margin:0 0 24px}
+.hm-page .hm-hero-copy>p{max-width:550px;line-height:1.65;font-size:clamp(1rem,1.35vw,1.16rem)}
+.hm-hero-art--register{min-height:0;display:block;position:relative;max-width:650px;width:100%;justify-self:end}
+.hm-hero-art--register::before,.hm-hero-art--register::after{display:none!important;content:none!important}
+.hm-register-preview{border:1px solid var(--hm-hairline);background:var(--hm-panel);box-shadow:0 18px 55px #18223b0d;border-radius:14px;padding:clamp(18px,2.4vw,33px);width:100%}
+.hm-register-head{display:flex;justify-content:space-between;align-items:start;gap:20px;padding-bottom:23px}
+.hm-register-head small{display:block;font-size:12px;color:var(--hm-muted);margin-bottom:9px}
+.hm-register-head h2{font-size:clamp(1.35rem,2vw,2rem);font-weight:650;letter-spacing:-.045em;margin:0;line-height:1.2}
+.hm-register-state{font-size:11px;font-weight:650;line-height:1.4;color:var(--hm-focus);background:#eeecfb;padding:8px 10px;border-radius:8px;max-width:150px}
+.hm-register-meta{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap;border-top:1px solid var(--hm-hairline);padding:17px 0;color:var(--hm-muted);font-size:12px}
+.hm-register-meta span:first-child{font-weight:650;color:var(--hm-ink)}
+.hm-register-row{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr) minmax(0,.65fr);gap:12px;align-items:center;padding:17px 0;border-top:1px solid var(--hm-hairline);font-size:13px;line-height:1.5}
+.hm-register-row--head{font-size:11px;color:var(--hm-muted);font-weight:650}
+.hm-register-row strong{font-weight:650;color:var(--hm-focus)}
+.hm-register-foot{display:flex;gap:11px;align-items:flex-start;margin-top:12px;background:var(--hm-surface);color:var(--hm-muted);padding:15px 17px;border-radius:9px;font-size:12px;line-height:1.55}
+.hm-register-foot svg{flex-shrink:0;color:var(--hm-focus)}
+.hm-page .hm-overline,.hm-page .hm-card-label,.hm-page .hm-demo-kicker,.hm-page .hm-stage-kicker{letter-spacing:0;text-transform:none;font-size:12px}
+.hm-page :is(a,button,summary):focus-visible{outline:3px solid var(--hm-focus);outline-offset:4px}
+@media(max-width:1000px){.hm-page .hm-hero{grid-template-columns:minmax(0,1fr)}.hm-hero-art--register{justify-self:stretch;max-width:none}.hm-page .hm-hero h1{max-width:800px}}
+@media(max-width:620px){.hm-container{width:calc(100% - 36px)}.hm-page .hm-hero{padding-top:40px;padding-bottom:64px}.hm-page .hm-hero h1{font-size:clamp(2.8rem,10.6vw,4.6rem)}.hm-register-head{flex-direction:column}.hm-register-row{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);font-size:12px}.hm-register-row>*:last-child{grid-column:2}.hm-register-row--head>*:last-child{display:none}}
+@media(prefers-reduced-motion:reduce){.hm-page [data-reveal]{opacity:1!important;transform:none!important;transition:none!important}}
