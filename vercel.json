@@ -2,8 +2,28 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "rewrites": [
     {
-      "source": "/(.*)",
-      "destination": "/api/index.py"
+      "source": "/api",
+      "destination": "/api/index.py?__path=/api"
+    },
+    {
+      "source": "/api/:match*",
+      "destination": "/api/index.py?__path=/api/:match*"
+    },
+    {
+      "source": "/docs",
+      "destination": "/api/index.py?__path=/docs"
+    },
+    {
+      "source": "/openapi.json",
+      "destination": "/api/index.py?__path=/openapi.json"
+    },
+    {
+      "source": "/",
+      "destination": "/api/index.py?__path=/"
+    },
+    {
+      "source": "/:match*",
+      "destination": "/api/index.py?__path=/:match*"
     }
   ]
 }
