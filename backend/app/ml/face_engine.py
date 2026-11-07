@@ -7,7 +7,10 @@ from collections.abc import Sequence
 from dataclasses import dataclass
 from typing import List, Optional, Tuple
 
-import cv2
+try:
+    import cv2
+except Exception:  # pragma: no cover - serverless environments without libGL
+    cv2 = None
 import numpy as np
 
 from app.core.config import get_settings
@@ -45,6 +48,9 @@ class FaceEngine:
 
     # ------------------------------------------------------------------ model
     def warm_up(self) -> None:
+        if cv2 is None:
+            self._warmed = False
+            return
         settings = get_settings()
         if self._warmed:
             return
@@ -67,6 +73,11 @@ class FaceEngine:
 
     # ------------------------------------------------------------- inference
     def detect_faces(self, image_rgb: np.ndarray, enforce_detection: bool = True) -> List[DetectedFace]:
+        if cv2 is None:
+            raise ValidationError(
+                "Face recognition is unavailable in this serverless environment without libGL. "
+                "Use manual roll call or deploy via container."
+            )
         settings = get_settings()
         if image_rgb.ndim != 3 or image_rgb.shape[2] != 3:
             raise ValidationError("Expected an RGB image.")
@@ -124,6 +135,8 @@ class FaceEngine:
     @staticmethod
     def quality_ok(image_rgb: np.ndarray, face: DetectedFace) -> Tuple[bool, str]:
         """Reject tiny or blurry enrollment images before they pollute the index."""
+        if cv2 is None:
+            return True, ""
         if face.w < 80 or face.h < 80:
             return False, "Face is too small in the frame. Move closer to the camera."
         gray = cv2.cvtColor(image_rgb, cv2.COLOR_RGB2GRAY)
