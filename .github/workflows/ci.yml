@@ -20,7 +20,7 @@ jobs:
         with:
           python-version: '3.11'
       - name: Validate Python modules
-        run: python -m compileall -q backend scripts run.py
+        run: python -m compileall -q backend scripts run.py api
 
   frontend-build:
     name: React production build and typecheck

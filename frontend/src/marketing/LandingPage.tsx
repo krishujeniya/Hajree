@@ -10,6 +10,13 @@ import "./landing.css";
 const REPO = "https://github.com/krishujeniya/Hajree";
 const CLONE = "git clone https://github.com/krishujeniya/Hajree.git";
 
+const appUrl = (p: string = ""): string => {
+  const base = (import.meta.env.BASE_URL || "/").replace(/\/$/, "");
+  const path = p.replace(/^\//, "");
+  if (!path) return base ? `${base}/` : "/";
+  return base ? `${base}/${path}` : `/${path}`;
+};
+
 const workflow = [
   {
     step: "01", title: "Set up", caption: "Build the classroom",
@@ -148,7 +155,7 @@ export function LandingPage() {
       </div>
       <header className="hm-header">
         <div className="hm-container hm-header-inner">
-          <a href="/" aria-label="Hajree home" className="hm-brand-link"><Brand /></a>
+          <a href={appUrl("")} aria-label="Hajree home" className="hm-brand-link"><Brand /></a>
           <button
             type="button"
             className="hm-menu-button"
@@ -165,8 +172,8 @@ export function LandingPage() {
             <a href={REPO + "/blob/main/README.md"} target="_blank" rel="noopener noreferrer">Docs <ArrowUpRight size={13} /></a>
           </nav>
           <div className="hm-header-actions">
-            <a href="/login" className="hm-signin">Sign in</a>
-            <a href="/register" className="hm-pill hm-pill--dark">Get started <ArrowUpRight size={16} /></a>
+            <a href={appUrl("login")} className="hm-signin">Sign in</a>
+            <a href={appUrl("register")} className="hm-pill hm-pill--dark">Get started <ArrowUpRight size={16} /></a>
           </div>
         </div>
       </header>
@@ -177,7 +184,7 @@ export function LandingPage() {
             <h1 id="hm-title">Attendance your faculty can verify.</h1>
             <p>Capture classroom attendance, review recognition suggestions and confirm the register. Faculty stay in control of the final record.</p>
             <div className="hm-hero-actions">
-              <a href="/login" className="hm-pill hm-pill--dark hm-pill--large">Open Hajree <ArrowUpRight size={17} /></a>
+              <a href={appUrl("login")} className="hm-pill hm-pill--dark hm-pill--large">Open Hajree <ArrowUpRight size={17} /></a>
               <a href="#how-it-works" className="hm-pill hm-pill--outline hm-pill--large">See how it works <ArrowRight size={17} /></a>
             </div>
             <div className="hm-hero-footnote">
@@ -256,7 +263,7 @@ export function LandingPage() {
               <div className="hm-stage-checks">
                 {current.rows.map((row, index) => <div key={row}><span className="hm-check"><Check size={14}/></span><span>{row}</span><small>0{index + 1}</small></div>)}
               </div>
-              <a href="/login" className="hm-stage-link">{current.action} <ArrowUpRight size={16}/></a>
+              <a href={appUrl("login")} className="hm-stage-link">{current.action} <ArrowUpRight size={16}/></a>
             </div>
           </div>
         </section>
@@ -275,7 +282,7 @@ export function LandingPage() {
               }} className={"hm-role-chip" + (role === index ? " hm-role-chip--active" : "")}>{React.createElement(item.icon, { size: 17 })}{item.label}</button>)}
             </div>
             <div className="hm-role-panel" id="hm-role-panel" role="tabpanel" aria-labelledby={"hm-role-tab-" + role} key={role}>
-              <div className="hm-role-copy"><span className="hm-overline">{selectedRole.tag}</span><h3>{selectedRole.title}</h3><p>{selectedRole.description}</p><a href="/login" className="hm-pill hm-pill--dark">Explore the portal <ArrowUpRight size={16}/></a></div>
+              <div className="hm-role-copy"><span className="hm-overline">{selectedRole.tag}</span><h3>{selectedRole.title}</h3><p>{selectedRole.description}</p><a href={appUrl("login")} className="hm-pill hm-pill--dark">Explore the portal <ArrowUpRight size={16}/></a></div>
               <div className="hm-role-capabilities"><span className="hm-card-label">IN YOUR WORKSPACE</span>{selectedRole.items.map((item) => <div key={item}><span className="hm-mini-check"><Check size={15}/></span>{item}<ArrowUpRight size={15} aria-hidden="true"/></div>)}</div>
             </div>
           </div>
@@ -311,10 +318,10 @@ export function LandingPage() {
           <div className="hm-faq-items">{faqs.map(({q, a}) => <details key={q} className="hm-faq-item"><summary>{q}<span className="hm-faq-plus" aria-hidden="true">+</span></summary><p>{a}</p></details>)}</div>
         </section>
 
-        <section className="hm-final-cta"><div className="hm-container"><span className="hm-overline">YOUR CLASSROOM IS NEXT</span><h2>Make attendance<br/>feel effortless<span>.</span></h2><p>Start with the open-source app, then make it work for your institution.</p><div><a href="/login" className="hm-pill hm-pill--light hm-pill--large">Open the app <ArrowUpRight size={17}/></a><a href="/register" className="hm-pill hm-pill--on-dark hm-pill--large">Student registration <ArrowRight size={17}/></a></div></div></section>
+        <section className="hm-final-cta"><div className="hm-container"><span className="hm-overline">YOUR CLASSROOM IS NEXT</span><h2>Make attendance<br/>feel effortless<span>.</span></h2><p>Start with the open-source app, then make it work for your institution.</p><div><a href={appUrl("login")} className="hm-pill hm-pill--light hm-pill--large">Open the app <ArrowUpRight size={17}/></a><a href={appUrl("register")} className="hm-pill hm-pill--on-dark hm-pill--large">Student registration <ArrowRight size={17}/></a></div></div></section>
       </main>
 
-      <footer className="hm-footer"><div className="hm-container"><div className="hm-footer-main"><div><a href="/" aria-label="Hajree home"><Brand light/></a><p>Clarity for every classroom.</p></div><div className="hm-footer-links"><a href="#how-it-works">How it works</a><a href="#roles">Portals</a><a href={REPO + "/blob/main/README.md"} target="_blank" rel="noopener noreferrer">Documentation</a><a href={REPO} target="_blank" rel="noopener noreferrer">Source code</a><a href={REPO + "/blob/main/LICENSE"} target="_blank" rel="noopener noreferrer">MIT license</a></div></div><div className="hm-footer-bottom"><span>© {new Date().getFullYear()} Hajree · Open source.</span><span>Designed for verified, human-centered attendance.</span></div></div></footer>
+      <footer className="hm-footer"><div className="hm-container"><div className="hm-footer-main"><div><a href={appUrl("")} aria-label="Hajree home"><Brand light/></a><p>Clarity for every classroom.</p></div><div className="hm-footer-links"><a href="#how-it-works">How it works</a><a href="#roles">Portals</a><a href={REPO + "/blob/main/README.md"} target="_blank" rel="noopener noreferrer">Documentation</a><a href={REPO} target="_blank" rel="noopener noreferrer">Source code</a><a href={REPO + "/blob/main/LICENSE"} target="_blank" rel="noopener noreferrer">MIT license</a></div></div><div className="hm-footer-bottom"><span>© {new Date().getFullYear()} Hajree · Open source.</span><span>Designed for verified, human-centered attendance.</span></div></div></footer>
     </div>
   );
 }

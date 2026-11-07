@@ -50,7 +50,7 @@ def _set_refresh_cookie(response: Response, token: str) -> None:
         max_age=settings.refresh_token_ttl_days * 24 * 3600,
         httponly=True,
         secure=settings.cookie_is_secure,
-        samesite="lax",
+        samesite=settings.cookie_samesite,
         path="/api/auth",
     )
 
@@ -63,14 +63,25 @@ def _set_access_cookie(response: Response, token: str) -> None:
         max_age=settings.access_token_ttl_minutes * 60,
         httponly=True,
         secure=settings.cookie_is_secure,
-        samesite="lax",
+        samesite=settings.cookie_samesite,
         path="/",
     )
 
 
 def _clear_auth_cookies(response: Response) -> None:
-    response.delete_cookie(REFRESH_COOKIE, path="/api/auth")
-    response.delete_cookie(ACCESS_COOKIE, path="/")
+    settings = get_settings()
+    response.delete_cookie(
+        REFRESH_COOKIE,
+        path="/api/auth",
+        secure=settings.cookie_is_secure,
+        samesite=settings.cookie_samesite,
+    )
+    response.delete_cookie(
+        ACCESS_COOKIE,
+        path="/",
+        secure=settings.cookie_is_secure,
+        samesite=settings.cookie_samesite,
+    )
 
 
 def _issue_session(db: Session, user: User, response: Response) -> TokenResponse:

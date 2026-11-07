@@ -14,6 +14,12 @@ ENV_FILE = ROOT_DIR / ".env"
 _DEFAULT_SECRET = "change-me-in-production"
 
 
+def _default_data_dir() -> Path:
+    if os.environ.get("VERCEL"):
+        return Path("/tmp/data")
+    return ROOT_DIR / "data"
+
+
 class Settings(BaseSettings):
     """Typed application configuration loaded from environment variables."""
 
@@ -41,13 +47,14 @@ class Settings(BaseSettings):
     registration_rate_limit: str = "5/hour"
     password_reset_rate_limit: str = "5/hour"
     cookie_secure: Optional[bool] = None
+    cookie_samesite: Literal["lax", "strict", "none"] = "lax"
     trusted_hosts: str = "*"
 
     # --- CORS (comma separated origins) ---
     cors_origins: str = "http://localhost:5173,http://127.0.0.1:5173"
 
     # --- Storage ---
-    data_dir: Path = Field(default_factory=lambda: ROOT_DIR / "data")
+    data_dir: Path = Field(default_factory=_default_data_dir)
     database_url: Optional[str] = None
     auto_create_tables: bool = True
 
@@ -91,6 +98,8 @@ class Settings(BaseSettings):
     def cookie_is_secure(self) -> bool:
         if self.cookie_secure is not None:
             return self.cookie_secure
+        if self.cookie_samesite == "none":
+            return True
         return self.is_production
 
     @property

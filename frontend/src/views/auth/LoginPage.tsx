@@ -49,7 +49,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onSwitchToRegister }) => {
           <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-zinc-100 dark:bg-zinc-700 text-black shadow-sm mb-4 border border-white/20">
             <Camera className="w-7 h-7" />
           </div>
-          <a href="/" className="inline-flex items-center text-xs text-muted-foreground hover:text-foreground mb-6">← Back to Hajree home</a>
+          <a href={(import.meta.env.BASE_URL || "/").replace(/\/$/, "") || "/"} className="inline-flex items-center text-xs text-muted-foreground hover:text-foreground mb-6">← Back to Hajree home</a>
           <h1 className="text-2xl font-bold tracking-tight text-foreground">
             Hajree
           </h1>

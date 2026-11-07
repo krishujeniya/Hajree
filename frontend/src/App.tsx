@@ -25,14 +25,27 @@ import { FaceEnrollmentView } from "./views/student/FaceEnrollmentView";
 
 import { Camera, Loader2 } from "lucide-react";
 
+const isRegisterPath = (): boolean => {
+  const p = window.location.pathname;
+  return window.location.pathname === "/register" || p.endsWith("/register");
+};
+
+const isLandingPath = (): boolean => {
+  const p = window.location.pathname;
+  const base = (import.meta.env.BASE_URL || "/").replace(/\/$/, "");
+  return window.location.pathname === "/" || p === base || p === `${base}/`;
+};
+
 const AppContent: React.FC = () => {
   const { user, loading } = useAuth();
-  const [authView, setAuthView] = useState<"login" | "register">(() => window.location.pathname === "/register" ? "register" : "login");
+  const [authView, setAuthView] = useState<"login" | "register">(() =>
+    isRegisterPath() ? "register" : "login"
+  );
   const [activeTab, setActiveTab] = useState<string>("");
 
   // The public product story remains available regardless of authentication status.
   // Keep existing authenticated workflows on /app, /login and /register.
-  if (window.location.pathname === "/") return <LandingPage />;
+  if (window.location.pathname === "/" || isLandingPath()) return <LandingPage />;
 
   // Loading Screen
   if (loading) {
