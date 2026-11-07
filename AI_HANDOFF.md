@@ -1,39 +1,49 @@
-# AI Handoff — Hajree Platform Bug Resolution & Deployment
+# AI Handoff — Hajree Platform Bug Resolution & Production Deployment
 
-## Task Summary
-1. Comprehensive resolution of all security, contract, runtime, and business logic flaws across the Hajree platform (`FastAPI` backend + `React/Vite/TypeScript` frontend).
-2. Configured production deployment pipeline:
-   - **Backend**: Prepared Vercel serverless integration via `api/index.py`, `vercel.json`, and root `requirements.txt`, with automated `/tmp` storage fail-safe and configurable cross-site cookie attributes (`SameSite=None; Secure`).
-   - **Frontend**: Automated GitHub Pages deployment pipeline via `.github/workflows/deploy-pages.yml` with dynamic repository base path, SPA routing fallback (`404.html`), and cross-origin `VITE_API_URL` configuration.
-   - **Documentation**: Added comprehensive deployment guide in `docs/DEPLOYMENT.md`.
+## Deployment Status (Live & Verified)
+1. **Frontend (GitHub Pages)**:
+   - **Live URL**: `https://krishujeniya.github.io/Hajree/`
+   - **Repository**: `krishujeniya/Hajree`
+   - **Deployment Mechanism**: GitHub Actions workflow (`.github/workflows/deploy-pages.yml`)
+   - **Configured Variable**: `VITE_API_URL=https://hajree.vercel.app/api`
+   - **Verification**: HTTP/2 200, valid SPA assets loaded with `/Hajree/` base prefix.
+
+2. **Backend (Vercel Serverless ASGI)**:
+   - **Live URL**: `https://hajree.vercel.app`
+   - **Project**: `itzkrishujeniya/hajree`
+   - **Vercel Runtime**: Python 3.12 (`vercel-runtime>=0.24.1`)
+   - **Vercel Feature**: `VERCEL_SUPPORT_LARGE_FUNCTIONS=1` (Fluid Compute for ML dependencies)
+   - **Configured Environment Variables**:
+     - `VERCEL_SUPPORT_LARGE_FUNCTIONS=1`
+     - `CORS_ORIGINS=https://krishujeniya.github.io`
+     - `COOKIE_SAMESITE=none`
+     - `COOKIE_SECURE=true`
+     - `FACE_WARMUP=false`
+     - `ENVIRONMENT=production`
+     - `ADMIN_PASSWORD=<configured>`
+     - `SECRET_KEY=<configured>`
+   - **Verification**:
+     - `GET https://hajree.vercel.app/api/health` -> HTTP 200 `{"status":"ok","version":"2.0.0"}`
+     - `GET https://hajree.vercel.app/api/meta` -> HTTP 200 `{"app_name":"Hajree","version":"2.0.0",...}`
+     - `OPTIONS https://hajree.vercel.app/api/auth/login` -> HTTP 200 with CORS headers
+     - `POST https://hajree.vercel.app/api/auth/login` -> HTTP 200 with `SameSite=None; Secure` cookies
 
 ## Git State
 - **Branch**: `main`
+- **Latest Commit**: `a507684`
 - **Remote Origin**: `https://github.com/krishujeniya/Hajree.git`
-- **Working Tree**: Verified
+- **Working Tree**: Clean
 
-## Key Changes for Deployment
-- `api/index.py`: Serverless ASGI entrypoint for Vercel
-- `vercel.json`: Route rewrites mapping all traffic to `/api/index.py`
-- `requirements.txt`: Root runtime dependencies for Vercel build
-- `backend/app/core/config.py`: Added `VERCEL` environment detection for ephemeral storage under `/tmp/data`, plus `cookie_samesite` settings
-- `backend/app/api/routes/auth.py`: Configured cross-site cookies with `samesite` support
-- `frontend/vite.config.ts`: Added dynamic base path configuration (`process.env.VITE_BASE_PATH || "./"`)
-- `frontend/src/App.tsx`: Preserved route matching under GitHub Pages sub-paths
-- `frontend/src/marketing/LandingPage.tsx`: Dynamic link routing adhering to `BASE_URL`
-- `frontend/src/views/auth/LoginPage.tsx`: Relative home link adhering to `BASE_URL`
-- `.github/workflows/deploy-pages.yml`: Automated GitHub Actions deployment to GitHub Pages with SPA 404 fallback
-- `.github/workflows/ci.yml`: Added `api/` directory validation
-- `docs/DEPLOYMENT.md`: Step-by-step deployment guide
+## Key Configuration Files
+- `api/index.py`: Serverless ASGI entrypoint restoring `scope["path"]` and `scope["query_string"]` from rewrite parameters.
+- `vercel.json`: Path routing rules using named parameters (`:match*`) mapping to `/api/index.py?__path=...`.
+- `requirements.txt`: Root dependencies for Vercel build.
+- `backend/app/ml/face_engine.py`: Safe OpenCV fallback to prevent missing `libGL.so.1` failures in serverless environments.
+- `.github/workflows/deploy-pages.yml`: GitHub Actions automated deployment with SPA 404 fallback.
+- `frontend/vite.config.ts`: Configured dynamic base path (`process.env.VITE_BASE_PATH || "./"`).
 
-## Verification Results
-- **Pytest**: `49 passed in 17.94s` (`.venv/bin/python -m pytest`)
-- **Ruff**: `All checks passed!` (`.venv/bin/ruff check .`)
-- **UI Audit**: `PASS: 13 authenticated/authentication views, marketing, role routing and shared UI semantics` (`node scripts/audit-ui.mjs`)
-- **TypeScript**: `tsc --noEmit` exited `0` (Zero type errors)
-- **Frontend Production Build**: `vite build` completed in `18.01s` (Clean production bundles generated)
-
-## Exact Next Command
-```bash
-git status
-```
+## Verification Checks
+- **UI Audit**: `node scripts/audit-ui.mjs` (PASS: 13 views verified)
+- **GitHub Pages**: `curl -ILs https://krishujeniya.github.io/Hajree/` (HTTP/2 200)
+- **Vercel API Health**: `curl -s https://hajree.vercel.app/api/health` (HTTP/2 200)
+- **Vercel Admin Auth**: `curl -X POST https://hajree.vercel.app/api/auth/login` (HTTP/2 200)
