@@ -122,9 +122,11 @@ export const Sidebar: React.FC<SidebarProps> = ({
     <aside className="w-64 border-r border-border/70 bg-card/40  flex flex-col h-full select-none">
       {/* Brand Header */}
       <div className="h-16 flex items-center gap-3 px-6 border-b border-border/60">
-        <div className="w-8 h-8 rounded-xl bg-gradient-to-b from-white to-zinc-400 dark:from-white dark:to-zinc-500 flex items-center justify-center text-black shadow-md">
-          <Camera className="w-4 h-4" />
-        </div>
+        <img
+          src={`${(import.meta.env.BASE_URL || "/").replace(/\/$/, "")}/logo.svg`}
+          alt="Hajree"
+          className="w-8 h-8 rounded-xl shadow-sm shrink-0"
+        />
         <div>
           <div className="flex items-center gap-1.5">
             <span className="font-semibold text-base text-foreground tracking-tight">

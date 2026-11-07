@@ -46,8 +46,12 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onSwitchToRegister }) => {
       <div className="w-full max-w-sm">
         {/* Apple Monochromatic Brand Header */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-zinc-100 dark:bg-zinc-700 text-black shadow-sm mb-4 border border-white/20">
-            <Camera className="w-7 h-7" />
+          <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl mb-4 shadow-sm border border-border/40 overflow-hidden">
+            <img
+              src={`${(import.meta.env.BASE_URL || "/").replace(/\/$/, "")}/logo.svg`}
+              alt="Hajree Logo"
+              className="w-14 h-14"
+            />
           </div>
           <a href={(import.meta.env.BASE_URL || "/").replace(/\/$/, "") || "/"} className="inline-flex items-center text-xs text-muted-foreground hover:text-foreground mb-6">← Back to Hajree home</a>
           <h1 className="text-2xl font-bold tracking-tight text-foreground">

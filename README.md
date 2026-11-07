@@ -1,6 +1,9 @@
-# 🎓 Hajree — Next-Generation AI Attendance Platform
-
 <div align="center">
+
+<img src="assets/logo.png" alt="Hajree Logo" width="128" height="128" />
+
+# Hajree
+### Next-Generation Biometric Neural Attendance Platform
 
 [![GitHub repo](https://img.shields.io/badge/GitHub-krishujeniya%2FHajree-indigo.svg)](https://github.com/krishujeniya/Hajree)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.115+-009688.svg?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
@@ -10,9 +13,16 @@
 
 **An open-source attendance management platform with faculty-reviewed facial matching, manual roll call, reports, and role-based portals.**
 
-[Features](#-features) • [Site & App](#-site--application) • [Quick Start](#-quick-start) • [Architecture](#-architecture) • [API Guide](#-api-endpoints) • [Docker](#-docker-deployment)
+[Features](#-features) • [Live Deployments](#-live-deployments) • [Site & App](#-site--application) • [Quick Start](#-quick-start) • [Architecture](#-architecture) • [API Guide](#-api-endpoints) • [Docker](#-docker-deployment)
 
 </div>
+
+---
+
+## 🚀 Live Deployments
+
+- **Frontend (GitHub Pages)**: [https://krishujeniya.github.io/Hajree/](https://krishujeniya.github.io/Hajree/)
+- **Backend API (Vercel)**: [https://hajree.vercel.app](https://hajree.vercel.app) (Health endpoint: [`/api/health`](https://hajree.vercel.app/api/health))
 
 ---
 

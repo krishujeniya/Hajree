@@ -89,9 +89,11 @@ const faqs = [
 ] as const;
 
 function Brand({ light = false }: { light?: boolean }) {
+  const base = import.meta.env.BASE_URL || "/";
+  const logoUrl = `${base.replace(/\/$/, "")}/logo.svg`;
   return (
     <span className={"hm-brand" + (light ? " hm-brand--light" : "")}>
-      <img src="/logo.svg" alt="" width="36" height="36" />
+      <img src={logoUrl} alt="Hajree Logo" width="36" height="36" />
       <span>hajree<span className="hm-brand-dot">.</span></span>
     </span>
   );
