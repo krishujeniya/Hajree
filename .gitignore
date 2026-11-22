@@ -60,3 +60,8 @@ ehthumbs.db
 Desktop.ini
 .vercel
 .env*
+
+# Cloudflare & Secret Guardrails
+!.env.example
+.dev.vars
+.wrangler/

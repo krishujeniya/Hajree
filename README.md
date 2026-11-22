@@ -21,8 +21,8 @@
 
 ## 🚀 Live Deployments
 
-- **Frontend (GitHub Pages)**: [https://krishujeniya.github.io/Hajree/](https://krishujeniya.github.io/Hajree/)
-- **Backend API (Vercel)**: [https://hajree.vercel.app](https://hajree.vercel.app) (Health endpoint: [`/api/health`](https://hajree.vercel.app/api/health))
+- **Frontend (GitHub Pages)**: [https://hajree.pages.dev](https://hajree.pages.dev)
+- **Backend API (Vercel)**: [https://hajree-api.curavex.workers.dev](https://hajree-api.curavex.workers.dev) (Health endpoint: [`/api/health`](https://hajree-api.curavex.workers.dev/api/health))
 
 ---
 
