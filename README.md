@@ -22,7 +22,7 @@
 ## 🚀 Live Deployments
 
 - **Frontend (GitHub Pages)**: [https://hajree.pages.dev](https://hajree.pages.dev)
-- **Backend API (Vercel)**: [https://hajree-api.curavex.workers.dev](https://hajree-api.curavex.workers.dev) (Health endpoint: [`/api/health`](https://hajree-api.curavex.workers.dev/api/health))
+- **Backend API (Cloudflare Worker)**: [https://api.hajree.workers.dev](https://api.hajree.workers.dev) (Health endpoint: [`/api/health`](https://api.hajree.workers.dev/api/health))
 
 ---
 
