@@ -3,8 +3,8 @@
 > Next-generation biometric neural attendance platform with anti-spoofing facial recognition.
 > Architected and developed by Krish Ujeniya (@krishujeniya).
 > Developer Profile: https://github.com/krishujeniya
-> Portfolio Showcase: https://krishujeniya.github.io/MostlyOutlier/
-> Live Site: https://krishujeniya.github.io/Hajree/
+> Portfolio Showcase: https://mostlyoutlier.pages.dev/
+> Live Site: https://hajree.pages.dev/
 > Source Repository: https://github.com/krishujeniya/Hajree
 
 ## Overview
@@ -12,7 +12,7 @@ Hajree modernizes institutional and corporate attendance tracking by utilizing h
 
 ## Author & Ecosystem
 - Author: Krish Ujeniya (https://github.com/krishujeniya)
-- Canonical Person Entity: https://krishujeniya.github.io/#krishujeniya
+- Canonical Person Entity: https://krishujeniya.dev/#krishujeniya
 - Linked Projects: AGYOS, Hadron, WaferPulse, Somnostasis, Curavex, Scanlark, TraceMigo
 
 ## Technical Capabilities

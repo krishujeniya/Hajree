@@ -17,4 +17,4 @@ Allow: /
 User-agent: Applebot-Extended
 Allow: /
 
-Sitemap: https://krishujeniya.github.io/Hajree/sitemap.xml
+Sitemap: https://hajree.pages.dev/sitemap.xml
