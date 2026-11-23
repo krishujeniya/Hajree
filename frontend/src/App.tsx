@@ -27,10 +27,16 @@ import { Camera, Loader2 } from "lucide-react";
 
 const isRegisterPath = (): boolean => {
   const p = window.location.pathname;
-  return window.location.pathname === "/register" || p.endsWith("/register");
+  return p === "/register" || p.endsWith("/register");
+};
+
+const isAppPath = (): boolean => {
+  const p = window.location.pathname;
+  return p === "/app" || p.endsWith("/app") || p === "/login" || p.endsWith("/login") || isRegisterPath();
 };
 
 const isLandingPath = (): boolean => {
+  if (isAppPath()) return false;
   const p = window.location.pathname;
   const base = (import.meta.env.BASE_URL || "/").replace(/\/$/, "");
   return window.location.pathname === "/" || p === base || p === `${base}/`;

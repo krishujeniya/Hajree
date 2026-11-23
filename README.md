@@ -3,7 +3,7 @@
 <img src="assets/logo.png" alt="Hajree Logo" width="128" height="128" />
 
 # Hajree
-### Next-Generation Biometric Neural Attendance Platform
+### Biometric Attendance Management Platform
 
 [![GitHub repo](https://img.shields.io/badge/GitHub-krishujeniya%2FHajree-indigo.svg)](https://github.com/krishujeniya/Hajree)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.115+-009688.svg?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
@@ -21,8 +21,8 @@
 
 ## 🚀 Live Deployments
 
-- **Frontend (GitHub Pages)**: [https://hajree.pages.dev](https://hajree.pages.dev)
-- **Backend API (Cloudflare Worker)**: [https://api.hajree.workers.dev](https://api.hajree.workers.dev) (Health endpoint: [`/api/health`](https://api.hajree.workers.dev/api/health))
+- **Frontend (Cloudflare Pages)**: [https://hajree.pages.dev](https://hajree.pages.dev)
+- **Backend API (Cloudflare Worker)**: [https://api.curavex.workers.dev](https://api.curavex.workers.dev) (Health endpoint: [`/api/health`](https://api.curavex.workers.dev/api/health))
 
 ---
 

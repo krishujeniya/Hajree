@@ -58,14 +58,14 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onSwitchToRegister }) => {
             Hajree
           </h1>
           <p className="text-xs text-muted-foreground mt-1">
-            Biometric Neural Attendance Platform
+            Biometric Attendance Platform
           </p>
         </div>
 
         {/* Form Container */}
         <div className="apple-glass rounded-xl p-7 shadow-sm">
-          {/* Local-only demo credentials. Never advertise shared demo passwords on a public deployment. */}
-          {import.meta.env.DEV && <div className="mb-6 pb-5 border-b border-border/60">
+          {/* One-click demo credentials for quick access */}
+          <div className="mb-6 pb-5 border-b border-border/60">
             <div className="flex items-center gap-1.5 text-[11px] font-semibold text-muted-foreground normal-case tracking-normal mb-2.5">
               <Sparkles className="w-3.5 h-3.5" />
               <span>One-Click Credentials:</span>
@@ -73,7 +73,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onSwitchToRegister }) => {
             <div className="grid grid-cols-3 gap-2">
               <button
                 type="button"
-                onClick={() => fillDemo("admin", "changeme", "Admin")}
+                onClick={() => fillDemo("admin", "admin", "Admin")}
                 className="px-2.5 py-1.5 rounded-xl border border-border/80 bg-muted/40 hover:bg-muted text-xs font-semibold text-foreground apple-button text-center"
               >
                 Admin
@@ -93,7 +93,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onSwitchToRegister }) => {
                 Student
               </button>
             </div>
-          </div>}
+          </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>

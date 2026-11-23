@@ -59,7 +59,7 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({
             Student Enrollment
           </h1>
           <p className="text-xs text-muted-foreground mt-1">
-            Create account for neural biometric attendance
+            Biometric Attendance Platform
           </p>
         </div>
 

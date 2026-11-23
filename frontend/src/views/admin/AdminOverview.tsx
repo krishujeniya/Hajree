@@ -78,7 +78,7 @@ export const AdminOverview: React.FC<AdminOverviewProps> = ({ onNavigate }) => {
             System Administration
           </h2>
           <p className="text-xs sm:text-sm text-zinc-400 mt-2 leading-relaxed">
-            Manage facial embeddings, student course rosters, faculty permissions, and verify neural inference pipeline status.
+            Manage facial embeddings, student course rosters, faculty permissions, and verify recognition pipeline status.
           </p>
           <div className="flex flex-wrap gap-2.5 mt-5">
             <Button

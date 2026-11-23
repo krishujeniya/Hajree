@@ -148,7 +148,7 @@ export const FaceEnrollmentView: React.FC = () => {
             Biometric Face Enrollment
           </h2>
           <p className="text-xs text-muted-foreground mt-0.5">
-            Train the AI neural network with your photos to enable automated attendance recognition
+            Enroll your photos to enable automated attendance recognition
           </p>
         </div>
         {enrolledCount > 0 && (

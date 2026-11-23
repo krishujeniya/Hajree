@@ -46,7 +46,7 @@ export const SystemHealth: React.FC = () => {
             AI Engine & System Diagnostics
           </h2>
           <p className="text-xs text-muted-foreground mt-0.5">
-            Real-time inference pipeline, vector database, and neural weights status
+            Real-time inference pipeline, vector database, and recognition weights status
           </p>
         </div>
         <Button
@@ -104,7 +104,7 @@ export const SystemHealth: React.FC = () => {
           </div>
         </Card>
 
-        <Card title="SFace CNN Weights" description="Deep neural network">
+        <Card title="SFace CNN Weights" description="Recognition model">
           <div className="flex items-center justify-between mt-2">
             <span className="text-sm font-medium text-foreground">
               Memory Cache

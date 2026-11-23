@@ -54,7 +54,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           {isReady === true ? (
             <>
               <span className="w-2 h-2 rounded-full bg-white dark:bg-white animate-pulse" />
-              <span className="text-muted-foreground">Neural Engine Online</span>
+              <span className="text-muted-foreground">Recognition Engine Online</span>
             </>
           ) : isReady === false ? (
             <>
