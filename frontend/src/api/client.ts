@@ -16,13 +16,13 @@ import {
   User,
 } from "../types";
 
-const DEFAULT_REMOTE_API =
-  import.meta.env.VITE_API_URL || "https://api.curavex.workers.dev";
-const BASE_URL =
+const DEFAULT_API =
   import.meta.env.VITE_API_URL ||
-  (typeof window !== "undefined" && window.location.hostname.includes("pages.dev")
-    ? DEFAULT_REMOTE_API
+  (typeof window !== "undefined" && window.location.hostname.includes("hajree.pages.dev")
+    ? "https://api-hajree.pages.dev"
     : "/api");
+
+const BASE_URL = DEFAULT_API;
 const TOKEN_KEY = "hajree_token";
 
 export function getStoredToken(): string | null {
