@@ -7,7 +7,7 @@ COPY frontend/ ./
 RUN bun run build
 
 # Stage 2: Python Backend & Unified Platform
-FROM python:3.11-slim
+FROM python:3.11-slim@sha256:61e01f72680f86a5279ad510818ab7b2ee9f049822589d4e34e33e044360356c
 WORKDIR /app
 
 # System dependencies for OpenCV and headless graphics
@@ -34,8 +34,13 @@ COPY assets ./assets
 COPY --from=frontend-builder /build/dist ./frontend/dist
 COPY run.py .
 
-# Storage directories
-RUN mkdir -p data/face_images data/reports
+# Storage directories & non-root user
+RUN groupadd -r hajree -g 1001 && \
+    useradd -r -u 1001 -g hajree -d /app -m hajree && \
+    mkdir -p data/face_images data/reports && \
+    chown -R hajree:hajree /app
+
+USER hajree
 
 EXPOSE 8000
 
