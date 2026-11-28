@@ -1,5 +1,5 @@
 # Stage 1: Build React Frontend
-FROM oven/bun:1.1-alpine AS frontend-builder
+FROM oven/bun:1.4-alpine AS frontend-builder
 WORKDIR /build
 COPY frontend/package.json ./
 RUN bun install --frozen-lockfile 2>/dev/null || bun install
